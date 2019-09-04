@@ -1,0 +1,371 @@
+<!-- <div class="alert alert-success alert-dismissible fade in" style="opacity: 1;
+position: absolute;
+z-index: 999999;
+float: left;
+width: 94% ;" *ngIf="successsms" >
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Vessel created successfully.</strong>
+</div> -->
+<ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)" size = "medium" color = "#fff" type = "ball-spin-clockwise-fade"></ngx-spinner>
+<div class="row">
+  <div class="col-md-12">
+    <div class="alert alert-success alert-dismissible" *ngIf="success">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>{{registerData.message}}</strong>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="alert alert-danger alert-dismissible" *ngIf="error">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <!-- This was my preferred answer, but keep in mind, if the value of scrollTop doesn't change in the component, you won't see anything happen.  -->
+      <ul *ngFor = "let registerdata of registerData.message">
+       {{registerdata}}
+       
+      </ul>
+
+   
+    </div>
+  </div>
+</div>  
+<form [formGroup]="registerForm" (ngSubmit) = "onClickSubmit(registerForm)" >
+        <div class="card bg-primary text-white" style="margin-bottom: 10px;">
+            <div class="card-body e-pragati-userregistration">
+                Owner Details
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                  <label for="power">Aadhaar Number <span class="vessel-mandatory-ind">*</span></label>
+                 <input id="adharId" type="text" (keypress)="onlyNumberKey($event)" maxlength="12"  formControlName="aadhaar_number"  value="" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.aadhaar_number.errors }">
+                 <div *ngIf="submitted && f.aadhaar_number.errors" class="invalid-feedback">
+                <div *ngIf="f.aadhaar_number.errors.required">Aadhaar number is required</div>
+                <div *ngIf="f.aadhaar_number.errors.minlength">Minimum required number is 12</div>
+                <div>{{adharVerify.message}}</div>
+                
+                 
+                </div>
+                <button *ngIf="registerForm.controls.aadhaar_number.value && registerForm.controls.aadhaar_number.value.length == 12" type="button" style="float: right;
+                margin-top: 9px;
+                font-size: 12px;" class="btn btn-primary" (click)="getadhar()">Verfiy</button>
+
+                </div>
+        </div> 
+                <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="power">Vessel owner name <span class="vessel-mandatory-ind">*</span></label>
+                         <input type="text" formControlName="vessel_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.vessel_name.errors }">
+                         <div *ngIf="submitted && f.vessel_name.errors" class="invalid-feedback">
+                          <div *ngIf="f.vessel_name.errors.required">vessel name is required</div>
+                      </div>
+                        </div>
+                </div>
+                 <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="power">Father Name <span class="vessel-mandatory-ind">*</span></label>
+                         <input type="text" formControlName="father_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.father_name.errors }">
+                         <div *ngIf="submitted && f.father_name.errors" class="invalid-feedback">
+                          <div *ngIf="f.father_name.errors.required">Father name is required</div>
+                        </div>
+                </div>
+                </div>
+          
+                  <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="power">Mobile Number <span class="vessel-mandatory-ind">*</span></label>
+                         <input type="text" (keypress)="onlyNumberKey($event)" pattern="\d*" maxlength="10" formControlName="mobile_number" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.mobile_number.errors }">
+                         <div *ngIf="submitted && f.mobile_number.errors" class="invalid-feedback">
+                         <div *ngIf="f.mobile_number.errors.required">Mobile number is required</div>
+                        <div *ngIf="f.mobile_number.errors.minlength">Minimum required number is 10</div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="power">Bank Account Number <span class="vessel-mandatory-ind">*</span></label>
+                       <input type="text" (keypress)="onlyNumberKey($event)" pattern="\d*" maxlength = "8" maxlength="20" formControlName="bank_account_number" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.bank_account_number.errors }">
+                       <div *ngIf="submitted && f.bank_account_number.errors" class="invalid-feedback">
+                       <div *ngIf="f.bank_account_number.errors.required">Bank Account number is required</div>
+                      <div *ngIf="f.bank_account_number.errors.minlength">Bank Account number should have 8 to 20 digits</div>
+                      </div>
+                  </div>
+                </div>
+             
+               <div class="col-md-4">
+                        <div class="form-group">
+                           <label for="power">Ration card Number <!--<span class="vessel-mandatory-ind">*</span>--></label> 
+                         <input type="text" name="ration_card"  class="form-control">
+                         <!-- <div *ngIf="submitted && f.ration_card.errors" class="invalid-feedback">
+                            <div *ngIf="f.ration_card.errors.required">Ration Card number is required</div>
+                         
+                           </div> -->
+                        </div>
+                </div>
+
+                 <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="power">IFSC Code  <span class="vessel-mandatory-ind">*</span></label>
+                         <input type="text" name="ifsc_code" formControlName="ifsc_code" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ifsc_code.errors }">
+                         <div *ngIf="submitted && f.ifsc_code.errors" class="invalid-feedback">
+                            <div *ngIf="f.ifsc_code.errors.required">IFSC Code is required</div>
+                           <!-- <div *ngIf="f.ifsc_code.errors.minlength">Bank Account number should have 12 to 20 digits</div> -->
+                           </div>
+                        </div>
+                </div>
+                <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="power">Bank Name <span class="vessel-mandatory-ind">*</span></label>
+                         <input type="text" name="bank_name" formControlName="bank_name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.bank_name.errors }">
+                         <div *ngIf="submitted && f.bank_name.errors" class="invalid-feedback">
+                            <div *ngIf="f.bank_name.errors.required">Bank Name is required</div>
+                           <!-- <div *ngIf="f.bank_name.errors.minlength">Bank Account number should have 12 to 20 digits</div> -->
+                           </div>
+                        </div>
+                </div>
+                 <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="power">Email Id </label>
+                         <input type="email" name="email_id"  class="form-control">
+                       
+                        </div>
+                </div>
+                <!-- <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="power" style="padding-right: 10px;">Eligable:<span class="vessel-mandatory-ind">*</span></label>
+                          <input type="radio"  value="yes"  formControlName="eligible" > Yes
+                          <input type="radio" value="no"  formControlName="eligible" > No
+                          <div *ngIf="submitted && f.eligible.errors" class="invalid-feedback">
+                              <div *ngIf="f.eligible.errors.required">Eligible field is required</div>
+                             </div>
+                        </div>
+                </div> -->
+        </div>
+        <div class="card bg-primary text-white" style="margin-bottom: 10px;">
+                <div class="card-body e-pragati-userregistration">
+                    Vessel Details
+                </div>               
+        </div>
+        <div class="row">
+                <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="power">District <span class="vessel-mandatory-ind">*</span></label>
+                          <select class="form-control" formControlName="district_name"  [(ngModel)]="distId" (ngModelChange)="getMandal()" name="dist" [ngClass]="{ 'is-invalid': submitted && f.district_name.errors }">
+                         
+                            <option *ngFor='let dist of Dist' [ngValue]='dist.id'>
+                            {{ dist.district_name}}
+                            </option>
+                            
+                          </select>
+                          <div *ngIf="submitted && f.district_name.errors" class="invalid-feedback">
+                              <div *ngIf="f.district_name.errors.required">District  is required</div>
+
+                             </div>
+                        </div>
+                      </div>
+                       <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="power">Mandal <span class="vessel-mandatory-ind">*</span></label>
+                          <select class="form-control" [(ngModel)]="mandalId" (ngModelChange)='getFlc()'   formControlName="mandal" [ngClass]="{ 'is-invalid': submitted && f.mandal.errors }">
+                         
+                            <option *ngFor='let mandal of Mandals' [ngValue]='mandal.id'>
+                            {{ mandal.mandal_name}}
+                            </option>
+                          </select>
+                          <div *ngIf="submitted && f.mandal.errors" class="invalid-feedback">
+                              <div *ngIf="f.mandal.errors.required">mandal  is required</div>
+
+                             </div>
+                        </div>
+                      </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="power">Fish Landing Centre <span class="vessel-mandatory-ind">*</span></label>
+                          <select class="form-control" [(ngModel)]="flcid"      formControlName="flc" [ngClass]="{ 'is-invalid': submitted && f.flc.errors }">
+                         
+                            <option *ngFor='let flc of Flcs' [ngValue]='flc.id'>
+                            {{ flc.flc_name}}
+                            </option>
+                          </select>
+                          <div *ngIf="submitted && f.flc.errors" class="invalid-feedback">
+                              <div *ngIf="f.flc.errors.required">FLC  is required</div>
+
+                             </div>
+                        </div>
+                      </div>
+                        
+                      <!-- <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="power">Grama Panchayat <span class="vessel-mandatory-ind">*</span></label>
+                         
+                          <select class="form-control"  [ngModel]="gramalId"  formControlName="Panchayat" [ngClass]="{ 'is-invalid': submitted && f.Panchayat.errors }">
+                       
+                            <option *ngFor='let Panchayat of Panchayats' [ngValue]='Panchayat.id'>
+                            {{ Panchayat.panchayat_name}}
+                            </option>
+                          </select>
+
+                          <div *ngIf="submitted && f.Panchayat.errors" class="invalid-feedback">
+                              <div *ngIf="f.Panchayat.errors.required">Panchayat  is required</div>
+
+                             </div>
+    
+                        </div>
+                      </div>   -->
+                         
+                            <div class="col-md-4">
+                                    <div class="form-group">
+                                      <label for="power">Vessel Type  <span class="vessel-mandatory-ind">*</span></label>
+                                      <select name="vessel_type" class="form-control" formControlName="vessltype" [ngClass]="{ 'is-invalid': submitted && f.vessltype.errors }">
+                                          <option value="0">---Select--</option>
+                                        <option value="1">MC--(mechanized)</option>
+                                        <option value="2">MO--(motorised)</option>
+                                      </select>
+                                      <div *ngIf="submitted && f.vessltype.errors" class="invalid-feedback">
+                                          <div *ngIf="f.vessltype.errors.required">vessltype  is required</div>
+            
+                                         </div>
+                                    </div>
+                                </div>
+                            
+                <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="power">Vessel Reg.No <span class="vessel-mandatory-ind">*</span></label>
+                         <input type="text" style="text-transform: uppercase;" formControlName="vessel_number" value="" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.vessel_number.errors }">
+                         <div *ngIf="submitted && f.bank_account_number.errors" class="invalid-feedback">
+                            <div *ngIf="f.vessel_number.errors.required">Vessel number is required</div>
+                           <div *ngIf="f.vessel_number.errors.minlength">Vessel Number should have 20 </div>
+                           </div>
+                        </div>
+                </div> 
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="power">Vessel name </label>
+                   <input type="text" style="text-transform: uppercase;"  value="" class="form-control" >
+                 
+                  </div>
+          </div> 
+                   <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="power">Renewal Date <span class="vessel-mandatory-ind">*</span></label>
+                         <!-- <input  type="date"  placeholder="select date" formControlName="licence_renewal_date" value="" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.licence_renewal_date.errors }"> -->
+                         <mat-form-field>
+                          <input matInput [matDatepicker]="picker1"   placeholder="Selct date" formControlName="licence_renewal_date" >
+                          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                          <mat-datepicker #picker1 > </mat-datepicker>
+                        </mat-form-field>
+                         <div *ngIf="submitted && f.licence_renewal_date.errors" class="invalid-feedback">
+                            <div *ngIf="f.licence_renewal_date.errors.required">License Renewal Date  is required</div>
+
+                           </div>
+                        </div>
+                </div>
+                <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="power">Licence Valid Upto <span class="vessel-mandatory-ind">*</span></label>
+                         <!-- <input type="date" placeholder="select date" formControlName="licence_valid_date" value="" class="form-control" > -->
+                         <mat-form-field>
+                          <input matInput [matDatepicker]="picker" [min]="minDate"  placeholder="Select date" formControlName="licence_valid_date">
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        </div>
+                </div>
+                <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="power">MFID <span class="vessel-mandatory-ind">*</span></label>
+                         <input type="text" name="mfid" value="" class="form-control" formControlName="mfid" value="" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.mfid.errors }">
+                         <div *ngIf="submitted && f.bank_account_number.errors" class="invalid-feedback">
+                            <div *ngIf="f.mfid.errors.required">mfid number is required</div>
+                           <div *ngIf="f.mfid.errors.minlength">mfid number should have 20 </div>
+                           </div>
+                        </div>
+                </div>
+        </div>
+        <div class="card bg-primary text-white" style="margin-bottom: 10px;">
+          <div class="card-body e-pragati-userregistration">
+            Equipment Details
+          </div>               
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+          <div class="form-group">
+          <label for="power">Gill net count </label>
+          <input type="text" (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" Name="Gill_net_count" value="" class="form-control" >
+          </div>
+          </div> 
+          <div class="col-md-4">
+            <div class="form-group">
+            <label for="power">Drag net count </label>
+            <input type="text" (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" Name="drag_net_count" value="" class="form-control" >
+            </div>
+            </div> 
+            <div class="col-md-4">
+              <div class="form-group">
+              <label for="power">Cast net count </label>
+              <input type="text" (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" Name="cast_net_count" value="" class="form-control" >
+              </div>
+              </div> 
+              <div class="col-md-4">
+                <div class="form-group">
+                <label for="power">Trawl net count </label>
+                <input type="text" (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" Name="trawl_net_count" value="" class="form-control" >
+                </div>
+                </div> 
+                <div class="col-md-4">
+                  <div class="form-group">
+                  <label for="power">Life buoys count </label>
+                  <input type="text" (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" Name="life_buoys_count" value="" class="form-control" >
+                  </div>
+                  </div> 
+                  <div class="col-md-4">
+                    <div class="form-group">
+                    <label for="power">DAT count </label>
+                    <input type="text" (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" Name="life_buoys_count" value="" class="form-control" >
+                    </div>
+                    </div> 
+                  <div class="col-md-4">
+                    <div class="form-group">
+                    <label for="power">
+                      GPS count </label>
+                    <input type="text" (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" Name="
+                    gps_count" value="" class="form-control" >
+                    </div>
+                    </div> 
+                    <div class="col-md-4">
+                      <div class="form-group">
+                      <label for="power">
+                        Fish finder count </label>
+                      <input type="text" (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" Name="
+                      fish_finder_count" value="" class="form-control" >
+                      </div>
+                      </div> 
+                      <div class="col-md-4">
+                        <div class="form-group">
+                        <label for="power">
+                          Echo sounder count </label>
+                        <input type="text" (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" Name="
+                        echo_sounder" value="" class="form-control" >
+                        </div>
+                        </div> 
+        </div>
+
+        <div class="row">
+                <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="power">Remarks </label>
+                          <textarea class="form-control" name="remarks" rows="3" cols="50"  value="" class="form-control" ></textarea>
+                         
+                        </div>
+                </div> 
+                <div class="col-md-12 ">
+                        <input type="submit" class="btn btn-info pull-right " style="margin-bottom: 10px;"  value="Create" >
+                       
+                  </div>
+              
+        </div> 
+
+</form>
+

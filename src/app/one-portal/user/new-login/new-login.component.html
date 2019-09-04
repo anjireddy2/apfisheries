@@ -1,0 +1,32 @@
+<div class="container" style=" margin: 40px auto;">
+    <div class="row">
+      <div class="col-md-12 my-app-logo">
+          <img src="assets/images/myap_logo.png" alt="My-App">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+  
+      </div>
+      <div class="col-md-6">
+          <div class="card registarion_header-main">
+              <div class="card-header registarion_header">
+                  <div class="row">
+                    <div class="col-md-12 registarion_header-color-change">
+                    <a [class.registarion_header_newuser] ="newUser_Exist" routerLink="login" (click)="newUser();">Login</a>
+                    </div>
+                   
+                  </div>
+              </div>
+              <div class="card-body">
+                <router-outlet></router-outlet>
+              </div> 
+            </div>
+        </div>
+        <div class="col-md-3">
+          </div>
+    </div>
+   
+  
+    </div>
+  

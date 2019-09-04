@@ -1,0 +1,39 @@
+.my-appinfo-mandatory
+{
+    color: #31708f;
+    font-size: 14px;
+    padding: 6px;
+    text-align: left;
+    border-radius: 0px;
+}
+.my-appinfo-mandatory img
+{
+    height: 17px;
+    width: 17px;
+}
+.my-app-select-register-option
+{
+    border-radius: 0 ;
+    font-size: 16px ;
+    box-shadow: none;
+    line-height: 50px ;
+    height: 50px ;
+}
+.my-app-select-register-option-head
+{
+    float: left;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.pull-right
+{
+    float: right!important;
+}
+.vessel-mandatory-ind
+{
+    color: red;
+}

@@ -1,0 +1,45 @@
+.registarion_header-main
+{
+    border-radius: 0px;
+    border: 1px solid rgba(0, 84, 138, .2);
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, .15);
+    text-align: center;
+}
+ .registarion_header
+{
+    background: #DDDDDD;
+    border-radius: 0px;
+    padding: 0px;
+    color: #333;
+    height: 45px;
+    line-height: 45px;
+}
+
+.registarion_header-color-change a
+{
+    color:#333;
+    text-decoration: none;
+}
+.registarion_header_newuser
+{
+    background: #FB4D42;
+    color: #fff !important;
+    text-decoration: none;
+    float: left;
+    width:100%;
+} 
+.my-app-logo
+{
+    text-align: center;
+    padding-bottom: 25px;
+}
+.my-app-logo img{
+    width: 108px;
+    height: 42px;
+}
+
+.myapp-regi-login
+{
+    text-align: center;
+    padding-top: 20px;
+}

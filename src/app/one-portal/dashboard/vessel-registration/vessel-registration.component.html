@@ -1,0 +1,157 @@
+<ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)" size = "medium" color = "#fff" type = "ball-spin-clockwise-fade"></ngx-spinner>
+
+<div class="alert alert-success alert-dismissible fade in" style="opacity: 1;" *ngIf="successsms" >
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>{{deleteMsg.message}}</strong>
+</div>
+<div class="alert alert-danger alert-dismissible fade in" style="opacity: 1;" *ngIf="errorsms" >
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>{{deleteMsg.message}}</strong>
+</div>
+
+<form>
+    <div class="card bg-primary text-white" style="margin-bottom: 10px;">
+        <div class="card-body e-pragati-userregistration">
+            Vessel Registration Data
+            
+            <a class="nav-link p-1 pull-right btn btn-default" (click)="addnewVessel()" style="background: #ffff;
+            color: #39c4f0; cursor: pointer">
+                Add New Vessel
+            </a>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-md-4">
+            <div class="form-group">
+              <label for="power">District</label>
+              <select class="form-control"  [(ngModel)]="distId" (ngModelChange)="getMandal()" name="dist">
+               
+                <option *ngFor='let dist of Dist' [ngValue]='dist.id'>
+                {{ dist.district_name}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="power">Mandal</label>
+              <select class="form-control" [(ngModel)]="mandalId" (ngModelChange)='getFlc()'   name="mandal">
+             
+                <option *ngFor='let mandal of Mandals' [ngValue]='mandal.id'>
+                {{ mandal.mandal_name}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4">
+                <div class="form-group">
+                  <label for="power">Fish Landing Centre </label>
+                  <select class="form-control" [(ngModel)]="flcid"      name="flc">
+                 
+                    <option *ngFor='let flc of Flcs' [ngValue]='flc.id'>
+                    {{ flc.flc_name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="power">Vessel Reg.No </label>
+                 <input type="text" [(ngModel)]="vessel_reg_no" style="text-transform: uppercase;" name="vesselregno"  class="form-control" >
+                 
+                </div>
+              </div>
+          <div class="col-md-12 ">
+                <input [disabled]="!distId && !mandalId && !flcid" type="button" class="btn btn-info pull-right " style="margin-bottom: 10px;"  value="Search" (click)="getVesselDetails()">
+               
+          </div>
+    </div>
+</form>
+<div style="float: left; width: 100%; overflow: auto;">
+<table class="table" border="0">  
+        <thead class="">  
+          <tr> 
+            <th>ID</th> 
+            <th>District</th>  
+            <th>Mandal </th>  
+            <th>FLC name</th>  
+            <th>Vessel owner</th>  
+            <th>Vessel number</th>  
+            <th>Status</th> 
+            <th>Boat type</th>  
+            <th>License renewal date</th>
+            <th>License valid upto</th>
+            <th>Adhar number</th> 
+            <th>Mobile number</th>
+            <th>Bank account</th>   
+            <th>Ration card number</th>
+          
+            <th>Action</th>
+          </tr>  
+        </thead>  
+        <tbody>  
+          <tr *ngFor = "let vesselList of VesselLists | paginate: { itemsPerPage: 6, currentPage: p}">  
+            <td >{{vesselList.id}}</td>
+            <td>{{vesselList.district_name}}</td>  
+            <td>{{vesselList.mandal_name}}</td>  
+            <td>{{vesselList.flc_name}}</td>  
+            <td>{{vesselList.vessel_owner_name}}</td> 
+            <td>{{vesselList.vessel_number}}</td>  
+            <td>{{vesselList.status}}</td> 
+            <td>{{vesselList.boat_type}}</td> 
+            <td>{{vesselList.license_renewal_date}}</td>  
+            <td>{{vesselList.license_valid_upto}}</td> 
+            <td>{{vesselList.aadhaar_no}}</td>  
+            <td>{{vesselList.mobile_number}}</td> 
+            <td>{{vesselList.bank_account_number}}</td> 
+            <td>{{vesselList.ration_card_number}}</td> 
+            
+        
+            <td>
+           <span style="padding-right: 10px;" >
+              <i class="fa fa-pencil-square-o" (click)="edidtVessel(vesselList)" aria-hidden="true" style="color: #39c4f0; cursor: pointer;"></i>
+           </span> 
+              
+          <span (click)="vesselData(vesselList)" data-toggle="modal" data-target="#myModal"> 
+            <i class="fa fa-trash-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
+          </span>
+
+          <!-- <button (click)="editVessel(vesselList.id)" >FFF</button> -->
+               
+
+            </td>  
+          
+      
+          </tr>  
+        </tbody>  
+        
+      </table>  
+      <ul class="pagination" *ngIf="waterBodyPagination">  
+          <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>  
+        
+        </ul>
+      </div>
+
+
+
+      <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+      
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+             
+            </div>
+            <div class="modal-body">
+              Are you Sure You want to delete the vessel?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal" (click)="deleteVessel()">Ok</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+      
+        </div>
+      </div>

@@ -1,0 +1,168 @@
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top e-prgati-header-main">
+  <div class="container e-prgati-header">
+    <a class="navbar-brand e-prgati-header-logo" href="#">
+          <img src="assets/images/myap_logo.png" alt="">
+      </a>
+      <a class="navbar-brand e-prgati-header-department-logo" href="#">
+        <img src="assets/images/ApFisheries.jpg" alt="">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#"> 
+            <span>
+              <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+            </span>
+              Logout
+                <!-- <span class="sr-only">(current)</span> -->
+              </a>
+        </li>
+    
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Page Content -->
+<div class="container-fluid" style="padding-left: 0px;">
+ <div class="row">
+   <div class="col-md-3">
+      <div class="e-pragati-left-menu">
+        <ul>
+         
+          <li>
+              <a class="nav-link collapsed py-1" href="#submenu1sub1" data-toggle="collapse" data-target="#submenu1sub1">
+                 Registrations <i class="fa fa-chevron-down" aria-hidden="true"  style="float:right; padding-top: 7px; font-size: 14px;"></i>
+                 <!-- <i class="fa fa-chevron-down" *ngIf="submenu1sub1."  style="float:right; padding-top: 7px; font-size: 14px;"></i> -->
+                </a>
+
+              <div class="collapse show" id="submenu1sub1" aria-expanded="false">
+                  <ul class="flex-column nav e-pragati-left-submenu">
+                      <!-- <li class="nav-item" [routerLinkActive]="'is-active'">
+                          <a class="nav-link p-1" routerLink="userreg">
+                              <i class="fa fa-angle-right" aria-hidden="true"></i>
+                              User Registration 
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link p-1" href="#">
+                              <i class="fa fa-angle-right" aria-hidden="true"></i>
+                              Fresh Water
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link p-1" href="#">
+                              <i class="fa fa-angle-right" aria-hidden="true"></i>
+                              Backrish Water
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link p-1" href="#">
+                              <i class="fa fa-angle-right" aria-hidden="true"></i>
+                              Aqua Lab
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link p-1" href="#">
+                              <i class="fa fa-angle-right" aria-hidden="true"></i>
+                              Farm Enrolment
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link p-1" href="#">
+                              <i class="fa fa-angle-right" aria-hidden="true"></i>
+                              Certificates
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link p-1" href="#">
+                              <i class="fa fa-angle-right" aria-hidden="true"></i>
+                              Aquazonation
+                          </a>
+                      </li>
+                      <li class="nav-item"  [routerLinkActive]="'is-active'">
+                          <a class="nav-link p-1" routerLink="reports">
+                              <i class="fa fa-angle-right" aria-hidden="true"></i>
+                              Reports
+                          </a>
+                      </li>
+                      <li class="nav-item"  [routerLinkActive]="'is-active'"> 
+                        <a class="nav-link p-1" routerLink="beneficiary" >
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            Beneficiary
+                        </a>
+                    </li> -->
+                    <li class="nav-item"  [routerLinkActive]="'is-active'"> 
+                      <a class="nav-link p-1" routerLink="vessel_registration" >
+                          <i class="fa fa-angle-right" aria-hidden="true"></i>
+                          Vessel Registration
+                      </a>
+                  </li>
+                  <li class="nav-item"  [routerLinkActive]="'is-active'"> 
+                    <a class="nav-link p-1" routerLink="society_registration" >
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        Society Registration
+                    </a>
+                </li>
+                  <!-- <li class="nav-item"  [routerLinkActive]="'is-active'"> 
+                      <a class="nav-link p-1" routerLink="addnew_vessel" >
+                          <i class="fa fa-angle-right" aria-hidden="true"></i>
+                         Add New Vessel
+                      </a>
+                  </li>
+                  <li class="nav-item"  [routerLinkActive]="'is-active'"> 
+                    <a class="nav-link p-1" routerLink="edit_vessel" >
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                       Edit Vessel
+                    </a>
+                </li> -->
+                  
+                  </ul>
+              </div>
+            </li>
+            <!-- <li>
+                <a class="nav-link" href="#" data-toggle="">  Inspections </a>
+            </li> -->
+        </ul>
+      </div>
+   </div>
+   <div class="col-md-9">
+     <div class="e-pragati-registration" style="background: #fff;">
+        <router-outlet></router-outlet>     
+       </div>
+   </div>
+ </div>
+</div>
+<!-- /.container -->
+
+<!-- The Modal -->
+<div class="modal fade" id="Logout">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Modal Heading</h4>
+          <button type="button" class="close" >&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          Modal body..
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary"  >Send</button>
+          <button type="button" class="btn btn-danger">Close</button>
+  
+          <!-- this button is hidden, used to close from typescript -->
+          <button type="button" id="close-modal" data-dismiss="modal" style="display: none">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

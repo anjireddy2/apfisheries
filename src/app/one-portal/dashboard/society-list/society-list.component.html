@@ -1,0 +1,59 @@
+<div class="card bg-primary text-white" style="margin-bottom: 10px;">
+        <div class="card-body e-pragati-userregistration">
+            Society Registration Data
+            
+            <a class="nav-link p-1 pull-right btn btn-default" (click)="addnewSociety()" style="background: #ffff;
+            color: #39c4f0; cursor: pointer">
+                Add New Society
+            </a>
+        </div>
+    </div>
+
+<div style="float: left; width: 100%; overflow: auto;">
+        <table class="table" border="0">  
+                <thead class="">  
+                  <tr> 
+                    <th>ID</th> 
+                    <th>District</th>  
+                    <th>Mandal </th>  
+                    <th>FLC name</th>  
+                    <th>Society Name</th>  
+                    <th>SOCIETY Reg. Number</th> 
+                    <th>NCDC reg</th>  
+                    <th>Actions</th>
+                   
+                  </tr>  
+                </thead>  
+                <tbody>  
+                  <tr *ngFor = "let societyList of SocietyList | paginate: { itemsPerPage: 6, currentPage: p}">  
+                    <td >{{societyList.id}}</td>
+                    <td>{{societyList.district_name}}</td>  
+                    <td>{{societyList.mandal_name}}</td>  
+                    <td>{{societyList.flc_id}}</td>  
+                    <td>{{societyList.society_name}}</td> 
+                    <td>{{societyList.society_reg_no}}</td>  
+                    <td>{{societyList.ncdc}}</td> 
+                   
+                
+                    <td>
+                  
+        
+                  <button (click)="addMember(societyList)" class="button btn btn-primary" >Add society member</button>
+
+                  <span (click)="vesselData(vesselList)" style="margin-left: 15px;"> 
+                        <i class="fa fa-trash-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
+                      </span>
+        
+                    </td>  
+                  
+              
+                  </tr>  
+                </tbody>  
+                
+              </table>  
+              <ul class="pagination" *ngIf="waterBodyPagination">  
+                  <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>  
+                
+                </ul>
+              </div>
+        

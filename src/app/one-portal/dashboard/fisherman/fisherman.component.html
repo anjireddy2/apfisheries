@@ -1,0 +1,112 @@
+<form>
+
+<div class="card bg-primary text-white" style="margin-bottom: 10px;">
+    <div class="card-body e-pragati-userregistration">
+      License for Fisherman
+      </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+      <div class="form-group">
+        <label for="power">Social Status</label>
+        <select  class="form-control"(change)="onSocialstatus($event.target.value)">
+          <option *ngFor="let status1 of socialstatus1" [value]="status1.status">
+              {{status1.status}}
+            </option>
+    </select>
+      </div>
+      </div>
+      <div class="col-md-4" *ngIf="certificateNumber">
+          <div class="form-group">
+              <label for="name">Certificate No. </label>
+              <input type="text" class="form-control" id="name"
+                     required
+                     [(ngModel)]="model.name"  name="name">
+            </div>
+      </div>
+          <div class="col-md-4" *ngIf="socialStatus">
+              <div class="form-group">
+                  <label for="name">Social Status </label>
+                  <input type="text" class="form-control" id="name"
+                         required
+                         [(ngModel)]="model.name" disabled name="name">
+                </div>
+              </div>
+              <div class="clearfix"></div>
+      <div class="col-md-12">
+          <div class="form-group">
+            <div class="row">
+              <label class="col-md-2" for="power">Tackel <div class="please-select-options">(Please select atleast 2 options) </div></label>
+              <div class="col-md-10"> 
+                <label class="checkbox-inline"><input value="" class="perm_to_use" type="checkbox">TrawlNet</label>
+                <label class="checkbox-inline"><input value="" class="perm_to_use" type="checkbox">Gill Net</label>
+                <label class="checkbox-inline"><input value="" class="perm_to_use" type="checkbox">Drag Net</label>
+                <label class="checkbox-inline"><input value="" class="perm_to_use" type="checkbox">Cast Net</label>
+              </div>
+            </div>
+            </div>
+      </div>
+      <div class="col-md-12">
+          <div class="form-group">
+            <div class="row">
+              <label class="col-md-2" for="power">Fisherman Skills 
+                <div class="please-select-options">(Please select atleast 2 options)
+                </div>
+                </label>
+              <div class="col-md-10"> 
+                <label class="checkbox-inline"><input value="" class="perm_to_use" type="checkbox">Active Fisherman</label>
+                <label class="checkbox-inline"><input value="" class="perm_to_use" type="checkbox">Swimming</label>
+                <label class="checkbox-inline"><input value="" class="perm_to_use" type="checkbox">Netting </label>
+                <label class="checkbox-inline"><input value="" class="perm_to_use" type="checkbox">Net Sewing</label>
+              </div>
+            </div>
+             
+            </div>
+      </div>
+      <div class="col-md-4">
+          <div class="form-group">
+              <label for="power">License Period  (Fasli Year) 
+              </label>
+              <div>
+                  01-07-2019 to 30-06-2020
+
+              </div>
+          </div>
+      </div>
+      <div class="col-md-4">
+          <div class="form-group">
+            <label for="power">Un Employement Certificate</label>
+            <input type="file" name="">
+          </div>
+          </div>
+          <div class="col-md-4">
+              <div class="form-group">
+                  <label for="power">Registration Fee
+
+                  </label>
+                  <div>
+                      Rs: 55.00/-
+
+
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="form-group">
+                <label for="power">Payment Details</label>
+                <select class="form-control"
+                        required>
+                    
+                  <option>Challana</option>
+                  <option>Online Payment</option>
+                  
+                </select>
+              </div>
+              </div>
+</div>
+<div class="row">
+  <div class="col-md-12 ">
+      <button type="submit" class="btn btn-info pull-right" >Submit</button>
+  </div>
+</div>
+</form>
