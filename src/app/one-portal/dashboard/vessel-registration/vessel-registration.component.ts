@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import {VesselRegistrationService} from '../vessel-registration.service';
 import { Observable, Subject  } from 'rxjs-compat';
 import { VesselregistractionModule } from '../../vesselregistraction/vesselregistraction.module';
 import { subscribeOn } from 'rxjs-compat/operator/subscribeOn';
 import { NgxSpinnerService } from 'ngx-spinner';
+// import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 
 @Component({
   selector: 'app-vessel-registration',
@@ -12,6 +13,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./vessel-registration.component.css']
 })
 export class VesselRegistrationComponent implements OnInit {
+  
   waterBodyPagination = false;
   successsms = false;
   errorsms = false;
@@ -34,6 +36,7 @@ export class VesselRegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.vesselRegistrationService.getDist().subscribe(data => this.Dist = data);
+    // let userId = this.storage.get("user_id");
     let userId = this.vesselRegistrationService.getUserId();
   }
 
@@ -41,6 +44,8 @@ export class VesselRegistrationComponent implements OnInit {
   {
     let  distId1 = this.distId;
     this.vesselRegistrationService.getMandal(distId1).subscribe(data => this.Mandals = data); 
+    this.mandalId = undefined;
+    this.flcid = undefined;
   }
 
   getFlc()
@@ -48,6 +53,7 @@ export class VesselRegistrationComponent implements OnInit {
     let  distId1 = this.distId;
     let mandalId=this.mandalId;
     this.vesselRegistrationService.getFlc(distId1,mandalId).subscribe(data => this.Flcs = data); 
+    this.flcid = undefined;
   }
 
   
@@ -61,11 +67,13 @@ export class VesselRegistrationComponent implements OnInit {
     this.vesselRegistrationService.getVesselDetails(distId1,mandalId,flcId1).subscribe(data => {
       this.spinner.hide();
       this.VesselLists = data;
+      this.waterBodyPagination = this.VesselLists && this.VesselLists.length > 6 ? true : false; 
+
     }, error => {
       this.spinner.hide();
     }
       ); 
-    this.waterBodyPagination = !this.waterBodyPagination;
+    // this.waterBodyPagination = !this.waterBodyPagination;
     // this.waterBodyPagination = this.VesselLists && this.VesselLists.length > 5 ? !this.waterBodyPagination : this.waterBodyPagination; 
   }
 

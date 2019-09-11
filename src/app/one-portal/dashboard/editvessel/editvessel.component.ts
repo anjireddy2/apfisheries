@@ -13,7 +13,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./editvessel.component.css']
 })
 export class EditvesselComponent implements OnInit {
-  minDate1 = new Date(); 
   updateForm: FormGroup;
   submitted = false;
   successsms = false;
@@ -24,15 +23,24 @@ export class EditvesselComponent implements OnInit {
   Panchayats:any = [];
   VesselLists: any = [];
   registerData:any = [];
+  adharVerify:any =[];
   vesselUpdate:any = [];
   distId:number;
   mandalId:number;
   flcid:number;
   success = false;
   error = false;
+  success1 = false;
+  error1 = false;
   errMsgs: any;
   a: string | number | Date;
   errorlist: any;
+  showVerifyBtn: boolean;
+  rationVerifyBtn: boolean;
+  rationVerify: any = [];
+  reference: any;
+  adhar_error: boolean;
+  adhar_success: boolean;
   constructor(private formBuilder: FormBuilder,private vesselRegistrationService: VesselRegistrationService, private route: ActivatedRoute, private spinner: NgxSpinnerService)
    {
 
@@ -50,7 +58,7 @@ export class EditvesselComponent implements OnInit {
       ration_card: ['', Validators.required],
       ifsc_code: ['', Validators.required],
       bank_name: ['', Validators.required],
-      // email_id: ['', [Validators.required, Validators.email]],
+      email_id: [''],
       // eligible: ['', [Validators.required]],
       district_name: ['', [Validators.required]],
       mandal: ['', [Validators.required]],
@@ -58,10 +66,20 @@ export class EditvesselComponent implements OnInit {
       // Panchayat:['', [Validators.required]],
       vessltype:['', [Validators.required]],
       vessel_number:['', [Validators.required,Validators.minLength(20)]],
-      mfid:['', [Validators.required,Validators.minLength(20)]],
+      // mfid:['', [Validators.required,Validators.minLength(20)]],
       // remarks:['', [Validators.required,Validators.minLength(200)]],
       licence_renewal_date:['', [Validators.required]],
       licence_valid_date:['', [Validators.required]],
+      mfid_number:[''],
+      gill_net_count:[''],
+      drag_net_count:[''],
+      cast_net_count:[''],
+      trawl_net_count:[''],
+      life_bouys_count:[''],
+      dat_count:[''],
+      gps_count:[''],
+      fish_finder_count:[''],
+      echo_sounder_count:[''],
       
   }); 
     const vid = +this.route.snapshot.paramMap.get('id');
@@ -147,4 +165,86 @@ getMandal()
  
 
   }
+
+
+  getVerifyBtn(inputType) {
+    if(inputType === "Aadhar") {
+      this.showVerifyBtn = false;
+      this.adharVerify.success = false;
+      if(this.updateForm.controls.aadhaar_number.value && this.updateForm.controls.aadhaar_number.value.length === 12) {
+      this.showVerifyBtn = true;
+      }
+    } else if(inputType === "RationCard") {
+      this.rationVerifyBtn = false;
+      this.rationVerify.success = false;
+      if(this.updateForm.controls.ration_card.value && this.updateForm.controls.ration_card.value.length === 15) {
+        this.rationVerifyBtn = true;
+      }
+    } 
+
+    }
+
+  getadhar()
+  {
+    // alert();
+    this.adhar_error = false;
+    this.adhar_success = false;
+    let  adhNum = ((document.getElementById("adharId") as HTMLInputElement).value);
+  //  alert(adhNum);
+    this.vesselRegistrationService.adharVerify(adhNum).subscribe(data => {
+      this.adharVerify = data;
+      if(this.adharVerify && this.adharVerify.success === true)
+      {
+        this.adhar_success = true;
+        window.scroll(0,0);
+        this.showVerifyBtn = false;
+        this.reference = this.adharVerify.message;
+        this.adharVerify.success = true;
+      }
+      else
+      {
+        this.adharVerify.error = true;
+        this.adhar_error = true;
+        window.scroll(0,0);
+       
+      }
+    }, error => {
+      this.spinner.hide();
+    });
+  }
+
+  getRation() {
+    this.error1 = false;
+    this.success1 = false;
+    this.spinner.show();
+    let  rationNum = this.updateForm.controls.ration_card.value;
+    let adhNum = this.updateForm.controls.aadhaar_number.value;
+    this.vesselRegistrationService.rationVerify(rationNum,adhNum).subscribe(data => {
+       this.spinner.hide();
+      this.rationVerify = data;
+      if(this.rationVerify && this.rationVerify.success === true)
+      {
+        
+        this.updateForm.controls['owner_name'].disable();
+        this.updateForm.controls['father_name'].disable();
+
+        this.success1 = true;
+      window.scroll(0,0);
+        this.rationVerifyBtn = false;
+        this.rationVerify.success = true;
+      }
+      else
+      {
+        this.updateForm.controls['owner_name'].enable();
+        this.updateForm.controls['father_name'].enable();
+
+        this.error1 = true;
+        window.scroll(0,0);
+       
+      }
+    }, error => {
+       this.spinner.hide();
+    });
+  }
+  
 }

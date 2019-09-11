@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { VesselRegistrationService } from '../vessel-registration.service';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-society-registration',
@@ -21,13 +22,16 @@ export class SocietyRegistrationComponent implements OnInit {
   firstField = true;
   firstFieldName = 'First Item name';
   isEditItems: boolean;
-  fieldArray: any[] = [];
+  fieldArray: any = {};
   flcid: any;
   societyList : any = [];
   success = false;
   error = false;
+  verifyVesseldata: any;
+  vsuccess: boolean;
+  verror: boolean;
 
-  constructor(private vesselRegistrationService: VesselRegistrationService, private formBuilder: FormBuilder) { }
+  constructor(private router:Router,private vesselRegistrationService: VesselRegistrationService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     
@@ -79,12 +83,15 @@ export class SocietyRegistrationComponent implements OnInit {
      }
      this.societyRegistrationForm.value.field = this.fieldArray;
      
-     this.vesselRegistrationService.createSociety(this.societyRegistrationForm.value).subscribe(data=>{
+     this.vesselRegistrationService.createSociety(this.societyRegistrationForm.value).subscribe(
+       data=>{
        this.societyList = data;
        if(this.societyList && this.societyList.success == true)
        {
          this.success = true;
          window.scroll(0,0);
+         this.router.navigate(['dashboard/society_registration']);
+
        }
        else
        {
@@ -109,10 +116,34 @@ deleteFieldValue(index) {
 }
 
 onEditCloseItems() {
-  this.fieldArray = [];
+  this.vsuccess = false;
+  this.verror = false;
+   this.fieldArray = {};
+   this.fieldArray.elements=[];
   // this.isEditItems = !this.isEditItems;
   this.societyRegistrationForm.controls.field["controls"].forEach(element => {
-    this.fieldArray.push({name:element.value.name})
+    this.fieldArray.elements.push({name:element.value.name});
+     //console.log(this.fieldArray)
+
+
+
+  });
+  
+  this.vesselRegistrationService.verifyVessel(this.fieldArray).subscribe(
+    data=>{
+    this.verifyVesseldata = data;
+    if(this.verifyVesseldata && this.verifyVesseldata.success == true)
+    {
+      this.vsuccess = true;
+      window.scroll(0,0);
+    }
+    else
+    {
+      // this.errorlist = this.registerData.message.split(",");
+      this.verror = true;
+      window.scroll(0,0);
+     
+    }
   });
 }
 }

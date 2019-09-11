@@ -41,7 +41,7 @@ width: 94% ;" *ngIf="successsms" >
                     <div class="form-group">
                       <label for="power">District <span class="vessel-mandatory-ind">*</span></label>
                       <select class="form-control" [(ngModel)]="distId" (ngModelChange)="getMandal()" name="dist" formControlName="district_name"  [ngClass]="{ 'is-invalid': submitted && f.district_name.errors }">
-                       
+                          <option [ngValue]="undefined" hidden selected> --Select-- </option>
                         <option *ngFor='let dist of Dist' [ngValue]='dist.id'>
                         {{ dist.district_name}}
                         </option>
@@ -56,7 +56,7 @@ width: 94% ;" *ngIf="successsms" >
                     <div class="form-group">
                       <label for="power">Mandal<span class="vessel-mandatory-ind">*</span></label>
                       <select class="form-control" [(ngModel)]="mandalId" (ngModelChange)='getFlc()'  name="mandal"  formControlName="mandal" [ngClass]="{ 'is-invalid': submitted && f.mandal.errors }">
-                     
+                          <option [ngValue]="undefined" hidden selected> --Select-- </option>
                         <option *ngFor='let mandal of Mandals' [ngValue]='mandal.id'>
                         {{ mandal.mandal_name}}
                         </option>
@@ -71,7 +71,7 @@ width: 94% ;" *ngIf="successsms" >
                         <div class="form-group">
                           <label for="power">Fish Landing Centre <span class="vessel-mandatory-ind">*</span></label>
                           <select class="form-control" [(ngModel)]="flcid"      formControlName="flc" [ngClass]="{ 'is-invalid': submitted && f.flc.errors }">
-                         
+                              <option [ngValue]="undefined" hidden selected> --Select-- </option>
                             <option *ngFor='let flc of Flcs' [ngValue]='flc.id'>
                             {{ flc.flc_name}}
                             </option>
@@ -147,7 +147,40 @@ width: 94% ;" *ngIf="successsms" >
                          
                         </div>
                         <div class="modal-body">
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <div class="alert alert-success alert-dismissible" *ngIf="success">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    
+                                     {{verifyVesseldata.message}}
+              
+                                    <div>Click here to login <span (click)="login()" style="text-decoration: underline;color:#39c4f0;cursor:pointer"> <b>LOGIN</b></span> </div>
+                                  </div>
+                                </div>
+                              <div class="col-md-12">
+                                  <div class="alert alert-danger alert-dismissible" *ngIf="error">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                   
+                                     {{verifyVesseldata.message}}
+                                  </div>
+                                </div>
+                          </div>
                                 <div class="row">
+                                  <div class="col-md-12">
+                                    <div class="alert alert-success alert-dismissible" *ngIf="vsuccess">
+                                      <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                      
+                                      {{verifyVesseldata.message}}
+
+                                    </div>
+                                  </div>
+                                <div class="col-md-12">
+                                    <div class="alert alert-danger alert-dismissible" *ngIf="verror">
+                                      <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    
+                                      {{verifyVesseldata.message}}
+                                    </div>
+                                  </div>
                                         <table class="table table-striped table-bordered col-lg-8" style="margin-left: 10%">
                                      
                                             <!-- <thead>
@@ -199,7 +232,7 @@ width: 94% ;" *ngIf="successsms" >
                                                 <tr>
                                                     <td align="right">
                                                         <button class="btn btn-success btn-sm" type="button" (click)="addFieldValue()" style="margin-right:10px">Add</button>
-                                                        <button (click)="onEditCloseItems()" data-dismiss="modal" class="btn btn-primary btn-sm" type="button">Save</button>
+                                                        <button (click)="onEditCloseItems()"  class="btn btn-primary btn-sm" type="button">Save</button>
                                                     </td>
                                                 </tr>
                                             </div>

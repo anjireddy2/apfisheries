@@ -35,7 +35,7 @@
       
       <div class="row">
         <div class="col-md-12">
-          <div class="form-group">
+          <div class="form-group" style="margin-bottom: 0rem;">
             <label for="power" class="my-app-select-register-option-head">password <span class="vessel-mandatory-ind">*</span></label>
            <input type="password" formControlName="password" placeholder="Password"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
            <div *ngIf="submitted && f.password.errors" class="invalid-feedback ">
@@ -48,7 +48,15 @@
       
         </div>
         <div class="row">
+          <div class="col-md-12" >
+              <a class="nav-link p-1 pull-right" (click)="forgot()" style="text-decoration: underline; font-size: 12px; margin-bottom: 5px; color: #39c4f0; cursor: pointer;">
+                  Forgot password
+              </a>
+          </div>
+        </div>
+        <div class="row">
           <div class="col-md-12">
+            
               <input  type="submit"    class="btn btn-primary pull-right" value="Login">
     
           </div>

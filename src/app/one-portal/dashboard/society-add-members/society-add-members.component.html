@@ -1,8 +1,68 @@
-<ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)" size = "medium" color = "#fff" type = "ball-spin-clockwise-fade"></ngx-spinner>
+<!-- <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)" size = "medium" color = "#fff" type = "ball-spin-clockwise-fade"></ngx-spinner> -->
+<!-- {{addSocietMember1.message[0].id}} -->
+
 <div class="row">
+                <div class="col-md-12">
+                  <div class="alert alert-success alert-dismissible" *ngIf="delete_success">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>{{deleteData.message}}</strong>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="alert alert-danger alert-dismissible" *ngIf="delete_error">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <!-- This was my preferred answer, but keep in mind, if the value of scrollTop doesn't change in the component, you won't see anything happen.  -->
+                    <strong>{{deleteData.message}}</strong>
+              
+                 
+                  </div>
+                </div>
+              </div> 
+
+<div class="row">
+                <div class="col-md-12">
+                  <div class="alert alert-success alert-dismissible" *ngIf="adhar_success">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>{{adharVerify.message}}</strong>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="alert alert-danger alert-dismissible" *ngIf="adhar_error">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <!-- This was my preferred answer, but keep in mind, if the value of scrollTop doesn't change in the component, you won't see anything happen.  -->
+                    <strong>{{adharVerify.message}}</strong>
+              
+                 
+                  </div>
+                </div>
+              </div> 
+              
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="alert alert-success alert-dismissible" *ngIf="success1">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>{{rationVerify.message}}</strong>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="alert alert-danger alert-dismissible" *ngIf="error1">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <!-- This was my preferred answer, but keep in mind, if the value of scrollTop doesn't change in the component, you won't see anything happen.  -->
+                    <strong>{{rationVerify.message}}</strong>
+              
+                 
+                  </div>
+                </div>
+              </div>  
+        <div class="row">
         <div class="col-md-12">
           <div class="alert alert-success alert-dismissible" *ngIf="success">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong>{{addsocietyMember.message}}</strong>
           </div>
         </div>
@@ -11,10 +71,8 @@
         <div class="col-md-12">
           <div class="alert alert-danger alert-dismissible" *ngIf="error">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <ul *ngFor = "let addsociety of addsocietyMember.message">
-             {{addsociety}}
+             {{addsocietyMember.message}}
              
-            </ul>
       
          
           </div>
@@ -35,19 +93,34 @@
                     <div class="col-md-4">
                             <div class="form-group">
                               <label for="power">Aadhaar Number <span class="vessel-mandatory-ind">*</span></label>
-                             <input id="adharId" type="text" (keypress)="onlyNumberKey($event)" maxlength="12"  formControlName="aadhaar_number"  value="" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.aadhaar_number.errors }">
+                             <input id="adharId" type="text" (keypress)="onlyNumberKey($event)" (keyup) = "getVerifyBtn('Aadhar')" maxlength="12"  formControlName="aadhaar_number"  value="" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.aadhaar_number.errors }">
                              <div *ngIf="submitted && f.aadhaar_number.errors" class="invalid-feedback">
                             <div *ngIf="f.aadhaar_number.errors.required">Aadhaar number is required</div>
                             <div *ngIf="f.aadhaar_number.errors.minlength">Minimum required number is 12</div>
                              
                             </div>
+                            <button *ngIf="showVerifyBtn" type="button" style="float: right;
+                            margin-top: 9px;
+                            font-size: 12px;" class="btn btn-primary" (click)="getadhar()">Verfiy</button>
+                            <div *ngIf = "adharVerify.success && !showVerifyBtn" style="color:green; float:right">Verfied <i class="fa fa-check-circle-o" aria-hidden="true"></i></div>
             
                             </div>
                     </div> 
                     <div class="col-md-4">
+                                <div class="form-group">
+                                   <label for="power">Ration card Number </label> 
+                                   <input type="text" name="ration_card" formControlName="ration_card" class="form-control" (keyup) = "getVerifyBtn('RationCard')" maxlength="15" [ngClass]="{ 'is-invalid': submitted && f.ration_card.errors }" >
+                                   <button *ngIf="rationVerifyBtn" type="button" style="float: right;
+               margin-top: 9px;
+               font-size: 12px;" class="btn btn-primary" (click)="getRation()">Verfiy</button>
+               <div *ngIf = "rationVerify.success && !rationVerifyBtn" style="color:green; float:right">Verfied <i class="fa fa-check-circle-o" aria-hidden="true"></i></div>
+
+                                </div>
+                        </div>
+                    <div class="col-md-4">
                             <div class="form-group">
                               <label for="power">Name <span class="vessel-mandatory-ind">*</span></label>
-                             <input type="text"   formControlName="vessel_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.vessel_name.errors }">
+                             <input type="text"   formControlName="vessel_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.vessel_name.errors }" [ngModel]="rationVerify.owner_name">
                              <div *ngIf="submitted && f.vessel_name.errors" class="invalid-feedback">
                               <div *ngIf="f.vessel_name.errors.required">Name is required</div>
                           </div>
@@ -63,14 +136,8 @@
                         </div>
                     </div>
                   </div>
-                    <div class="col-md-4">
-                            <div class="form-group">
-                               <label for="power">Ration card Number </label> 
-                             <input type="text" name="ration_card"  class="form-control">
-                            
-                            </div>
-                    </div>
-                    <div class="col-md-4">
+                   
+                    <!-- <div class="col-md-4">
                             <div class="form-group">
                               <label for="power">Social status <span class="vessel-mandatory-ind">*</span></label>
                               <select class="form-control"   formControlName="status" [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
@@ -104,7 +171,7 @@
                                          
                                         </div>
                                 </div>
-                        </div> 
+                        </div>  -->
                         <div class="col-md-4">
                                 <div class="form-group">
                                         <label for="power">Fisherman Skills <span class="vessel-mandatory-ind">*</span></label><br>
@@ -127,45 +194,52 @@
             </div>
         </form>
 
-    <table class="table table-striped" style="width:100%;font-size: 13px;">
+    <table class="table table-striped" style="width:100%;font-size: 13px;" >
            
         <tbody>
            
                    
                         <tr style="font-size: 12px;">
                                 <th scope="col"> #No</th>
-                                <th scope="col">Aadhaar No</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">Age</th>
+                                <th scope="col">Aadhaar No</th>
+                                
                                 <th scope="col">Rationcard</th>
-                                <th scope="col">Certificate No.</th>
-                                <th scope="col">Social Status</th>
+                                <th scope="col">Mobile Number</th>
                                 <th>
                                  Fisherman Skills
                                 </th>
                                 <th scope="col">Actions</th>
                               </tr>
-                    <tr>
-                        <td>  
-                        </td>
-                        <td>  
+                    <tr *ngFor = "let addSocietmember1 of addSocietMember1.message | paginate: { itemsPerPage: 6, currentPage: p}">
+                        <td> 
+                       {{addSocietmember1.id}} 
                         </td>
                         <td> 
+                      {{addSocietmember1.member_name}} 
+                    </td>
+                        <td> 
+                       {{addSocietmember1.member_aadhaar_no}}  
                         </td>
                         <td> 
+                        {{addSocietmember1.member_ration_card_no}} 
                         </td>
-                        <td>
+                       <td> 
+                        {{addSocietmember1.member_mobile_no}} 
+                       </td>
+                       <td> 
+                               <label><b>Swimming</b> :true</label>
+                               <br>
+                               <label><b>Netting </b> :{{addSocietmember1.netting}}</label>
+                               <br>
+                               <label><b>Net Sewing</b> :{{addSocietmember1.net_sweing}}</label>
+                                 
+                                 
                         </td>
-                        <td> 
-                        </td>
-                        <td> 
-                        </td>
-                        <td> 
-                        </td>
+                        
+
 <td>
-</td>
-<td>
-<span> 
+<span (click) = deleteSmember(addSocietmember1);> 
 <i class="fa fa-trash-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
 </span>
 </td>
@@ -174,4 +248,8 @@
            
         </tbody>
     </table>
+    <ul class="pagination" *ngIf="waterBodyPagination">  
+                <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>  
+              
+</ul>
 

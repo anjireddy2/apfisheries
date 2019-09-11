@@ -24,8 +24,10 @@
         <div class="col-md-4">
             <div class="form-group">
               <label for="power">District</label>
-              <select class="form-control"  [(ngModel)]="distId" (ngModelChange)="getMandal()" name="dist">
-               
+              <select  class="form-control"  [(ngModel)]="distId" (ngModelChange)="getMandal()" name="dist">
+                <!-- <option value="" disabled="true" [selected]="!distId">--please select--</option> -->
+                <option [ngValue]="undefined" hidden selected> --Select-- </option>
+
                 <option *ngFor='let dist of Dist' [ngValue]='dist.id'>
                 {{ dist.district_name}}
                 </option>
@@ -36,7 +38,8 @@
             <div class="form-group">
               <label for="power">Mandal</label>
               <select class="form-control" [(ngModel)]="mandalId" (ngModelChange)='getFlc()'   name="mandal">
-             
+                <option [ngValue]="undefined" hidden selected> --Select-- </option>
+
                 <option *ngFor='let mandal of Mandals' [ngValue]='mandal.id'>
                 {{ mandal.mandal_name}}
                 </option>
@@ -47,7 +50,8 @@
                 <div class="form-group">
                   <label for="power">Fish Landing Centre </label>
                   <select class="form-control" [(ngModel)]="flcid"      name="flc">
-                 
+                    <option [ngValue]="undefined" hidden selected> --Select-- </option>
+
                     <option *ngFor='let flc of Flcs' [ngValue]='flc.id'>
                     {{ flc.flc_name}}
                     </option>
@@ -131,8 +135,6 @@
         
         </ul>
       </div>
-
-
 
       <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">

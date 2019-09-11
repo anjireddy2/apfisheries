@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {VesselRegistrationService} from '../../dashboard/vessel-registration.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+// import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
+
 
 @Component({
   selector: 'app-login',
@@ -49,7 +51,8 @@ export class LoginComponent implements OnInit {
         this.spinner.hide();
       this.login = data; 
        if(this.login.success == true) {
-        this.vesselRegistrationService.setUserId(this.login.user_id)
+        // this.storage.set("user_id", this.login.user_id);
+        this.vesselRegistrationService.setUserId(this.login.user_id);
         this.router.navigate(['/dashboard/vessel_registration']);
 
        }else
@@ -64,6 +67,12 @@ export class LoginComponent implements OnInit {
     return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57;
 }
 
-  
+// forgot() {
+//   this.router.navigate(['/newlogin/forgot']);
+// }
+
+forgot() {
+  this.router.navigate(['/forgot']);
+}
 
 }

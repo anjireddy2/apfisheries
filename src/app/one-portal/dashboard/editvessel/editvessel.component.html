@@ -1,4 +1,43 @@
-<ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)" size = "medium" color = "#fff" type = "ball-spin-clockwise-fade"></ngx-spinner>
+<!-- <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)" size = "medium" color = "#fff" type = "ball-spin-clockwise-fade"></ngx-spinner> -->
+<div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-success alert-dismissible" *ngIf="adhar_success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>{{adharVerify.message}}</strong>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-danger alert-dismissible" *ngIf="adhar_error">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <!-- This was my preferred answer, but keep in mind, if the value of scrollTop doesn't change in the component, you won't see anything happen.  -->
+        <strong>{{adharVerify.message}}</strong>
+  
+     
+      </div>
+    </div>
+  </div> 
+  
+  <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-success alert-dismissible" *ngIf="success1">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>{{rationVerify.message}}</strong>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-danger alert-dismissible" *ngIf="error1">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <!-- This was my preferred answer, but keep in mind, if the value of scrollTop doesn't change in the component, you won't see anything happen.  -->
+        <strong>{{rationVerify.message}}</strong>
+  
+     
+      </div>
+    </div>
+  </div>  
 <div class="row">
   <div class="col-md-12">
     <div class="alert alert-success alert-dismissible" *ngIf="success">
@@ -29,10 +68,41 @@
     </div>
 
     <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+              <label for="power">Aadhaar Number <span class="vessel-mandatory-ind">*</span></label>
+             <input id="adharId" type="text"  (keypress)="onlyNumberKey($event)" (keyup) = "getVerifyBtn('Aadhar')" maxlength="12"  formControlName="aadhaar_number"  value="" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.aadhaar_number.errors }" [(ngModel)]="editVessel.aadhaar_no">
+             <div *ngIf="submitted && f.aadhaar_number.errors" class="invalid-feedback">
+                <div *ngIf="f.aadhaar_number.errors.required">Aadhaar number is required</div>
+                <div *ngIf="f.aadhaar_number.errors.minlength">Minimum required number is 12</div>
+                 
+                </div>
+                <button *ngIf="showVerifyBtn" type="button" style="float: right;
+                margin-top: 9px;
+                font-size: 12px;" class="btn btn-primary" (click)="getadhar()">Verfiy</button>
+                <div *ngIf = "adharVerify.success && !showVerifyBtn" style="color:green; float:right">Verfied <i class="fa fa-check-circle-o" aria-hidden="true"></i></div>
+
+            </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+          <label for="power">Ration card Number <span class="vessel-mandatory-ind">*</span></label>
+         <input type="text" name="ration_card" formControlName="ration_card" class="form-control" (keyup) = "getVerifyBtn('RationCard')" maxlength="15" [ngClass]="{ 'is-invalid': submitted && f.ration_card.errors }" [(ngModel)]="editVessel.ration_card_number">
+         <!-- <div *ngIf="submitted && f.ration_card.errors" class="invalid-feedback">
+            <div *ngIf="f.ration_card.errors.required">Ration Card number is required</div> -->
+           <!-- <div *ngIf="f.ration_card.errors.minlength">Bank Account number should have 12 to 20 digits</div> -->
+           <!-- </div> -->
+           <button *ngIf="rationVerifyBtn" type="button" style="float: right;
+               margin-top: 9px;
+               font-size: 12px;" class="btn btn-primary" (click)="getRation()">Verfiy</button>
+               <div *ngIf = "rationVerify.success && !rationVerifyBtn" style="color:green; float:right">Verfied <i class="fa fa-check-circle-o" aria-hidden="true"></i></div>
+         
+        </div>
+</div>
             <div class="col-md-4">
                     <div class="form-group">
                       <label for="power">Vessel owner name <span class="vessel-mandatory-ind">*</span></label>
-                     <input type="text" formControlName="owner_name"  class="form-control"  [ngModel]="editVessel.owner_name" [ngClass]="{ 'is-invalid': submitted && f.owner_name.errors }">
+                     <input type="text" formControlName="owner_name"  class="form-control"  [(ngModel)]="editVessel.owner_name" [ngClass]="{ 'is-invalid': submitted && f.owner_name.errors }">
                      <div *ngIf="submitted && f.owner_name.errors" class="invalid-feedback">
                         <div *ngIf="f.owner_name.errors.required">vessel name is required</div>
                     </div>
@@ -41,28 +111,18 @@
              <div class="col-md-4">
                     <div class="form-group">
                       <label for="power">Father Name <span class="vessel-mandatory-ind">*</span></label>
-                     <input type="text" formControlName="father_name"  class="form-control" [ngModel]="editVessel.father_name"  [ngClass]="{ 'is-invalid': submitted && f.father_name.errors }">
+                     <input type="text" formControlName="father_name"  class="form-control" [(ngModel)]="editVessel.father_name"  [ngClass]="{ 'is-invalid': submitted && f.father_name.errors }">
                      <div *ngIf="submitted && f.father_name.errors" class="invalid-feedback">
                         <div *ngIf="f.father_name.errors.required">Father name is required</div>
                       </div>
                     </div>
             </div>
-          <div class="col-md-4">
-                    <div class="form-group">
-                      <label for="power">Aadhaar Number <span class="vessel-mandatory-ind">*</span></label>
-                     <input type="text"  (keypress)="onlyNumberKey($event)" maxlength="12"  formControlName="aadhaar_number"  value="" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.aadhaar_number.errors }">
-                     <div *ngIf="submitted && f.aadhaar_number.errors" class="invalid-feedback">
-                        <div *ngIf="f.aadhaar_number.errors.required">Aadhaar number is required</div>
-                        <div *ngIf="f.aadhaar_number.errors.minlength">Minimum required number is 12</div>
-                         
-                        </div>
-                    </div>
-            </div>
+  
 
             <div class="col-md-4">
                 <div class="form-group">
                   <label for="power">Mobile Number <span class="vessel-mandatory-ind">*</span></label>
-                 <input type="text" (keypress)="onlyNumberKey($event)" pattern="\d*" maxlength="10" formControlName="mobile_number" [ngModel]="editVessel.mobile_number" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.mobile_number.errors }">
+                 <input type="text" (keypress)="onlyNumberKey($event)" pattern="\d*" maxlength="10" formControlName="mobile_number" [(ngModel)]="editVessel.mobile_number" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.mobile_number.errors }">
                  <div *ngIf="submitted && f.mobile_number.errors" class="invalid-feedback">
                  <div *ngIf="f.mobile_number.errors.required">Mobile number is required</div>
                 <div *ngIf="f.mobile_number.errors.minlength">Minimum required number is 10</div>
@@ -73,7 +133,7 @@
           <div class="col-md-4">
               <div class="form-group">
                 <label for="power">Bank Account Number <span class="vessel-mandatory-ind">*</span></label>
-               <input type="text" (keypress)="onlyNumberKey($event)" pattern="\d*" maxlength = "12" maxlength="20" [ngModel]="editVessel.bank_account_number" formControlName="bank_account_number" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.bank_account_number.errors }">
+               <input type="text" (keypress)="onlyNumberKey($event)" pattern="\d*" maxlength = "12" maxlength="20" [(ngModel)]="editVessel.bank_account_number" formControlName="bank_account_number" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.bank_account_number.errors }">
                <div *ngIf="submitted && f.bank_account_number.errors" class="invalid-feedback">
                <div *ngIf="f.bank_account_number.errors.required">Bank Account number is required</div>
               <div *ngIf="f.bank_account_number.errors.minlength">Bank Account number should have 12 to 20 digits</div>
@@ -81,21 +141,12 @@
           </div>
         </div>
 
-        <div class="col-md-4">
-            <div class="form-group">
-              <label for="power">Ration card Number <span class="vessel-mandatory-ind">*</span></label>
-             <input type="text" name="ration_card" formControlName="ration_card" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ration_card.errors }" [ngModel]="editVessel.ration_card_number">
-             <div *ngIf="submitted && f.ration_card.errors" class="invalid-feedback">
-                <div *ngIf="f.ration_card.errors.required">Ration Card number is required</div>
-               <!-- <div *ngIf="f.ration_card.errors.minlength">Bank Account number should have 12 to 20 digits</div> -->
-               </div>
-            </div>
-    </div>
+       
 
      <div class="col-md-4">
             <div class="form-group">
               <label for="power">IFSC Code  <span class="vessel-mandatory-ind">*</span></label>
-             <input type="text" name="ifsc_code" formControlName="ifsc_code" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ifsc_code.errors }" [ngModel]="editVessel.ifsc_code">
+             <input type="text" name="ifsc_code" formControlName="ifsc_code" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ifsc_code.errors }" [(ngModel)]="editVessel.ifsc_code">
              <div *ngIf="submitted && f.ifsc_code.errors" class="invalid-feedback">
                 <div *ngIf="f.ifsc_code.errors.required">IFSC Code is required</div>
                <!-- <div *ngIf="f.ifsc_code.errors.minlength">Bank Account number should have 12 to 20 digits</div> -->
@@ -103,20 +154,94 @@
             </div>
     </div>
     <div class="col-md-4">
-            <div class="form-group">
-              <label for="power">Bank Name <span class="vessel-mandatory-ind">*</span></label>
-             <input type="text" name="bank_name" formControlName="bank_name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.bank_name.errors }" [ngModel]="editVessel.bank_details">
-             <div *ngIf="submitted && f.bank_name.errors" class="invalid-feedback">
-                <div *ngIf="f.bank_name.errors.required">Bank Name is required</div>
-               <!-- <div *ngIf="f.bank_name.errors.minlength">Bank Account number should have 12 to 20 digits</div> -->
-               </div>
-            </div>
-    </div>
+        <div class="form-group">
+          <label for="power">Bank Name <span class="vessel-mandatory-ind">*</span></label>
+         <!-- <input type="text" name="bank_name" formControlName="bank_name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.bank_name.errors }"> -->
+         <select class="form-control" formControlName="bank_name" [(ngModel)]="editVessel.bank_details"   name="bank" [ngClass]="{ 'is-invalid': submitted && f.bank_name.errors }" >
+            <option [ngValue]="undefined" hidden selected> --Select-- </option>
+            <!-- <option *ngFor='let bank of Bank' [ngValue]='bank.id'>
+            {{ bank.bank_name}}
+            </option> -->
+
+            
+            <option value="Allahabad_Bank">
+                Allahabad Bank
+            </option>
+            <option value="Andhra_Bank">
+                Andhra Bank
+            </option>
+            <option value=" Axis_Bank">
+                Axis Bank
+            </option>
+            <option value="Bahrain_Kuwait">
+                Bank of Bahrain and Kuwait
+            </option>
+            <option value="bank_baroda_corporate">
+                Bank of Baroda - Corporate Banking
+            </option>
+            <option value="bank_baroda_retail">
+                Bank of Baroda - Retail Banking
+            </option>
+            <option option="Bank_india">
+                Bank of India
+            </option>
+            <option value='Bank_Maharashtra'>
+                Bank of Maharashtra
+            </option>
+            <option value="canara_bank">
+              Canara Bank
+              </option>
+              <option value="Central_bank">
+                  Central Bank of India
+              </option>
+              <option value="city_uninon">
+                  City Union Bank
+              </option>
+              <option value="Corporation_bank">
+                  Corporation Bank
+              </option>
+              <option value="Dhanlaxmi_bank">
+                  Dhanlaxmi  Bank
+              </option>
+              <option value="Federal_bank">
+                  Federal  Bank
+              </option>
+              <option value="icic_bank">
+                  ICICI  Bank
+              </option>
+              <option value="IDBI_bank">
+                  IDBI Bank
+              </option>
+              <option value="india_bank">
+                  Indian Bank
+              </option>
+              <option value="Karnataka_bank">
+                  Karnataka Bank Ltd
+              </option>
+              <option value="kotak_bank">
+                  Kotak Bank
+              </option>
+              <option value="karur_bank">
+                  South  India Bank
+              </option>
+              <option value="sbi">
+                  State Bank of India
+              </option> 
+              <option value="yes_bank">
+                  Yes Bank Ltd
+              </option>
+    </select>
+         <div *ngIf="submitted && f.bank_name.errors" class="invalid-feedback">
+            <div *ngIf="f.bank_name.errors.required">Bank Name is required</div>
+           <!-- <div *ngIf="f.bank_name.errors.minlength">Bank Account number should have 12 to 20 digits</div> -->
+           </div>
+        </div>
+</div>
 
     <div class="col-md-4">
         <div class="form-group">
-          <label for="power">Email Id <span class="vessel-mandatory-ind">*</span></label>
-         <input type="email" name="email_id" class="form-control" [ngModel]="editVessel.email_id">
+          <label for="power">Email Id </label>
+         <input type="email" formControlName="email_id" class="form-control" [(ngModel)]="editVessel.email_id">
          
         </div>
 </div>
@@ -218,7 +343,7 @@
              <div class="col-md-4">
                     <div class="form-group">
                       <label for="power">Vessel Number</label>
-                     <input type="text" name="vessel_number" value="" class="form-control" [ngModel]="editVessel.boat_id"  formControlName="vessel_number" value="" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.vessel_number.errors }">
+                     <input type="text" name="vessel_number" value="" class="form-control" [(ngModel)]="editVessel.boat_id"  formControlName="vessel_number" value="" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.vessel_number.errors }">
                      <div *ngIf="submitted && f.bank_account_number.errors" class="invalid-feedback">
                         <div *ngIf="f.vessel_number.errors && f.vessel_number.errors.required">Vessel number is required</div>
                        <div *ngIf="f.vessel_number.errors && f.vessel_number.errors.minlength">Vessel Number should have 20 </div>
@@ -246,7 +371,7 @@
                 <div class="form-group">
                   <label for="power">Licence Valid Upto</label>
                  <mat-form-field>
-                  <input matInput [matDatepicker]="picker" [min]="minDate1"  placeholder="Select date"   formControlName="licence_valid_date">
+                  <input matInput [matDatepicker]="picker"  placeholder="Select date"   formControlName="licence_valid_date">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
@@ -255,11 +380,11 @@
          <div class="col-md-4">
                     <div class="form-group">
                       <label for="power">MFID</label>
-                     <input type="text" formControlName="mfid" value="" class="form-control" [ngModel]="editVessel.mfid_number" [ngClass]="{ 'is-invalid': submitted && f.mfid.errors }">
-                     <div *ngIf="submitted && f.bank_account_number.errors" class="invalid-feedback">
+                     <input type="text"  value="" formControlName ="mfid_number" class="form-control" [(ngModel)]="editVessel.mfid_number" >
+                     <!-- <div *ngIf="submitted && f.bank_account_number.errors" class="invalid-feedback">
                         <div *ngIf="f.mfid.errors.required">mfid number is required</div>
                        <div *ngIf="f.mfid.errors.minlength">mfid number should have 20 </div>
-                       </div>
+                       </div> -->
                     </div>
             </div>
      </div>
@@ -272,72 +397,90 @@
       <div class="col-md-4">
       <div class="form-group">
       <label for="power">Gill net count </label>
-      <input type="text"  (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" Name="Gill_net_count" value="" class="form-control" >
+      <input type="text"  (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" formControlName="gill_net_count" Name="Gill_net_count" value="" class="form-control" [(ngModel)]="editVessel.gill_net_count">
       </div>
       </div> 
       <div class="col-md-4">
         <div class="form-group">
         <label for="power">Drag net count </label>
-        <input type="text"  (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" Name="drag_net_count" value="" class="form-control" >
+        <input type="text"  (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" formControlName="drag_net_count" value="" class="form-control" [(ngModel)]="editVessel.drag_net_count">
         </div>
         </div> 
         <div class="col-md-4">
           <div class="form-group">
           <label for="power">Cast net count </label>
-          <input type="text"  (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" Name="cast_net_count" value="" class="form-control" >
+          <input type="text"  (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" formControlName="cast_net_count" value="" class="form-control" [(ngModel)]="editVessel.cast_net_count">
           </div>
           </div> 
           <div class="col-md-4">
             <div class="form-group">
             <label for="power">Trawl net count </label>
-            <input type="text"  (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" Name="trawl_net_count" value="" class="form-control" >
+            <input type="text"  (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" formControlName="trawl_net_count" value="" class="form-control" [(ngModel)]="editVessel.trawl_net_count">
             </div>
             </div> 
             <div class="col-md-4">
               <div class="form-group">
               <label for="power">Life buoys count </label>
-              <input type="text"  (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" Name="life_buoys_count" value="" class="form-control" >
+              <input type="text"  (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" formControlName="life_bouys_count" value="" class="form-control" [(ngModel)]="editVessel.life_bouys_count">
               </div>
               </div> 
               <div class="col-md-4">
                 <div class="form-group">
                 <label for="power">DAT count </label>
-                <input type="text"  (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" Name="life_buoys_count" value="" class="form-control" >
+                <input type="text"  (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" formControlName="dat_count" value="" class="form-control" [(ngModel)]="editVessel.dat_count">
                 </div>
                 </div> 
-              <div class="col-md-4">
+                <div class="col-md-4">
+                  <div class="form-group">
+                  <label for="power">GPS count </label>
+                  <input type="text"  (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" formControlName="gps_count" value="" class="form-control" [(ngModel)]="editVessel.gps_count">
+                  </div>
+                  </div> 
+                  <div class="col-md-4">
+                    <div class="form-group">
+                    <label for="power">Fish finder count  </label>
+                    <input type="text"  (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" formControlName="fish_finder_count" value="" class="form-control" [(ngModel)]="editVessel.fish_finder_count">
+                    </div>
+                    </div> 
+                    <div class="col-md-4">
+                      <div class="form-group">
+                      <label for="power">Echo sounder count </label>
+                      <input type="text"  (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" formControlName="echo_sounder_count" value="" class="form-control" [(ngModel)]="editVessel.echo_sounder_count">
+                      </div>
+                      </div> 
+              <!-- <div class="col-md-4">
                 <div class="form-group">
                 <label for="power">
-                  GPS count </label>
-                <input type="text"  (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" Name="
-                gps_count" value="" class="form-control" >
+                  Fish finder count </label>
+                <input type="text"  (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" formControlName="
+                fish_finder_count" class="form-control" [(ngModel)]="editVessel.fish_finder_count">
                 </div>
                 </div> 
                 <div class="col-md-4">
                   <div class="form-group">
                   <label for="power">
                     Fish finder count </label>
-                  <input type="text"  (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" Name="
-                  fish_finder_count" value="" class="form-control" >
+                  <input type="text"  (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" formControlName="
+                  fish_finder_count" class="form-control"  [(ngModel)]="editVessel.fish_finder_count">
                   </div>
                   </div> 
                   <div class="col-md-4">
                     <div class="form-group">
                     <label for="power">
                       Echo sounder count </label>
-                    <input type="text"  (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" Name="
-                    echo_sounder" value="" class="form-control" >
+                    <input type="text"  (keypress)="onlyNumberKey($event)" style="text-transform: uppercase;" formControlName="
+                    echo_sounder_count" class="form-control" [(ngModel)]="editVessel.echo_sounder_count">
                     </div>
-                    </div> 
+                    </div>  -->
     </div>
      <div class="row">
-            <div class="col-md-12">
+            <!-- <div class="col-md-12">
                     <div class="form-group">
                       <label for="power">Remarks</label>
-                      <textarea class="form-control" rows="3" cols="50" [ngModel]="editVessel.rejection_reason_id"></textarea>
+                      <textarea class="form-control" rows="3" cols="50" [(ngModel)]="editVessel.rejection_reason_id"></textarea>
                      
                     </div>
-            </div> 
+            </div>  -->
             <div class="col-md-12 ">
                     <input type="submit" class="btn btn-info pull-right " style="margin-bottom: 10px;"  value="Update">
                    
