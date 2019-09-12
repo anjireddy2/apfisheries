@@ -53,10 +53,10 @@ export class SocietyAddMembersComponent implements OnInit {
        vessel_name: ['', Validators.required],
       aadhaar_number: ['', [Validators.required, Validators.minLength(12)]],
       // status: ['', Validators.required],
-      ration_card: ['', Validators.required],
+      ration_card: [''],
       // certificate_number: ['', [Validators.required, Validators.minLength(15)]],
        mobile_number: ['', [Validators.required, Validators.minLength(10)]],
-       Swimming: [''],
+       Swimming: [{value:true,disabled: true}],
        netting: [''],
        NetSewing: ['']
     });
@@ -144,7 +144,7 @@ deleteSmember(societyList)
 }
 
 editSmember(societyMember) {
-
+  // this.route.navigate("dashboard/edit-society-member")
 }
 
 getVerifyBtn(inputType) {

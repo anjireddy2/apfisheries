@@ -175,7 +175,8 @@
                         <div class="col-md-4">
                                 <div class="form-group">
                                         <label for="power">Fishermen Skills <span class="vessel-mandatory-ind">*</span></label><br>
-                                        <input #Swimming type="checkbox" name="Swimming"   formControlName="Swimming"  [checked]="true" value="true"  disabled> Swimming
+                                        <input #Swimming type="checkbox" name="Swimming"   formControlName="Swimming"> Swimming
+                                        <!-- [checked]="true" value="true"  disabled -->
                                          <input #netting type="checkbox" name="Netting"  formControlName="netting" (click)="toggleChk()"> Netting
                                         <input #NetSewing type="checkbox" name="NetSewing"  formControlName="NetSewing" (click)="toggleChk()"> Net Sewing
                                         <div *ngIf="submitted && fishermanChk" class="invalid-feedback" style="display: block">

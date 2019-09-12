@@ -34,6 +34,7 @@ import { SocietyListComponent } from './one-portal/dashboard/society-list/societ
 import { StorageServiceModule} from 'angular-webstorage-service';
 import { InlandSocietyRegistrationComponent } from './one-portal/dashboard/inland-society-registration/inland-society-registration.component';
 import { InlandSocietyListComponent } from './one-portal/dashboard/inland-society-list/inland-society-list.component';
+import { EditSocietyMemberComponent } from './one-portal/dashboard/edit-society-member/edit-society-member.component';
 
 
 
@@ -105,6 +106,9 @@ const appRoutes: Routes = [
       }, {
         path: 'addnew_inland_society',
         component: InlandSocietyRegistrationComponent
+      }, {
+        path: 'editsociety_member',
+        component: EditSocietyMemberComponent,
       }
     ]
   },
@@ -136,6 +140,7 @@ const appRoutes: Routes = [
     SocietyListComponent,
     InlandSocietyRegistrationComponent,
     InlandSocietyListComponent,
+    EditSocietyMemberComponent,
    
     
     
