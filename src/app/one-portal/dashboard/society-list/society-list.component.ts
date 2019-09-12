@@ -47,15 +47,15 @@ export class SocietyListComponent implements OnInit {
     let  distId1 = this.distId;
     let mandalId=this.mandalId;
     let flcId1=this.flcid;
-    this.vesselRegistrationService.getVesselDetails(distId1,mandalId,flcId1).subscribe(data => {
-      this.spinner.hide();
-      this.SocietyList = data;
-      this.waterBodyPagination = this.SocietyList && this.SocietyList.length > 6 ? true : false; 
+    // this.vesselRegistrationService.getVesselDetails(distId1,mandalId,flcId1).subscribe(data => {
+    //   this.spinner.hide();
+    //   this.SocietyList = data;
+    //   this.waterBodyPagination = this.SocietyList && this.SocietyList.length > 6 ? true : false; 
 
-    }, error => {
-      this.spinner.hide();
-    }
-      ); 
+    // }, error => {
+    //   this.spinner.hide();
+    // }
+    //   ); 
   }
   addnewSociety() {
     this.router.navigate(['/dashboard/addnew_society']);
