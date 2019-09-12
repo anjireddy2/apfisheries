@@ -1,11 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import {VesselRegistrationService} from '../vessel-registration.service';
-import { Observable, Subject  } from 'rxjs-compat';
-import { VesselregistractionModule } from '../../vesselregistraction/vesselregistraction.module';
-import { subscribeOn } from 'rxjs-compat/operator/subscribeOn';
 import { NgxSpinnerService } from 'ngx-spinner';
-// import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 
 @Component({
   selector: 'app-vessel-registration',
@@ -36,8 +32,6 @@ export class VesselRegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.vesselRegistrationService.getDist().subscribe(data => this.Dist = data);
-    // let userId = this.storage.get("user_id");
-    let userId = this.vesselRegistrationService.getUserId();
   }
 
   getMandal()
@@ -56,8 +50,6 @@ export class VesselRegistrationComponent implements OnInit {
     this.flcid = undefined;
   }
 
-  
-
   getVesselDetails()
   {
     this.spinner.show();
@@ -71,10 +63,7 @@ export class VesselRegistrationComponent implements OnInit {
 
     }, error => {
       this.spinner.hide();
-    }
-      ); 
-    // this.waterBodyPagination = !this.waterBodyPagination;
-    // this.waterBodyPagination = this.VesselLists && this.VesselLists.length > 5 ? !this.waterBodyPagination : this.waterBodyPagination; 
+    }); 
   }
 
 
@@ -87,47 +76,35 @@ export class VesselRegistrationComponent implements OnInit {
     let mandalId=this.mandalId;
     let flcId1=this.flcid;
     let ind = this.VesselLists.findIndex(x=>x.id==this.vesselDataId.id);
-    this.vesselRegistrationService.vesselDelete(distId1,mandalId,flcId1,this.vesselDataId.id).subscribe(data => 
-  {
-    this.spinner.hide();
-  this.deleteMsg = data; 
-  // this.successsms = true;
-  // window.scroll(0,0);
-
-  //alert(this.deleteMsg.message);
-   if(this.deleteMsg.success == true)
-   {
-
-    this.successsms = true;
-    window.scroll(0,0);
-    this.VesselLists.splice(ind,1);
-   }else
-   {
-    this.errorsms = true;
-    window.scroll(0,0);
-   }
-  }, error => {
-    this.spinner.hide();
-  });
+    this.vesselRegistrationService.vesselDelete(distId1,mandalId,flcId1,this.vesselDataId.id).subscribe(data => {
+        this.spinner.hide();
+      this.deleteMsg = data; 
+      if(this.deleteMsg.success == true) {
+        this.successsms = true;
+        window.scroll(0,0);
+        this.VesselLists.splice(ind,1);
+      } else {
+        this.errorsms = true;
+        window.scroll(0,0);
+      }
+    }, error => {
+        this.spinner.hide();
+    });
   }
 
-  edidtVessel(vesselList){
+  edidtVessel(vesselList) {
     this.router.navigate(['/dashboard/edit_vessel',vesselList.id]);
   }
 
-  addnewVessel()
-  {
+  addnewVessel() {
     this.router.navigate(['/dashboard/addnew_vessel']);
   }
 
   vesselData(vesselList) {
     this.vesselDataId = vesselList;
   }
-pageChanged(event) {
+
+  pageChanged(event) {
   this.p = event;
-}
-  
-
-  
-
+  }
 }

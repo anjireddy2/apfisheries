@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { $ } from 'protractor';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
-// import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
+import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 
 
 
@@ -46,7 +46,8 @@ export class AddnewVesselComponent implements OnInit {
   adhar_success: boolean;
  
 
-  constructor(private router:Router,private formBuilder: FormBuilder,private vesselRegistrationService: VesselRegistrationService,private _http: HttpClient, private spinner: NgxSpinnerService) { }
+  constructor(private router:Router,private formBuilder: FormBuilder,private vesselRegistrationService: VesselRegistrationService,private _http: HttpClient, 
+    private spinner: NgxSpinnerService, @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
 
   ngOnInit() 
   {
@@ -88,7 +89,7 @@ export class AddnewVesselComponent implements OnInit {
   
      this.vesselRegistrationService.getDist().subscribe(data => this.Dist = data);
     //  console.log(this.Dist);
-     this.userId = this.vesselRegistrationService.getUserId();
+    //  this.userId = this.storage.get("user_id");
      // f();
   }
   
@@ -137,7 +138,7 @@ export class AddnewVesselComponent implements OnInit {
     this.registerForm.value.father_name =  this.rationVerify.father_name;
     this.registerForm.value.owner_name =  this.rationVerify.owner_name;
     }
-    this.registerForm.value.userId=this.userId;
+    this.registerForm.value.userId = this.storage.get("user_id");
     // console.log(this.registerForm.value.userId);
     this.vesselRegistrationService.createVessel(distId1, mandalId1 , flcId1, this.registerForm.value).subscribe(data => {
       this.spinner.hide();

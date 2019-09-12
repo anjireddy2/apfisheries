@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,9 +10,12 @@ export class DashboardComponent implements OnInit {
 
   // verifyOtp =false;
 
-  constructor() { }
+  constructor( @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
 
   ngOnInit() {
+  }
+  logout() {
+    this.storage.remove('user_id');
   }
 
 //   sendOtp()
