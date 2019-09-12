@@ -111,8 +111,8 @@ addFieldValue() {
 }
 deleteFieldValue(index) {
   // this.fieldArray.splice(index, 1);
-  const control = <FormArray>this.societyRegistrationForm.controls.technologies;
-   control.removeAt(index);
+  // const control = <FormArray>this.societyRegistrationForm.controls.field['controls'];
+  this.societyRegistrationForm.controls.field['controls'].splice(index,1);
 }
 
 onEditCloseItems() {

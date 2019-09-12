@@ -94,3 +94,6 @@ font-size: 12px;
 {
     font-size: 12px;
 }
+.vessel-mandatory-ind{
+    color:red; font-weight:700;
+}

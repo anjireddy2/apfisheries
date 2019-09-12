@@ -90,6 +90,11 @@ export class VesselRegistrationService
     return this._http.get<VesselregistractionModule[]>(this.apiURL + "/society_registrations");
   }
 
+  public getSocietyDetails(did:number,mid:number,flcid:number):any
+  {
+    return this._http.get<VesselregistractionModule[]>(this.apiURL+"/districts/"+did+"/mandals/"+mid+"/fish_landing_centers/"+flcid+"/society_details/");
+  }
+
   // public addMembers(membersList1)
   // {
   //   return this._http.post<VesselregistractionModule[]>(this.apiURL+"/society_registrations/add_members",membersList1);

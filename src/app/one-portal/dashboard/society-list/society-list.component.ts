@@ -4,6 +4,7 @@ import {VesselRegistrationService} from '../vessel-registration.service';
 import { Observable, Subject  } from 'rxjs-compat';
 import { VesselregistractionModule } from '../../vesselregistraction/vesselregistraction.module';
 import { subscribeOn } from 'rxjs-compat/operator/subscribeOn';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-society-list',
   templateUrl: './society-list.component.html',
@@ -17,12 +18,20 @@ export class SocietyListComponent implements OnInit {
   deleteSociety: any;
   delete_success: boolean;
   delete_error: boolean;
+  Dist: VesselregistractionModule[];
+  distId: any;
+  mandalId: any;
+  flcid: any;
+  Mandals: any;
+  Flcs: any;
 
-  constructor(private vesselRegistrationService: VesselRegistrationService, private router: Router) {
+  constructor(private vesselRegistrationService: VesselRegistrationService, private router: Router, 
+    private spinner: NgxSpinnerService) {
 
    }
 
   ngOnInit() {
+    this.vesselRegistrationService.getDist().subscribe(data => this.Dist = data);
     this.vesselRegistrationService.societyList().subscribe(data => {
       this.SocietyList = data;
       this.waterBodyPagination = this.SocietyList && this.SocietyList.length > 6 ? true : false; 
@@ -32,6 +41,21 @@ export class SocietyListComponent implements OnInit {
 
   }
 
+  getSocietyDetails() {
+    //this.spinner.show();
+    let  distId1 = this.distId;
+    let mandalId=this.mandalId;
+    let flcId1=this.flcid;
+    // this.vesselRegistrationService.getVesselDetails(distId1,mandalId,flcId1).subscribe(data => {
+    //   this.spinner.hide();
+    //   this.SocietyList = data;
+    //   this.waterBodyPagination = this.SocietyList && this.SocietyList.length > 6 ? true : false; 
+
+    // }, error => {
+    //   this.spinner.hide();
+    // }
+    //   ); 
+  }
   addnewSociety() {
     this.router.navigate(['/dashboard/addnew_society']);
   }
@@ -46,6 +70,21 @@ export class SocietyListComponent implements OnInit {
     });
 
 
+  }
+  getMandal()
+  {
+    let  distId1 = this.distId;
+    this.vesselRegistrationService.getMandal(distId1).subscribe(data => this.Mandals = data); 
+    this.mandalId = undefined;
+    this.flcid = undefined;
+  }
+
+  getFlc()
+  {
+    let  distId1 = this.distId;
+    let mandalId=this.mandalId;
+    this.vesselRegistrationService.getFlc(distId1,mandalId).subscribe(data => this.Flcs = data); 
+    this.flcid = undefined;
   }
 
   pageChanged(event) {

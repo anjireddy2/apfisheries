@@ -31,7 +31,7 @@ import { SocietyAddMembersComponent } from './one-portal/dashboard/society-add-m
 import { SocietyListComponent } from './one-portal/dashboard/society-list/society-list.component';
  import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 // import { InlandSocietyRegistrationComponent } from './one-portal/dashboard/inland-society-registration/inland-society-registration.component';
-// import { StorageServiceModule} from 'angular-webstorage-service';
+import { StorageServiceModule} from 'angular-webstorage-service';
 
 
 
@@ -147,7 +147,7 @@ const appRoutes: Routes = [
     MatInputModule,
     MatNativeDateModule,
     NgxSpinnerModule,
-    // StorageServiceModule,
+    StorageServiceModule,
    
     RouterModule.forRoot(
       appRoutes,{useHash: true}

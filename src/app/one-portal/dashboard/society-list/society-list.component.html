@@ -27,7 +27,51 @@
             </a>
         </div>
     </div>
+    <form>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="power">District</label>
+          <select  class="form-control"  [(ngModel)]="distId" (ngModelChange)="getMandal()" name="dist">
+            <!-- <option value="" disabled="true" [selected]="!distId">--please select--</option> -->
+            <option [ngValue]="undefined" hidden selected> --Select-- </option>
 
+            <option *ngFor='let dist of Dist' [ngValue]='dist.id'>
+            {{ dist.district_name}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="power">Mandal</label>
+          <select class="form-control" [(ngModel)]="mandalId" (ngModelChange)='getFlc()'   name="mandal">
+            <option [ngValue]="undefined" hidden selected> --Select-- </option>
+
+            <option *ngFor='let mandal of Mandals' [ngValue]='mandal.id'>
+            {{ mandal.mandal_name}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+            <div class="form-group">
+              <label for="power">Fish Landing Centre </label>
+              <select class="form-control" [(ngModel)]="flcid"      name="flc">
+                <option [ngValue]="undefined" hidden selected> --Select-- </option>
+
+                <option *ngFor='let flc of Flcs' [ngValue]='flc.id'>
+                {{ flc.flc_name}}
+                </option>
+              </select>
+            </div>
+          </div>
+    </div>
+    <div class="col-md-12 ">
+      <input type="button" class="btn btn-info pull-right " style="margin-bottom: 10px;"  value="Search" (click)="getSocietyDetails()">
+     
+</div>
+</form>
 <div style="float: left; width: 100%; overflow: auto;">
         <table class="table" border="0">  
                 <thead class="">  

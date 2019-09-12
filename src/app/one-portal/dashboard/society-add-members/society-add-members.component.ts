@@ -143,6 +143,10 @@ deleteSmember(societyList)
   })
 }
 
+editSmember(societyMember) {
+
+}
+
 getVerifyBtn(inputType) {
   if(inputType === "Aadhar") {
     this.showVerifyBtn = false;

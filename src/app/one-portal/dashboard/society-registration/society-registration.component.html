@@ -115,10 +115,10 @@ width: 94% ;" *ngIf="successsms" >
                  
                       <div class="col-md-8" style="margin-top: 3%;">
                         <div class="form-group" style="display: inline-block">
-                          <label for="power" style="padding-right: 10px;">NCDC reg: </label>
+                          <label for="power" style="padding-right: 10px;">NCDC reg:<span class="vessel-mandatory-ind">*</span> </label>
                           <input type="radio"  name="ncdc_reg" value="yes" formControlName="ncdc_reg"> Yes
                           <input type="radio" name="ncdc_reg" value="no" formControlName="ncdc_reg"> No
-                          <div *ngIf="submitted && f.ncdc_reg.errors" class="invalid-feedback">
+                          <div *ngIf="submitted && f.ncdc_reg.errors" class="invalid-feedback" style="display: block !important;">
                               <div *ngIf="f.ncdc_reg.errors.required">NCDC Reg is required</div>
                              </div>
                         </div>
@@ -225,6 +225,7 @@ width: 94% ;" *ngIf="successsms" >
                                                                 
                                                             </div> -->
                                                             <input  class="form-control" formControlName="name" type="text"  placeholder="vessel Reg. Number">
+                                                            <div (click)="deleteFieldValue(i)" class="input-group-text"><i class="fa fa-close"></i></div>
                                                             
                                                         </div>
                                                     </td>

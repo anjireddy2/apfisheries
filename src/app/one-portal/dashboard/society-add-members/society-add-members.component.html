@@ -108,7 +108,7 @@
                     </div> 
                     <div class="col-md-4">
                                 <div class="form-group">
-                                   <label for="power">Ration card Number </label> 
+                                   <label for="power">Ration Card Number </label> 
                                    <input type="text" name="ration_card" formControlName="ration_card" class="form-control" (keyup) = "getVerifyBtn('RationCard')" maxlength="15" [ngClass]="{ 'is-invalid': submitted && f.ration_card.errors }" >
                                    <button *ngIf="rationVerifyBtn" type="button" style="float: right;
                margin-top: 9px;
@@ -174,12 +174,12 @@
                         </div>  -->
                         <div class="col-md-4">
                                 <div class="form-group">
-                                        <label for="power">Fisherman Skills <span class="vessel-mandatory-ind">*</span></label><br>
+                                        <label for="power">Fishermen Skills <span class="vessel-mandatory-ind">*</span></label><br>
                                         <input #Swimming type="checkbox" name="Swimming"   formControlName="Swimming"  [checked]="true" value="true"  disabled> Swimming
                                          <input #netting type="checkbox" name="Netting"  formControlName="netting" (click)="toggleChk()"> Netting
                                         <input #NetSewing type="checkbox" name="NetSewing"  formControlName="NetSewing" (click)="toggleChk()"> Net Sewing
                                         <div *ngIf="submitted && fishermanChk" class="invalid-feedback" style="display: block">
-                                                        <div>Fisherman Skills is required</div>
+                                                        <div>Fishermen Skills is required</div>
                                                         </div>	
                                                       
                                 </div>
@@ -204,10 +204,10 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Aadhaar No</th>
                                 
-                                <th scope="col">Rationcard</th>
+                                <th scope="col">Ration Card</th>
                                 <th scope="col">Mobile Number</th>
                                 <th>
-                                 Fisherman Skills
+                                 Fishermen Skills
                                 </th>
                                 <th scope="col">Actions</th>
                               </tr>
@@ -239,6 +239,9 @@
                         
 
 <td>
+    <span (click) = editSmember(addSocietmember1);> 
+        <i class="fa fa-pencil-square-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
+        </span>
 <span (click) = deleteSmember(addSocietmember1);> 
 <i class="fa fa-trash-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
 </span>
