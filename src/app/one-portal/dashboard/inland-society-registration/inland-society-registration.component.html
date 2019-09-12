@@ -1,0 +1,119 @@
+<ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)" size = "medium" color = "#fff" type = "ball-spin-clockwise-fade"></ngx-spinner>
+<div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-success alert-dismissible" *ngIf="success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>{{societyList.message}}</strong>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-danger alert-dismissible" *ngIf="error">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>{{societyList.message}}</strong>
+        <!-- <ul *ngFor = "let registerdata of registerData.message">
+         {{registerdata}}
+         
+        </ul> -->
+  
+     
+      </div>
+    </div>
+  </div>  
+<form [formGroup]="inlandSocietyRegistrationForm" (ngSubmit) = "inlandSocietyRegistration()">
+    <div class="card bg-primary text-white" style="margin-bottom: 10px;">
+        <div class="card-body e-pragati-userregistration">Inland Society Registration
+           
+          </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+              <label for="power">District<span class="vessel-mandatory-ind">*</span></label>
+              <select class="form-control" formControlName="district_name"  [(ngModel)]="distId" (ngModelChange)="getMandal()" [ngClass]="{ 'is-invalid': submitted && f.district_name.errors }">
+                <option *ngFor='let dist of Dist' [ngValue]='dist.id'>
+                {{ dist.district_name}}
+                </option>
+                
+              </select>
+              <div *ngIf="submitted && f.district_name.errors" class="invalid-feedback">
+                  <div *ngIf="f.district_name.errors.required">District  is required</div>
+
+                 </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+              <div class="form-group">
+                <label for="power">Mandal<span class="vessel-mandatory-ind">*</span></label>
+                <select class="form-control" [(ngModel)]="mandalId" (ngModelChange)='getPanchayats()' name="mandal" formControlName="mandal" [ngClass]="{ 'is-invalid': submitted && f.mandal.errors }">
+               
+                  <option *ngFor='let mandal of Mandals' [ngValue]='mandal.id'>
+                  {{ mandal.mandal_name}}
+                  </option>
+                </select>
+                <div *ngIf="submitted && f.mandal.errors" class="invalid-feedback">
+                    <div *ngIf="f.mandal.errors && f.mandal.errors.required">Mandal is required</div>
+
+                   </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                  <label for="power">Grama Panchayat<span class="vessel-mandatory-ind">*</span></label>
+                 
+                  <select class="form-control"  [ngModel]="gramalId"  name="panchayat" formControlName="panchayat" [ngClass]="{ 'is-invalid': submitted && f.panchayat.errors }">
+               
+                    <option *ngFor='let Panchayat of Panchayats' [ngValue]='Panchayat.id'>
+                    {{ Panchayat.panchayat_name}}
+                    </option>
+                  </select>
+                  <div *ngIf="submitted && f.panchayat.errors" class="invalid-feedback">
+                    <div *ngIf="f.panchayat.errors && f.panchayat.errors.required">Panchayat is required</div>
+
+                   </div>
+
+                </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="power">Village<span class="vessel-mandatory-ind">*</span></label>
+                    <select class="form-control"  [ngModel]="villageId"  name="village" formControlName="village" [ngClass]="{ 'is-invalid': submitted && f.village.errors }">
+               
+                      <option *ngFor='let village of Village' [ngValue]='village.id'>
+                      {{ village.village_name}}
+                      </option>
+                    </select>
+                    <div *ngIf="submitted && f.village.errors" class="invalid-feedback">
+                        <div *ngIf="f.village.errors && f.village.errors.required">Village is required</div>
+
+                       </div>
+
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="power">Waterbody<span class="vessel-mandatory-ind">*</span></label>
+                    <select class="form-control"  [ngModel]="waterbodyId"  name="waterbody" formControlName="waterbody" [ngClass]="{ 'is-invalid': submitted && f.waterbody.errors }">
+               
+                      <option *ngFor='let waterbody of Waterbody' [ngValue]='waterbody.id'>
+                      {{ waterbody.water_body_name}}
+                      </option>
+                    </select>
+                    <div *ngIf="submitted && f.waterbody.errors" class="invalid-feedback">
+                        <div *ngIf="f.waterbody.errors && f.waterbody.errors.required">Waterbody is required</div>
+
+                       </div>
+
+                  </div>
+                </div>
+          
+      </div>
+      <div class="col-md-12 ">
+        <input type="submit" class="btn btn-info pull-right" style="margin-bottom: 10px;"  value="Create" >
+       
+  </div>
+
+</form>
+

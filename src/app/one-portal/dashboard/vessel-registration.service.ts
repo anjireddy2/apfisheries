@@ -11,48 +11,41 @@ export class VesselRegistrationService
   
  
    apiURL = 'http://10.129.8.64:3000';
-  //apiURL = 'https://safe-wave-93434.herokuapp.com';
+  // apiURL = 'https://safe-wave-93434.herokuapp.com';
     //apiURL = 'http://10.129.9.22:3000';
     
    //apiURL = 'http://192.168.0.100:3000';
 
-  constructor(private _http: HttpClient) 
-  {
-
+  constructor(private _http: HttpClient) {
   }
 
-  public login(loginForm:any)
-  {
+  public login(loginForm:any) {
     return this._http.post<VesselregistractionModule[]>(this.apiURL+"/user/login/",loginForm);
   }
-  public getDist()
-  {
+
+  public getDist() {
     return this._http.get<VesselregistractionModule[]>(this.apiURL+"/districts");
-    
   }
-  public getMandal(did:number):any
-  {
+
+  public getMandal(did:number):any {
     return this._http.get<VesselregistractionModule[]>(this.apiURL+"/districts/"+did+"/mandals/flc_mandals/");
   }
-  public getFlc(did:number,mid:number):any
-  {
+
+  public getFlc(did:number,mid:number):any {
     return this._http.get<VesselregistractionModule[]>(this.apiURL+"/districts/"+did+"/mandals/"+mid+"/fish_landing_centers/");
   }
 
-  public getPanchyats(did:number,mid:number):any
-  {
+  public getPanchyats(did:number,mid:number):any {
     return this._http.get<VesselregistractionModule[]>(this.apiURL+"/districts/"+did+"/mandals/"+mid+'/panchayats/');
   }
 
-  public getVesselDetails(did:number,mid:number,flcid:number):any
-  {
+  public getVesselDetails(did:number,mid:number,flcid:number):any {
     return this._http.get<VesselregistractionModule[]>(this.apiURL+"/districts/"+did+"/mandals/"+mid+"/fish_landing_centers/"+flcid+"/vessel_details/");
   }
 
   public vesselDelete(did: number,mid: number,flcid: number,vid: number): any {
-  return this._http.delete<VesselregistractionModule[]>(this.apiURL+"/districts/"+did+"/mandals/"+mid+"/fish_landing_centers/"+flcid+"/vessel_details/" +vid+"/destroy/");
+    return this._http.delete<VesselregistractionModule[]>(this.apiURL+"/districts/"+did+"/mandals/"+mid+"/fish_landing_centers/"+flcid+"/vessel_details/" +vid+"/destroy/");
   }
-
 
   public createVessel(did: number, mid: number, flcid: number, registractionData: any) {
     return this._http.post<VesselregistractionModule[]>(this.apiURL+"/districts/"+did+"/mandals/"+mid+"/fish_landing_centers/"+flcid+"/vessel_details/create/",registractionData);
@@ -61,9 +54,9 @@ export class VesselRegistrationService
   public updateVessel(vid: number, vesselUpdate: any) {
     return this._http.put<VesselregistractionModule[]>(this.apiURL+'/vessel_details/'+vid+"/update_vessel/",vesselUpdate);
   }
+
   public vesselEdit(vid: number): any {
     return this._http.get<VesselregistractionModule[]>(this.apiURL+'/vessel_details/'+vid+"/edit_vessel/");
-
   }
 
   public adharVerify(adhid): any {
@@ -83,8 +76,7 @@ export class VesselRegistrationService
     return this._http.get<VesselregistractionModule[]>(this.apiURL + "/society_registrations");
   }
 
-  public getSocietyDetails(did:number,mid:number,flcid:number):any
-  {
+  public getSocietyDetails(did:number,mid:number,flcid:number):any {
     return this._http.get<VesselregistractionModule[]>(this.apiURL+"/districts/"+did+"/mandals/"+mid+"/fish_landing_centers/"+flcid+"/society_details/");
   }
 
@@ -95,16 +87,14 @@ export class VesselRegistrationService
 
   public addsocietymember(societymember) {
     return this._http.post<VesselregistractionModule[]>(this.apiURL+"/society_registrations/add_members",societymember);
-
   }
+
   public forgotPwd(forgotForm) {
     return this._http.post<VesselregistractionModule[]>(this.apiURL + '/user/forgot_pwd', forgotForm);
-
   }
-  public addSociety(societyid)
-  {
-    return this._http.get<VesselregistractionModule[]>(this.apiURL + '/society_registrations/'+societyid+'/society_members/');
 
+  public addSociety(societyid) {
+    return this._http.get<VesselregistractionModule[]>(this.apiURL + '/society_registrations/'+societyid+'/society_members/');
   }
 
   // public getsocietmember(vid)
@@ -113,21 +103,27 @@ export class VesselRegistrationService
 
   // }
 
-  public deletemember(sid)
-  {
+  public deletemember(sid) {
     return this._http.delete<VesselregistractionModule[]>(this.apiURL+"/society_registrations/"+sid+"/delete_member/");
-
   }
-  public deleteSociety(sid1)
-  {
+
+  public deleteSociety(sid1) {
     return this._http.delete<VesselregistractionModule[]>(this.apiURL+"/society_registrations/"+sid1+'/delete_society/');
-
   }
-  public verifyVessel(society)
-  {
-    debugger
 
+  public verifyVessel(society) {
     return this._http.post<VesselregistractionModule[]>(this.apiURL+"/society_registrations/verify_vessel",society);
+  }
 
+  public getVillages(did:number,mid:number):any {
+    return this._http.get<VesselregistractionModule[]>(this.apiURL+"/districts/"+did+"/mandals/"+mid+'/villages/');
+  }
+
+  public getWaterbody(did:number, mid:number):any {
+    return this._http.get<VesselregistractionModule[]>(this.apiURL+"/districts/"+did+"/mandals/"+mid+"/water_bodies/");
+  }
+
+  public getWaterBodyList(did:number, mid:number) {
+    return this._http.get<VesselregistractionModule[]>(this.apiURL+"/districts/"+did+"/mandals/"+mid+"/water_bodies/search");
   }
 }

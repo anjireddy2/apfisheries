@@ -68,7 +68,7 @@
           </div>
     </div>
     <div class="col-md-12 ">
-      <input type="button" class="btn btn-info pull-right " style="margin-bottom: 10px;"  value="Search" (click)="getSocietyDetails()">
+      <input  [disabled]="!distId && !mandalId && !flcid" type="button" class="btn btn-info pull-right " style="margin-bottom: 10px;"  value="Search" (click)="getSocietyDetails()">
      
 </div>
 </form>

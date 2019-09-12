@@ -31,14 +31,15 @@ export class SocietyListComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.spinner.show();
     this.vesselRegistrationService.getDist().subscribe(data => this.Dist = data);
     this.vesselRegistrationService.societyList().subscribe(data => {
+      this.spinner.hide();
       this.SocietyList = data;
       this.waterBodyPagination = this.SocietyList && this.SocietyList.length > 6 ? true : false; 
+    }, error=> {
+      this.spinner.hide();
     });
-    // this.waterBodyPagination = this.SocietyList && this.SocietyList.length > 5 ? !this.waterBodyPagination : this.waterBodyPagination; 
-
-
   }
 
   getSocietyDetails() {
@@ -62,25 +63,19 @@ export class SocietyListComponent implements OnInit {
 
   addMember(societyList) {
     this.router.navigate(['/dashboard/addsociety_members', societyList.id]);
-
     this.vesselRegistrationService.addSociety(societyList.id).subscribe(data => {
       this.addSocietyMember = data;
-      //console.log(this.addSocietyMember.message);
-
     });
-
-
   }
-  getMandal()
-  {
+  
+  getMandal() {
     let  distId1 = this.distId;
     this.vesselRegistrationService.getMandal(distId1).subscribe(data => this.Mandals = data); 
     this.mandalId = undefined;
     this.flcid = undefined;
   }
 
-  getFlc()
-  {
+  getFlc() {
     let  distId1 = this.distId;
     let mandalId=this.mandalId;
     this.vesselRegistrationService.getFlc(distId1,mandalId).subscribe(data => this.Flcs = data); 
@@ -91,29 +86,23 @@ export class SocietyListComponent implements OnInit {
     this.p = event;
   }
 
-  vesselData(societyList)
-  {
+  vesselData(societyList) {
     this.delete_success = false;
     this.delete_error = false;
-
+    this.spinner.show();
     this.vesselRegistrationService.deleteSociety(societyList.id).subscribe(data => {
       this.deleteSociety = data;
-      
-      if(this.deleteSociety.success == true)
-      {
+      this.spinner.hide();
+      if(this.deleteSociety.success == true) {
        this.delete_success = true;
        window.scroll(0,0);
-       //this.reloadiv = true;
-      //  location.reload();
-     }
-       else
-       {
+      } else {
         // this.errorlist = this.vesselUpdate.message.split(",");
-         this.delete_error = true;
-         window.scroll(0,0);
-    
-     
+        this.delete_error = true;
+        window.scroll(0,0);
        }
+    },error=>{
+      this.spinner.hide();
     });
   }
 

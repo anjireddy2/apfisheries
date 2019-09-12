@@ -32,6 +32,8 @@ import { SocietyListComponent } from './one-portal/dashboard/society-list/societ
  import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 // import { InlandSocietyRegistrationComponent } from './one-portal/dashboard/inland-society-registration/inland-society-registration.component';
 import { StorageServiceModule} from 'angular-webstorage-service';
+import { InlandSocietyRegistrationComponent } from './one-portal/dashboard/inland-society-registration/inland-society-registration.component';
+import { InlandSocietyListComponent } from './one-portal/dashboard/inland-society-list/inland-society-list.component';
 
 
 
@@ -97,8 +99,13 @@ const appRoutes: Routes = [
       {
         path: 'addsociety_members/:id',
         component: SocietyAddMembersComponent,
+      }, { 
+        path: 'inland_society_list', 
+        component: InlandSocietyListComponent
+      }, {
+        path: 'addnew_inland_society',
+        component: InlandSocietyRegistrationComponent
       }
-     
     ]
   },
   
@@ -127,7 +134,8 @@ const appRoutes: Routes = [
     SocietyRegistrationComponent,
     SocietyAddMembersComponent,
     SocietyListComponent,
-    // InlandSocietyRegistrationComponent,
+    InlandSocietyRegistrationComponent,
+    InlandSocietyListComponent,
    
     
     
