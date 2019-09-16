@@ -1,10 +1,10 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top e-prgati-header-main">
   <div class="container e-prgati-header">
-    <a class="navbar-brand e-prgati-header-logo" href="#">
+    <a class="navbar-brand e-prgati-header-logo">
           <img src="assets/images/myap_logo.png" alt="">
       </a>
-      <a class="navbar-brand e-prgati-header-department-logo" href="#">
+      <a class="navbar-brand e-prgati-header-department-logo">
         <img src="assets/images/ApFisheries.jpg" alt="">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,8 +35,8 @@
         <ul>
          
           <li>
-              <a class="nav-link collapsed py-1" href="#submenu1sub1" data-toggle="collapse" data-target="#submenu1sub1">
-                 Details <i class="fa fa-chevron-down" aria-hidden="true"  style="float:right; padding-top: 7px; font-size: 14px;"></i>
+              <a class="nav-link collapsed py-1" href="#submenu1sub1" data-toggle="collapse" data-target="#submenu1sub1" (click)="isCollapsed = !isCollapsed">
+                 Details <i [ngClass]="{'fa' : true, 'fa-chevron-down': isCollapsed, 'fa-chevron-right': !isCollapsed}" aria-hidden="true" style="float:right; padding-top: 7px; font-size: 14px;"></i>
                  <!-- <i class="fa fa-chevron-down" *ngIf="submenu1sub1."  style="float:right; padding-top: 7px; font-size: 14px;"></i> -->
                 </a>
 

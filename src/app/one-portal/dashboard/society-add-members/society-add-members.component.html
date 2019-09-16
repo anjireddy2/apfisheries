@@ -291,12 +291,16 @@
                         {{addSocietmember1.member_mobile_no}} 
                        </td>
                        <td> 
-                               <label><b>Swimming</b> :true</label>
+                         <div *ngIf="addSocietMember1.gender === 'Male'">
+                               <label><b>Swimming</b> : true</label>
                                <br>
-                               <label><b>Netting </b> :{{addSocietmember1.netting}}</label>
+                               <label><b>Netting </b> : {{addSocietmember1.netting ? 'Yes' : 'No'}}</label>
                                <br>
-                               <label><b>Net Sewing</b> :{{addSocietmember1.net_sweing}}</label>
-                                 
+                               <label><b>Net Sewing</b> : {{addSocietmember1.net_sweing ? 'Yes' : 'No'}}</label>
+                              </div>
+                              <div *ngIf="addSocietMember1.gender === 'Female'">
+                                <label><b>Fish Vendor</b> : {{addSocietMember1.fish_vendor ? 'Yes' : 'No'}}</label>
+                                </div>
                                  
                         </td>
                         
@@ -308,6 +312,7 @@
 <span (click) = deleteSmember(addSocietmember1);> 
 <i class="fa fa-trash-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
 </span>
+<span *ngIf="addSocietmember1.isPresident" style="color:green">President</span>
 </td>
 </tr>
                    

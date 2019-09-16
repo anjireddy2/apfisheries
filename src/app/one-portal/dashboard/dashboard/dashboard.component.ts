@@ -8,6 +8,8 @@ import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 })
 export class DashboardComponent implements OnInit {
 
+  isCollapsed: boolean = true;
+
   constructor( @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
 
   ngOnInit() {

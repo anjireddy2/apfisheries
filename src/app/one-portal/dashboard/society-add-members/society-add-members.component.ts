@@ -112,17 +112,17 @@ export class SocietyAddMembersComponent implements OnInit {
     this.societyMembersForm.value.netting = this.netting && this.netting.nativeElement ? this.netting.nativeElement.checked : null;
     this.societyMembersForm.value.fishVendor = this.fishVendor && this.fishVendor.nativeElement ? this.fishVendor.nativeElement.checked : null;
     this.societyMembersForm.value.isPresident = this.isPresident.nativeElement.checked;
-    if(this.societyMembersForm.controls['date_of_birth'].status === "DISABLED" || 
-    this.societyMembersForm.controls['age'].status === "DISABLED" ||
-    this.societyMembersForm.controls['social_status'].status === "DISABLED" ||
-    this.societyMembersForm.controls['employment_status'].status === "DISABLED" || 
-    this.societyMembersForm.controls['gender'].status === "DISABLED" ) {
-      this.societyMembersForm.value.date_of_birth = new Date(this.rationVerify.date_of_birth);
-      this.societyMembersForm.value.age =  this.rationVerify.age;
-      this.societyMembersForm.value.social_status =  this.rationVerify.social_status;
-      this.societyMembersForm.value.employment_status =  this.rationVerify.employment_status;
-      this.societyMembersForm.value.gender =  this.rationVerify.gender;
-      }
+    // if(this.societyMembersForm.controls['date_of_birth'].status === "DISABLED" || 
+    // this.societyMembersForm.controls['age'].status === "DISABLED" ||
+    // this.societyMembersForm.controls['social_status'].status === "DISABLED" ||
+    // this.societyMembersForm.controls['employment_status'].status === "DISABLED" || 
+    // this.societyMembersForm.controls['gender'].status === "DISABLED" ) {
+    //   this.societyMembersForm.value.date_of_birth = new Date(this.rationVerify.date_of_birth);
+    //   this.societyMembersForm.value.age =  this.rationVerify.age;
+    //   this.societyMembersForm.value.social_status =  this.rationVerify.social_status;
+    //   this.societyMembersForm.value.employment_status =  this.rationVerify.employment_status;
+    //   this.societyMembersForm.value.gender =  this.rationVerify.gender;
+    //   }
     this.vesselRegistrationService.addsocietymember(this.societyMembersForm.value).subscribe(data => {
       this.spinner.hide();
       this.addsocietyMember = data;
