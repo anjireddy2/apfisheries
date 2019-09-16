@@ -76,8 +76,12 @@ export class VesselRegistrationService
     return this._http.get<VesselregistractionModule[]>(this.apiURL + "/society_registrations");
   }
 
-  public getSocietyDetails(did:number,mid:number,flcid:number):any {
-    return this._http.get<VesselregistractionModule[]>(this.apiURL+"/districts/"+did+"/mandals/"+mid+"/fish_landing_centers/"+flcid+"/society_details/");
+  // public getSocietyDetails(did:number,mid:number,flcid:number):any {
+  //   return this._http.get<VesselregistractionModule[]>(this.apiURL+"/districts/"+did+"/mandals/"+mid+"/fish_landing_centers/"+flcid+"/society_details/");
+  // }
+
+  public getSocietyList(did:number,mid:number,flcid:number):any {
+    return this._http.get<VesselregistractionModule[]>(this.apiURL+"/society_registrations?districts="+did+"&mandals="+mid+"&fish_landing_centers="+flcid);
   }
 
   // public addMembers(membersList1)
@@ -88,6 +92,15 @@ export class VesselRegistrationService
   public addsocietymember(societymember) {
     return this._http.post<VesselregistractionModule[]>(this.apiURL+"/society_registrations/add_members",societymember);
   }
+
+  public editSocietyMember(society_id,society_member_id) {
+    return this._http.get<VesselregistractionModule[]>(this.apiURL+"/society_registrations/edit_member?society_id="+society_id+"&society_member_id="+society_member_id);
+  }
+
+  public updateSocietymember(societymember) {
+    return this._http.post<VesselregistractionModule[]>(this.apiURL+"/society_registrations/update_society_member",societymember);
+  }
+
 
   public forgotPwd(forgotForm) {
     return this._http.post<VesselregistractionModule[]>(this.apiURL + '/user/forgot_pwd', forgotForm);
@@ -126,4 +139,52 @@ export class VesselRegistrationService
   public getWaterBodyList(did:number, mid:number) {
     return this._http.get<VesselregistractionModule[]>(this.apiURL+"/districts/"+did+"/mandals/"+mid+"/water_bodies/search");
   }
+
+  //Inland Society Registration Services
+
+  public createInlandSociety(registrationData: any) {
+    return this._http.post<VesselregistractionModule[]>(this.apiURL+"/inland_society_registrations/create", registrationData);
+  }
+
+  public inlandSocietyList(): any {
+    return this._http.get<VesselregistractionModule[]>(this.apiURL + "/inland_society_registrations");
+  }
+
+  public getInlandSocietyDetails(did:number,mid:number,flcid:number):any {
+    return this._http.get<VesselregistractionModule[]>(this.apiURL+"/districts/"+did+"/mandals/"+mid+"/fish_landing_centers/"+flcid+"/inland_society_details/");
+  }
+
+  public deleteInlandSociety(sid1) {
+    return this._http.delete<VesselregistractionModule[]>(this.apiURL+"/inland_society_registrations/"+sid1+'/delete_inland_society/');
+  }
+  
+  public addedInlandSocietyMembers(societyid) {
+    return this._http.get<VesselregistractionModule[]>(this.apiURL + '/inland_society_registrations/'+societyid+'/inland_society_members/');
+  }
+
+  public addInlandsocietymember(societymember) {
+    return this._http.post<VesselregistractionModule[]>(this.apiURL+"/inland_society_registrations/add_inland_members",societymember);
+  }
+
+  public deleteInlandMember(sid1) {
+    return this._http.delete<VesselregistractionModule[]>(this.apiURL+"/inland_society_registrations/"+sid1+'/delete_inland_society/');
+  }
+
+  public getInlandSocietyMembers(societyid) {
+    return this._http.get<VesselregistractionModule[]>(this.apiURL + '/inland_society_registrations/'+societyid+'/inland_society_member_data/');
+  }
+  //End Of InlandSociety
+
+  public createCrewMember(registractionData: any) {
+    return this._http.post<VesselregistractionModule[]>(this.apiURL+"/vessel_details/create_crew_user/",registractionData);
+  }
+
+  public crewMemberList(data: any) {
+    return this._http.get<VesselregistractionModule[]>(this.apiURL+"/vessel_details/crew_list?id="+data);
+  }
+
+  public deleteCrewMember(vesselId, crewMemberId) {
+    return this._http.delete<VesselregistractionModule[]>(this.apiURL+"/vessel_registrations/delete_crew_member?vessel_id="+vesselId+"&crew_member_id"+crewMemberId);
+  }
+  
 }

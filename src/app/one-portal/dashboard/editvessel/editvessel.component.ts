@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {VesselRegistrationService} from '../vessel-registration.service';
 import { ActivatedRoute } from '@angular/router';
-import {FormControl} from '@angular/forms';
-import { switchMap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -59,15 +57,11 @@ export class EditvesselComponent implements OnInit {
       ifsc_code: ['', Validators.required],
       bank_name: ['', Validators.required],
       email_id: [''],
-      // eligible: ['', [Validators.required]],
       district_name: ['', [Validators.required]],
       mandal: ['', [Validators.required]],
       flc: ['', [Validators.required]],
-      // Panchayat:['', [Validators.required]],
       vessltype:['', [Validators.required]],
       vessel_number:['', [Validators.required,Validators.minLength(20)]],
-      // mfid:['', [Validators.required,Validators.minLength(20)]],
-      // remarks:['', [Validators.required,Validators.minLength(200)]],
       licence_renewal_date:['', [Validators.required]],
       licence_valid_date:['', [Validators.required]],
       mfid_number:[''],
@@ -83,23 +77,12 @@ export class EditvesselComponent implements OnInit {
       
   }); 
     const vid = +this.route.snapshot.paramMap.get('id');
-    //const  xyz ='12-01-1002';
-    //console.log(this.a);
-    // let  licence_renewal_date = new  Date(xyz);
-   // let licence_renewal_date = new FormControl(new Date(xyz));
-     
-
-     //this.updateForm.controls['licence_renewal_date'].setValue(new Date(xyz));
-     //debugger
-     this.spinner.show();
+    this.spinner.show();
     this.vesselRegistrationService.getDist().subscribe(data => this.Dist = data);
     let  distId1 = this.distId;
     this.vesselRegistrationService.vesselEdit(vid).subscribe(data => {
       this.spinner.hide();
       this.editVessel = data;
-      console.log( this.editVessel)
-     
-      
       this.updateForm.controls['licence_renewal_date'].setValue(new Date(this.editVessel.license_renewed_date));
       this.updateForm.controls['licence_valid_date'].setValue(new Date(this.editVessel.license_valid_upto));
       
@@ -109,20 +92,16 @@ export class EditvesselComponent implements OnInit {
       this.vesselRegistrationService.getMandal(this.editVessel.district_id).subscribe(data => this.Mandals = data);
       this.vesselRegistrationService.getFlc(this.editVessel.district_id,this.editVessel.mandal_id).subscribe(data => this.Flcs = data);
       this.vesselRegistrationService.getPanchyats(this.editVessel.district_id,this.editVessel.mandal_id).subscribe(data => this.Panchayats = data);
-
     });
   }
   get f() { return this.updateForm.controls; }
 
-getMandal()
-  {
+  getMandal() {
     let  distId1 = this.distId;
-    // alert(distId1);
     this.vesselRegistrationService.getMandal(distId1).subscribe(data => this.Mandals = data); 
   }
 
-  getFlc()
-  {
+  getFlc() {
     let  distId1 = this.distId;
     let mandalId=this.mandalId;
     this.vesselRegistrationService.getFlc(distId1,mandalId).subscribe(data => this.Flcs = data); 
@@ -130,40 +109,31 @@ getMandal()
 
   onlyNumberKey(event) {
     return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57;
-}
+  }
 
-  onClickUpdate(vesselUpdate) 
-  {
+  onClickUpdate(vesselUpdate) {
     this.spinner.show();
-       this.submitted = true;
-       this.error = false;
-       this.success = false;
-
+    this.submitted = true;
+    this.error = false;
+    this.success = false;
     if (this.updateForm.invalid) {
       this.spinner.hide();
-        return;
-    }    const vid = +this.route.snapshot.paramMap.get('id');
+      return;
+    }    
+    const vid = +this.route.snapshot.paramMap.get('id');
     this.vesselRegistrationService.updateVessel(vid,this.updateForm.value).subscribe(data => {
       this.spinner.hide();
-       this.vesselUpdate = data;
-      if(this.vesselUpdate.success == true)
-    {
-     this.success = true;
-     window.scroll(0,0);
-   }
-     else
-     {
+      this.vesselUpdate = data;
+      if(this.vesselUpdate.success == true) {
+        this.success = true;
+      } else {
       // this.errorlist = this.vesselUpdate.message.split(",");
        this.error = true;
-       window.scroll(0,0);
-
-   
-     }
-   }, error => {
-    this.spinner.hide();
-  });
- 
-
+      }
+     window.scroll(0,0);
+    }, error => {
+      this.spinner.hide();
+    });
   }
 
 
@@ -181,33 +151,26 @@ getMandal()
         this.rationVerifyBtn = true;
       }
     } 
+  }
 
-    }
-
-  getadhar()
-  {
-    // alert();
+  getadhar() {
+    this.spinner.show()
     this.adhar_error = false;
     this.adhar_success = false;
     let  adhNum = ((document.getElementById("adharId") as HTMLInputElement).value);
-  //  alert(adhNum);
     this.vesselRegistrationService.adharVerify(adhNum).subscribe(data => {
+      this.spinner.hide();
       this.adharVerify = data;
-      if(this.adharVerify && this.adharVerify.success === true)
-      {
+      if(this.adharVerify && this.adharVerify.success === true) {
         this.adhar_success = true;
-        window.scroll(0,0);
         this.showVerifyBtn = false;
         this.reference = this.adharVerify.message;
         this.adharVerify.success = true;
-      }
-      else
-      {
+      } else {
         this.adharVerify.error = true;
         this.adhar_error = true;
-        window.scroll(0,0);
-       
       }
+      window.scroll(0,0);
     }, error => {
       this.spinner.hide();
     });
@@ -220,31 +183,22 @@ getMandal()
     let  rationNum = this.updateForm.controls.ration_card.value;
     let adhNum = this.updateForm.controls.aadhaar_number.value;
     this.vesselRegistrationService.rationVerify(rationNum,adhNum).subscribe(data => {
-       this.spinner.hide();
+      this.spinner.hide();
       this.rationVerify = data;
-      if(this.rationVerify && this.rationVerify.success === true)
-      {
-        
+      if(this.rationVerify && this.rationVerify.success === true) {
         this.updateForm.controls['owner_name'].disable();
         this.updateForm.controls['father_name'].disable();
-
         this.success1 = true;
-      window.scroll(0,0);
         this.rationVerifyBtn = false;
         this.rationVerify.success = true;
-      }
-      else
-      {
+      } else {
         this.updateForm.controls['owner_name'].enable();
         this.updateForm.controls['father_name'].enable();
-
         this.error1 = true;
-        window.scroll(0,0);
-       
       }
+      window.scroll(0,0);
     }, error => {
        this.spinner.hide();
     });
   }
-  
 }

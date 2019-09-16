@@ -1,4 +1,4 @@
-<!-- <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)" size = "medium" color = "#fff" type = "ball-spin-clockwise-fade"></ngx-spinner> -->
+<ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)" size = "medium" color = "#fff" type = "ball-spin-clockwise-fade"></ngx-spinner>
 <!-- {{addSocietMember1.message[0].id}} -->
 
 <div class="row">
@@ -136,6 +136,58 @@
                         </div>
                     </div>
                   </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="power" style="display: block; margin-bottom: 0px;">Date Of Birth</label>
+                     <!-- <input  type="date"  placeholder="select date" formControlName="licence_renewal_date" value="" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.licence_renewal_date.errors }"> -->
+                     <mat-form-field>
+                      <input matInput [matDatepicker]="picker1"   placeholder="Selct date" formControlName="date_of_birth" [(ngModel)]="rationVerify.date_of_birth">
+                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                      <mat-datepicker #picker1 > </mat-datepicker>
+                    </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="power">Gender<span class="vessel-mandatory-ind">*</span></label>
+                      <select class="form-control" formControlName="gender" name="gender" placeholder="Select" [(ngModel)]="rationVerify.gender" (ngModelChange)="genderSelection(societyMembersForm.value.gender)"  [ngClass]="{ 'is-invalid': submitted && f.mobile_number.errors }">
+                        <option [ngValue]="undefined" hidden selected> --Select-- </option>
+                        <option value="Male">  Male </option>
+                        <option value="Female"> Female </option>          
+                     </select>
+                     <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
+                      <div *ngIf="f.gender.errors.required">Gender is required</div>
+                     </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="power">Social Status</label>
+                      <select class="form-control" formControlName="social_status" name="social_status" [(ngModel)]="rationVerify.social_status">
+                        <option [ngValue]="undefined" hidden selected> --Select-- </option>
+                        <option value="OC"> OC </option>
+                        <option value="BC"> BC </option>
+                        <option value="SC"> SC </option>   
+                        <option value="SC"> ST </option>            
+                     </select>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="power">Employment Status</label>
+                      <select class="form-control" formControlName="employment_status" name="employment_status" [(ngModel)]="rationVerify.employment_status">
+                        <option [ngValue]="undefined" hidden selected> --Select-- </option>
+                            <option value="Employed"> Employed </option>
+                            <option value="UnEmployed"> UnEmployed </option>          
+                     </select>
+                  </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="power">Age </label>
+                     <input type="text" (keypress)="onlyNumberKey($event)" pattern="\d*" formControlName="age" class="form-control" [(ngModel)]="rationVerify.age">
+                </div>
+                </div>
                    
                     <!-- <div class="col-md-4">
                             <div class="form-group">
@@ -172,7 +224,7 @@
                                         </div>
                                 </div>
                         </div>  -->
-                        <div class="col-md-4">
+                        <div class="col-md-4" *ngIf="verifyGenderMale" style="margin-top: 2%;">
                                 <div class="form-group">
                                         <label for="power">Fishermen Skills <span class="vessel-mandatory-ind">*</span></label><br>
                                         <input #Swimming type="checkbox" name="Swimming"   formControlName="Swimming"> Swimming
@@ -185,12 +237,22 @@
                                                       
                                 </div>
                         </div>
-
-    
-     
-             </div>
-             <div>
-                    <input type="submit" class="btn btn-info pull-right " style="margin-bottom: 10px;"  value="ADD" >
+                        <div class="col-md-4" *ngIf="verifyGenderFemale" style="margin-top: 2%;">
+                          <div class="form-group">
+                              <label for="power">FisherWomen Skills</label><br>
+                              <input #fishVendor type="checkbox" name="fish_vendor"   formControlName="fish_vendor"> Fish Vendor             
+                          </div>
+                        </div>
+                      </div>
+            <div class="row" style="margin-top: 2%;">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <input #isPresident type="checkbox" name="is_president" formControlName="is_president"> Is President         
+                </div>
+              </div>
+            </div>
+            <div>
+              <input type="submit" class="btn btn-info pull-right " style="margin-bottom: 10px;"  value="ADD" >
             
             </div>
         </form>
@@ -240,7 +302,7 @@
                         
 
 <td>
-    <span (click) = editSmember(addSocietmember1);> 
+    <span (click) = editSmember(addSocietmember1) style="padding-right: 10px;"> 
         <i class="fa fa-pencil-square-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
         </span>
 <span (click) = deleteSmember(addSocietmember1);> 

@@ -34,24 +34,21 @@ export class VesselRegistrationComponent implements OnInit {
     this.vesselRegistrationService.getDist().subscribe(data => this.Dist = data);
   }
 
-  getMandal()
-  {
+  getMandal() {
     let  distId1 = this.distId;
     this.vesselRegistrationService.getMandal(distId1).subscribe(data => this.Mandals = data); 
     this.mandalId = undefined;
     this.flcid = undefined;
   }
 
-  getFlc()
-  {
+  getFlc() {
     let  distId1 = this.distId;
     let mandalId=this.mandalId;
     this.vesselRegistrationService.getFlc(distId1,mandalId).subscribe(data => this.Flcs = data); 
     this.flcid = undefined;
   }
 
-  getVesselDetails()
-  {
+  getVesselDetails() {
     this.spinner.show();
     let  distId1 = this.distId;
     let mandalId=this.mandalId;
@@ -60,15 +57,13 @@ export class VesselRegistrationComponent implements OnInit {
       this.spinner.hide();
       this.VesselLists = data;
       this.waterBodyPagination = this.VesselLists && this.VesselLists.length > 6 ? true : false; 
-
     }, error => {
       this.spinner.hide();
     }); 
   }
 
 
-  deleteVessel()
-  {
+  deleteVessel() {
     this.spinner.show();
     let  distId1 = this.distId;
     this.errorsms = false;
@@ -77,7 +72,7 @@ export class VesselRegistrationComponent implements OnInit {
     let flcId1=this.flcid;
     let ind = this.VesselLists.findIndex(x=>x.id==this.vesselDataId.id);
     this.vesselRegistrationService.vesselDelete(distId1,mandalId,flcId1,this.vesselDataId.id).subscribe(data => {
-        this.spinner.hide();
+      this.spinner.hide();
       this.deleteMsg = data; 
       if(this.deleteMsg.success == true) {
         this.successsms = true;
@@ -100,11 +95,15 @@ export class VesselRegistrationComponent implements OnInit {
     this.router.navigate(['/dashboard/addnew_vessel']);
   }
 
+  crewUser(vesselList) {
+    this.router.navigate(['/dashboard/crew_user_vessel',vesselList.id]);
+  }
+
   vesselData(vesselList) {
     this.vesselDataId = vesselList;
   }
 
   pageChanged(event) {
-  this.p = event;
+    this.p = event;
   }
 }

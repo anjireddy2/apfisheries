@@ -47,15 +47,13 @@ export class SocietyListComponent implements OnInit {
     let  distId1 = this.distId;
     let mandalId=this.mandalId;
     let flcId1=this.flcid;
-    // this.vesselRegistrationService.getVesselDetails(distId1,mandalId,flcId1).subscribe(data => {
-    //   this.spinner.hide();
-    //   this.SocietyList = data;
-    //   this.waterBodyPagination = this.SocietyList && this.SocietyList.length > 6 ? true : false; 
-
-    // }, error => {
-    //   this.spinner.hide();
-    // }
-    //   ); 
+    this.vesselRegistrationService.getSocietyList(distId1,mandalId,flcId1).subscribe(data => {
+      this.spinner.hide();
+      this.SocietyList = data;
+      this.waterBodyPagination = this.SocietyList && this.SocietyList.length > 6 ? true : false; 
+    }, error => {
+      this.spinner.hide();
+    }); 
   }
   addnewSociety() {
     this.router.navigate(['/dashboard/addnew_society']);
@@ -86,21 +84,21 @@ export class SocietyListComponent implements OnInit {
     this.p = event;
   }
 
-  vesselData(societyList) {
+  vesselData(societyList, index) {
     this.delete_success = false;
     this.delete_error = false;
     this.spinner.show();
     this.vesselRegistrationService.deleteSociety(societyList.id).subscribe(data => {
       this.deleteSociety = data;
+      this.SocietyList.splice(index, 1);
       this.spinner.hide();
       if(this.deleteSociety.success == true) {
        this.delete_success = true;
-       window.scroll(0,0);
       } else {
         // this.errorlist = this.vesselUpdate.message.split(",");
         this.delete_error = true;
-        window.scroll(0,0);
        }
+       window.scroll(0,0);
     },error=>{
       this.spinner.hide();
     });

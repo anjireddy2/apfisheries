@@ -94,6 +94,54 @@
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
+                    <label for="power">Type Of Water Body<span class="vessel-mandatory-ind">*</span></label>
+                    <select class="form-control"  [ngModel]="waterbodyType"  name="waterbodyType" formControlName="waterbodyType" [ngClass]="{ 'is-invalid': submitted && f.waterbodyType.errors }">
+               
+                      <option *ngFor='let waterbody of Waterbody' [ngValue]='waterbody.id'>
+                      {{ waterbody.water_body_name}}
+                      </option>
+                    </select>
+                    <div *ngIf="submitted && f.waterbodyType.errors" class="invalid-feedback">
+                        <div *ngIf="f.waterbodyType.errors && f.waterbodyType.errors.required">Waterbody Type is required</div>
+
+                       </div>
+
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="power">Name Of Water Body<span class="vessel-mandatory-ind">*</span></label>
+                    <select class="form-control"  [ngModel]="waterbodyName"  name="waterbodyName" formControlName="waterbodyName" [ngClass]="{ 'is-invalid': submitted && f.waterbodyName.errors }">
+               
+                      <option *ngFor='let waterbody of Waterbody' [ngValue]='waterbody.id'>
+                      {{ waterbody.water_body_name}}
+                      </option>
+                    </select>
+                    <div *ngIf="submitted && f.waterbodyName.errors" class="invalid-feedback">
+                        <div *ngIf="f.waterbodyName.errors && f.waterbodyName.errors.required">Waterbody Name is required</div>
+
+                       </div>
+
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="power">Seasonality<span class="vessel-mandatory-ind">*</span></label>
+                    <select class="form-control"  [ngModel]="seasonality"  name="seasonality" formControlName="seasonality" [ngClass]="{ 'is-invalid': submitted && f.seasonality.errors }">
+               
+                      <option *ngFor='let waterbody of Waterbody' [ngValue]='waterbody.id'>
+                      {{ waterbody.water_body_name}}
+                      </option>
+                    </select>
+                    <div *ngIf="submitted && f.seasonality.errors" class="invalid-feedback">
+                        <div *ngIf="f.seasonality.errors && f.seasonality.errors.required">Waterbody Name is required</div>
+
+                       </div>
+
+                  </div>
+                </div>
+                <!-- <div class="col-md-4">
+                  <div class="form-group">
                     <label for="power">Waterbody<span class="vessel-mandatory-ind">*</span></label>
                     <select class="form-control"  [ngModel]="waterbodyId"  name="waterbody" formControlName="waterbody" [ngClass]="{ 'is-invalid': submitted && f.waterbody.errors }">
                
@@ -107,7 +155,7 @@
                        </div>
 
                   </div>
-                </div>
+                </div> -->
           
       </div>
       <div class="col-md-12 ">

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { VesselRegistrationService } from '../vessel-registration.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -18,6 +18,8 @@ export class EditSocietyMemberComponent implements OnInit {
   @ViewChild('netting', {static : false}) netting: ElementRef;
   @ViewChild('NetSewing', {static : false}) NetSewing: ElementRef;
   @ViewChild('Swimming', {static : false}) Swimming: ElementRef;
+  @ViewChild('fishVendor', {static : false}) fishVendor: ElementRef;
+  @ViewChild('isPresident', {static : false}) isPresident: ElementRef;
   error1: boolean;
   success1: boolean;
   rationVerify: any = [];
@@ -27,7 +29,11 @@ export class EditSocietyMemberComponent implements OnInit {
   adharVerify: any = [];
   showVerifyBtn: boolean;
   reference: any;
-  constructor(private route: ActivatedRoute, private vesselRegistrationService: VesselRegistrationService, private formBuilder: FormBuilder,  
+  editSocietyMember: any = [];
+  updateSocietyMember: any = [];
+  verifyGenderMale: boolean;
+  verifyGenderFemale: boolean;verifyGender: boolean;
+  constructor(private router: Router, private route: ActivatedRoute, private vesselRegistrationService: VesselRegistrationService, private formBuilder: FormBuilder,  
     private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
@@ -35,19 +41,54 @@ export class EditSocietyMemberComponent implements OnInit {
       vessel_name: ['', Validators.required],
       aadhaar_number: ['', [Validators.required, Validators.minLength(12)]],
       ration_card: [''],
+      social_status: [''],
+      employment_status: [''],
+      gender: ['', Validators.required],
+      age: [''],
+      date_of_birth: [''],
       mobile_number: ['', [Validators.required, Validators.minLength(10)]],
       Swimming: [{value:true,disabled: true}],
       netting: [''],
-      NetSewing: ['']
+      NetSewing: [''],
+      is_president: [''],
+      fish_vendor: ['']
    });
+    this.spinner.show();
+    let society_id = this.route.snapshot.paramMap.get('society_id');
+    let society_member_id = this.route.snapshot.paramMap.get('society_member_id');
+    this.vesselRegistrationService.editSocietyMember(society_id, society_member_id).subscribe(data => {
+      this.spinner.hide();
+      this.editSocietyMember = data['message'];
+      if(this.netting != undefined) {
+        this.netting.nativeElement.checked = this.editSocietyMember.netting ? true : false;
+        this.NetSewing.nativeElement.checked = this.editSocietyMember.net_sweing ? true : false;
+      }
+      if(this.fishVendor != undefined) {
+        this.fishVendor.nativeElement.checked = this.fishVendor != undefined && this.editSocietyMember.fish_vendor ? true : false;
+      }
+      this.isPresident.nativeElement.checked = this.editSocietyMember.is_president ? true : false;  
+      if(this.editSocietyMember.member_date_of_birth) {  
+        this.editSocietyMembersForm.controls['date_of_birth'].setValue(new Date(this.editSocietyMember.member_date_of_birth));
+      }
+      this.genderSelection(this.editSocietyMember.member_social_status)
 
-   const vid = +this.route.snapshot.paramMap.get('id');
-  //  this.vesselRegistrationService.addSociety(vid).subscribe(data => {
-  //    this.addSocietMember1 = data;
-  //    //alert();
-  //    console.log(this.addSocietMember1.message);
-  //  });
+    }, error=>{
+      this.spinner.hide()
+   });
   }
+
+  
+  genderSelection(gender) {
+    if(gender) {
+      this.verifyGenderMale = false;
+      this.verifyGenderFemale = false;
+      this.verifyGenderMale = gender === 'Male' ? true : false;
+      this.verifyGenderFemale = gender === 'Female' ? true : false;
+    }
+    // this.verifyGenderMale = this.societyMembersForm.value.gender && this.societyMembersForm.value.gender === 'Male' ? true : false;
+    // this.verifyGenderFemale = this.societyMembersForm.value.gender && this.societyMembersForm.value.gender === 'Female' ? true : false;
+  }
+
   vid(vid: any) {
     throw new Error("Method not implemented.");
   }
@@ -63,27 +104,28 @@ export class EditSocietyMemberComponent implements OnInit {
       this.fishermanChk = false;
     }
     if (this.editSocietyMembersForm.invalid) {
+      this.spinner.hide();
       return;
     }
-    this.editSocietyMembersForm.value.society_id = this.route.snapshot.paramMap.get('id');
+    this.editSocietyMembersForm.value.society_id = this.route.snapshot.paramMap.get('society_id');
+    this.editSocietyMembersForm.value.society_member_id = this.route.snapshot.paramMap.get('society_member_id');
     this.editSocietyMembersForm.value.Swimming = this.Swimming.nativeElement.checked;
     this.editSocietyMembersForm.value.NetSewing = this.NetSewing.nativeElement.checked;
     this.editSocietyMembersForm.value.netting = this.netting.nativeElement.checked;
-  //    this.vesselRegistrationService.addsocietymember(this.editSocietyMembersForm.value).subscribe(data => {
-  //      this.spinner.hide();
-  //      this.addsocietyMember = data;
-  //      if (this.addsocietyMember && this.addsocietyMember.status === true) {
-  //        location.reload();
-  //        console.log(this.addsocietyMember.message);
-  //        this.success = true;
-  //        window.scroll(0, 0);
-  //      } else {
-  //        this.error = true;
-  //        window.scroll(0, 0);
-  //      }
-  //  }, error => {
-  //    this.spinner.hide();
-  //  });
+     this.vesselRegistrationService.updateSocietymember(this.editSocietyMembersForm.value).subscribe(data => {
+       this.spinner.hide();
+       this.updateSocietyMember = data;
+       if (this.updateSocietyMember && this.updateSocietyMember.status === true) {
+         this.router.navigate(["dashboard/addsociety_members", this.route.snapshot.paramMap.get('society_id')]);
+        //  this.success = true;
+        //  window.scroll(0, 0);
+       } else {
+         this.error = true;
+         window.scroll(0, 0);
+       }
+   }, error => {
+     this.spinner.hide();
+   });
   }
   onlyNumberKey(event) {
     return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57;
@@ -91,8 +133,8 @@ export class EditSocietyMemberComponent implements OnInit {
   toggleChk() {
   this.fishermanChk = true;
   if (this.netting.nativeElement.checked || this.NetSewing.nativeElement.checked) {
-    this.fishermanChk = false;
-  }
+      this.fishermanChk = false;
+    }
   }
   getVerifyBtn(inputType) {
     if(inputType === "Aadhar") {
@@ -108,27 +150,26 @@ export class EditSocietyMemberComponent implements OnInit {
         this.rationVerifyBtn = true;
       }
     } 
-
-    }
+  }
 
   getadhar() {
+    this.spinner.show();
     this.adhar_error = false;
     this.adhar_success = false;
     let  adhNum = ((document.getElementById("adharId") as HTMLInputElement).value);
     this.vesselRegistrationService.adharVerify(adhNum).subscribe(data => {
       this.adharVerify = data;
+      this.spinner.hide();
       if(this.adharVerify && this.adharVerify.success === true) {
         this.adhar_success = true;
-        window.scroll(0,0);
         this.showVerifyBtn = false;
         this.reference = this.adharVerify.message;
         this.adharVerify.success = true;
       } else {
         this.adharVerify.error = true;
         this.adhar_error = true;
-        window.scroll(0,0);
-      
       }
+      window.scroll(0,0);
     }, error => {
       this.spinner.hide();
     });
@@ -136,28 +177,40 @@ export class EditSocietyMemberComponent implements OnInit {
 
   getRation() {
     this.error1 = false;
-    this.success1 = false;
-    this.spinner.show();
-    let  rationNum = this.editSocietyMembersForm.controls.ration_card.value;
-    let adhNum = this.editSocietyMembersForm.controls.aadhaar_number.value;
-    this.vesselRegistrationService.rationVerify(rationNum,adhNum).subscribe(data => {
-      this.spinner.hide();
-      this.rationVerify = data;
-      if(this.rationVerify && this.rationVerify.success === true) {
-        this.editSocietyMembersForm.controls['vessel_name'].disable();
-        // this.editSocietyMembersForm.controls['father_name'].disable();
-        this.success1 = true;
-        window.scroll(0,0);
-        this.rationVerifyBtn = false;
-        this.rationVerify.success = true;
-      } else {
-        this.editSocietyMembersForm.controls['vessel_name'].enable();
-        // this.editSocietyMembersForm.controls['father_name'].disable();
-        this.error1 = true;
-        window.scroll(0,0);
-      }
-    }, error => {
-      this.spinner.hide();
-    });
+  this.success1 = false;
+  this.verifyGenderMale = false;
+  this.verifyGenderFemale = false;
+  this.spinner.show();
+  let  rationNum = this.editSocietyMembersForm.controls.ration_card.value;
+  let adhNum = this.editSocietyMembersForm.controls.aadhaar_number.value;
+  this.vesselRegistrationService.rationVerify(rationNum,adhNum).subscribe(data => {
+    this.spinner.hide();
+    this.rationVerify = data;
+    if(this.rationVerify && this.rationVerify.success === true) {
+      this.editSocietyMembersForm.controls['date_of_birth'].setValue(new Date(this.rationVerify.date_of_birth));
+      this.rationVerify && this.rationVerify.age ? this.editSocietyMembersForm.controls['age'].disable() :  this.editSocietyMembersForm.controls['age'].enable();
+      this.rationVerify && this.rationVerify.social_status ? this.editSocietyMembersForm.controls['social_status'].disable() :  this.editSocietyMembersForm.controls['social_status'].enable();
+      this.rationVerify && this.rationVerify.employment_status ? this.editSocietyMembersForm.controls['employment_status'].disable() :  this.editSocietyMembersForm.controls['employment_status'].enable();
+      this.rationVerify && this.rationVerify.date_of_birth ? this.editSocietyMembersForm.controls['date_of_birth'].disable() :  this.editSocietyMembersForm.controls['date_of_birth'].enable();
+      this.rationVerify && this.rationVerify.gender ? this.editSocietyMembersForm.controls['gender'].disable() :  this.editSocietyMembersForm.controls['gender'].enable();
+      // age,employment_status,social_status,dob
+      this.success1 = true;
+      this.rationVerifyBtn = false;
+      this.rationVerify.success = true;
+      this.genderSelection(this.rationVerify.gender);
+    } else {
+      this.editSocietyMembersForm.controls['age'].enable();
+      this.editSocietyMembersForm.controls['gender'].enable();
+      this.editSocietyMembersForm.controls['social_status'].enable();
+      this.editSocietyMembersForm.controls['employment_status'].enable();
+      this.editSocietyMembersForm.controls['date_of_birth'].enable();
+      this.error1 = true;
+    }
+    
+    // this.verifyGender = this.rationVerify && this.rationVerify.gender && this.rationVerify.gender === "Male" ? true : false;
+    window.scroll(0,0);
+  }, error => {
+     this.spinner.hide();
+  });
   }
 }

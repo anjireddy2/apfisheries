@@ -1,0 +1,299 @@
+<!-- <div class="alert alert-success alert-dismissible fade in" style="opacity: 1;
+position: absolute;
+z-index: 999999;
+float: left;
+width: 94% ;" *ngIf="successsms" >
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Vessel created successfully.</strong>
+</div> -->
+<ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)" size = "medium" color = "#fff" type = "ball-spin-clockwise-fade"></ngx-spinner>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="alert alert-success alert-dismissible" *ngIf="adhar_success">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>{{adharVerify.message}}</strong>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="alert alert-danger alert-dismissible" *ngIf="adhar_error">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <!-- This was my preferred answer, but keep in mind, if the value of scrollTop doesn't change in the component, you won't see anything happen.  -->
+      <strong>{{adharVerify.message}}</strong>
+
+   
+    </div>
+  </div>
+</div> 
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="alert alert-success alert-dismissible" *ngIf="rsuccess">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>{{rationVerify.message}}</strong>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="alert alert-danger alert-dismissible" *ngIf="rerror">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <!-- This was my preferred answer, but keep in mind, if the value of scrollTop doesn't change in the component, you won't see anything happen.  -->
+      <strong>{{rationVerify.message}}</strong>
+
+   
+    </div>
+  </div>
+</div>  
+
+<div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-success alert-dismissible" *ngIf="success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>{{registerData.message}}</strong>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-danger alert-dismissible" *ngIf="error">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <!-- This was my preferred answer, but keep in mind, if the value of scrollTop doesn't change in the component, you won't see anything happen.  -->
+        <strong>{{registerData.message}}</strong>
+  
+     
+      </div>
+    </div>
+  </div>  
+
+
+<form [formGroup]="crewUserRegisterForm" (ngSubmit) = "onClickSubmit(crewUserRegisterForm)" >
+        <div class="card bg-primary text-white" style="margin-bottom: 10px;">
+            <div class="card-body e-pragati-userregistration">
+                Crew Member Details
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                  <label for="power">Aadhaar Number <span class="vessel-mandatory-ind">*</span></label>
+                 <input id="adharId" type="text" (keypress)="onlyNumberKey($event)" (keyup) = "getVerifyBtn('Aadhar')" maxlength="12"  formControlName="aadhaar_number"  value="" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.aadhaar_number.errors }">
+                 <div *ngIf="submitted && f.aadhaar_number.errors" class="invalid-feedback">
+                <div *ngIf="f.aadhaar_number.errors.required">Aadhaar number is required</div>
+                <div *ngIf="f.aadhaar_number.errors.minlength">Minimum required number is 12</div>
+                
+                 
+                </div>
+                <button *ngIf="showVerifyBtn" type="button" style="float: right;
+                margin-top: 9px;
+                font-size: 12px;" class="btn btn-primary" (click)="getadhar()">Verfiy</button>
+                <div *ngIf = "adharVerify.success && !showVerifyBtn" style="color:green; float:right">Verfied <i class="fa fa-check-circle-o" aria-hidden="true"></i></div>
+
+                </div>
+        </div> 
+        <div class="col-md-4">
+            <div class="form-group">
+               <label for="power">Ration card Number <!--<span class="vessel-mandatory-ind">*</span>--></label> 
+             <input type="text" name="ration_card"  class="form-control" formControlName="ration_card" (keyup) = "getVerifyBtn('RationCard')" maxlength="15">
+             <!-- <div *ngIf="submitted && f.ration_card.errors" class="invalid-feedback">
+                <div *ngIf="f.ration_card.errors.required">Ration Card number is required</div>
+             
+               </div> -->
+               <button *ngIf="rationVerifyBtn" type="button" style="float: right;
+               margin-top: 9px;
+               font-size: 12px;" class="btn btn-primary" (click)="getRation()">Verfiy</button>
+               <div *ngIf = "rationVerify.success && !rationVerifyBtn" style="color:green; float:right">Verfied <i class="fa fa-check-circle-o" aria-hidden="true"></i></div>
+            </div>
+    </div>
+                <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="power">Crew Member Name <span class="vessel-mandatory-ind">*</span></label>
+                         <input type="text" formControlName="owner_name" [ngModel]="rationVerify.owner_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.owner_name.errors }">
+                         <div *ngIf="submitted && f.owner_name.errors" class="invalid-feedback">
+                          <div *ngIf="f.owner_name.errors.required">Crew Member name is required</div>
+                      </div>
+                        </div>
+                </div>
+                 <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="power">Father Name <span class="vessel-mandatory-ind">*</span></label>
+                         <input  type="text" formControlName="father_name" [ngModel]="rationVerify.father_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.father_name.errors }">
+                         <div *ngIf="submitted && f.father_name.errors" class="invalid-feedback">
+                          <div *ngIf="f.father_name.errors.required">Father name is required</div>
+                        </div>
+                </div>
+                </div>
+          
+                  <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="power">Mobile Number <span class="vessel-mandatory-ind">*</span></label>
+                         <input type="text" (keypress)="onlyNumberKey($event)" pattern="\d*" maxlength="10" formControlName="mobile_number" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.mobile_number.errors }">
+                         <div *ngIf="submitted && f.mobile_number.errors" class="invalid-feedback">
+                         <div *ngIf="f.mobile_number.errors.required">Mobile number is required</div>
+                        <div *ngIf="f.mobile_number.errors.minlength">Minimum required number is 10</div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="power">Email Id </label>
+                       <input type="email" name="email_id"  class="form-control" formControlName="email_id">
+                     
+                      </div>
+              </div>
+                  <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="power">Bank Account Number <span class="vessel-mandatory-ind">*</span></label>
+                       <input type="text" (keypress)="onlyNumberKey($event)" pattern="\d*" maxlength = "8" maxlength="20" formControlName="bank_account_number" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.bank_account_number.errors }">
+                       <div *ngIf="submitted && f.bank_account_number.errors" class="invalid-feedback">
+                       <div *ngIf="f.bank_account_number.errors.required">Bank Account number is required</div>
+                      <div *ngIf="f.bank_account_number.errors.minlength">Bank Account number should have 8 to 20 digits</div>
+                      </div>
+                  </div>
+                </div>
+             
+              
+
+                 <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="power">IFSC Code  <span class="vessel-mandatory-ind">*</span></label>
+                         <input type="text" name="ifsc_code" formControlName="ifsc_code" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ifsc_code.errors }">
+                         <div *ngIf="submitted && f.ifsc_code.errors" class="invalid-feedback">
+                            <div *ngIf="f.ifsc_code.errors.required">IFSC Code is required</div>
+                           <!-- <div *ngIf="f.ifsc_code.errors.minlength">Bank Account number should have 12 to 20 digits</div> -->
+                           </div>
+                        </div>
+                </div>
+                <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="power">Bank Name <span class="vessel-mandatory-ind">*</span></label>
+                         <!-- <input type="text" name="bank_name" formControlName="bank_name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.bank_name.errors }"> -->
+                         <select class="form-control" formControlName="bank_name"    name="bank" [ngClass]="{ 'is-invalid': submitted && f.bank_name.errors }">
+                          <option [ngValue]="undefined" hidden selected> --Select-- </option>
+                          <!-- <option *ngFor='let bank of Bank' [ngValue]='bank.id'>
+                          {{ bank.bank_name}}
+                          </option> -->
+
+                          
+                                <option value="Allahabad_Bank">
+                                    Allahabad Bank
+                                </option>
+                                <option value="Andhra_Bank">
+                                    Andhra Bank
+                                </option>
+                                <option value=" Axis_Bank">
+                                    Axis Bank
+                                </option>
+                                <option value="Bahrain_Kuwait">
+                                    Bank of Bahrain and Kuwait
+                                </option>
+                                <option value="bank_baroda_corporate">
+                                    Bank of Baroda - Corporate Banking
+                                </option>
+                                <option value="bank_baroda_retail">
+                                    Bank of Baroda - Retail Banking
+                                </option>
+                                <option option="Bank_india">
+                                    Bank of India
+                                </option>
+                                <option value='Bank_Maharashtra'>
+                                    Bank of Maharashtra
+                                </option>
+                                <option value="canara_bank">
+                                  Canara Bank
+                                  </option>
+                                  <option value="Central_bank">
+                                      Central Bank of India
+                                  </option>
+                                  <option value="city_uninon">
+                                      City Union Bank
+                                  </option>
+                                  <option value="Corporation_bank">
+                                      Corporation Bank
+                                  </option>
+                                  <option value="Dhanlaxmi_bank">
+                                      Dhanlaxmi  Bank
+                                  </option>
+                                  <option value="Federal_bank">
+                                      Federal  Bank
+                                  </option>
+                                  <option value="icic_bank">
+                                      ICICI  Bank
+                                  </option>
+                                  <option value="IDBI_bank">
+                                      IDBI Bank
+                                  </option>
+                                  <option value="india_bank">
+                                      Indian Bank
+                                  </option>
+                                  <option value="Karnataka_bank">
+                                      Karnataka Bank Ltd
+                                  </option>
+                                  <option value="kotak_bank">
+                                      Kotak Bank
+                                  </option>
+                                  <option value="karur_bank">
+                                      South  India Bank
+                                  </option>
+                                  <option value="sbi">
+                                      State Bank of India
+                                  </option> <option value="yes_bank">
+                                      Yes Bank Ltd
+                                  </option>
+                        </select>
+                         <div *ngIf="submitted && f.bank_name.errors" class="invalid-feedback">
+                            <div *ngIf="f.bank_name.errors.required">Bank Name is required</div>
+                           <!-- <div *ngIf="f.bank_name.errors.minlength">Bank Account number should have 12 to 20 digits</div> -->
+                           </div>
+                        </div>
+                </div>
+        </div>
+    
+
+        <div class="row">
+                <div class="col-md-12 ">
+                    <input type="submit" class="btn btn-info pull-right " style="margin-bottom: 10px;"  value="Add" >
+              </div>
+        </div> 
+
+</form>
+<div style="float: left; width: 100%; overflow: auto;">
+  <table class="table" border="0">  
+          <thead class="">  
+            <tr> 
+              <th>ID</th> 
+              <th>Aadhaar Number</th>  
+              <th>Ration Card </th>  
+              <th>Crew Member Name</th>  
+              <th>Father Name</th>  
+              <th>Mobile Number</th> 
+              <th>Bank Account Number</th>  
+              <th>Actions</th>
+             
+            </tr>  
+          </thead>  
+          <tbody>  
+            <tr *ngFor = "let crewMember of crewMemberList | paginate: { itemsPerPage: 6, currentPage: p}">  
+              <td >{{crewMember.id}}</td>
+              <td>{{crewMember.aadhaar_number}}</td>  
+              <td>{{societyList.ration_card}}</td>  
+              <td>{{societyList.crew_member_name}}</td>  
+              <td>{{societyList.father_name}}</td> 
+              <td>{{societyList.mobile_number}}</td>  
+              <td>{{societyList.bank_account_number}}</td> 
+              <td>
+                <span (click)="deleteCrewUser(crewMember, index)" style="margin-left: 15px;"> 
+                  <i class="fa fa-trash-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
+                </span>
+              </td>
+            </tr>  
+          </tbody>
+        </table>  
+        <ul class="pagination" *ngIf="waterBodyPagination">  
+            <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>  
+          </ul>
+        </div>
+

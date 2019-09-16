@@ -35,6 +35,9 @@ import { StorageServiceModule} from 'angular-webstorage-service';
 import { InlandSocietyRegistrationComponent } from './one-portal/dashboard/inland-society-registration/inland-society-registration.component';
 import { InlandSocietyListComponent } from './one-portal/dashboard/inland-society-list/inland-society-list.component';
 import { EditSocietyMemberComponent } from './one-portal/dashboard/edit-society-member/edit-society-member.component';
+import { InlandSocietyAddMemberComponent } from './one-portal/dashboard/inland-society-add-member/inland-society-add-member.component';
+import { InlandSocietyEditMemberComponent } from './one-portal/dashboard/inland-society-edit-member/inland-society-edit-member.component';
+import { CrewUserComponent } from './one-portal/dashboard/crew-user/crew-user.component';
 
 
 
@@ -47,59 +50,50 @@ const appRoutes: Routes = [
   // { path: 'newlogin',      component: NewLoginComponent },
   { path: '', redirectTo: 'newlogin/login', pathMatch: 'full' },
   {
-      path: 'newlogin', component: NewLoginComponent, children: [
-        
-        {
+      path: 'newlogin', component: NewLoginComponent, children: [ {
           path: 'login',
           component: LoginComponent,
-        },
-        
-        
-       
+        }
       ]
     },
-    { 
-      path: 'forgot', 
-      component: ForgotpasswordComponent
-     },
+  { 
+    path: 'forgot', 
+    component: ForgotpasswordComponent
+  },
     
-    { path: 'dashboard', component: DashboardComponent , children: [
-      {
+  { path: 'dashboard', component: DashboardComponent , children: [ {
         path: 'userreg',
         component: UserregComponent,
-      },
-      {
+      }, {
         path: 'fisherman',
         component: FishermanComponent,
-      },
-      
-      {
+      }, {
         path: 'beneficiary',
         component: BeneficiaryComponent,
-      },
-      {
+      }, {
         path: 'vessel_registration',
         component: VesselRegistrationComponent,
-      },
-      {
+      }, {
         path: 'addnew_vessel',
         component: AddnewVesselComponent,
-      },
-      {
+      }, {
         path: 'edit_vessel/:id',
         component: EditvesselComponent,
-      },
-      {
+      }, {
+        path: 'crew_user_vessel/:id',
+        component: CrewUserComponent,
+      }, {
         path: 'society_registration',
         component: SocietyListComponent,
-      },
-      {
+      }, {
         path: 'addnew_society',
         component: SocietyRegistrationComponent,
-      },
-      {
+      }, {
         path: 'addsociety_members/:id',
         component: SocietyAddMembersComponent,
+      }, {
+        path: 'edit_society_member/:society_id/:society_member_id',
+        component: EditSocietyMemberComponent,
       }, { 
         path: 'inland_society_list', 
         component: InlandSocietyListComponent
@@ -107,15 +101,15 @@ const appRoutes: Routes = [
         path: 'addnew_inland_society',
         component: InlandSocietyRegistrationComponent
       }, {
-        path: 'editsociety_member',
-        component: EditSocietyMemberComponent,
+        path: 'addinland_society_members/:id',
+        component: InlandSocietyAddMemberComponent
+      }, {
+        path: 'editinland_society_member/:societyId/:memberId',
+        component: InlandSocietyEditMemberComponent
       }
     ]
   },
-  
-    
- 
-  ];
+];
 
   //create our cost var with the information about the format that we want
 
@@ -141,6 +135,9 @@ const appRoutes: Routes = [
     InlandSocietyRegistrationComponent,
     InlandSocietyListComponent,
     EditSocietyMemberComponent,
+    InlandSocietyAddMemberComponent,
+    InlandSocietyEditMemberComponent,
+    CrewUserComponent,
    
     
     

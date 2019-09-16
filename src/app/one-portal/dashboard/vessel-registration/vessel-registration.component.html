@@ -116,9 +116,13 @@
               <i class="fa fa-pencil-square-o" (click)="edidtVessel(vesselList)" aria-hidden="true" style="color: #39c4f0; cursor: pointer;"></i>
            </span> 
               
-          <span (click)="vesselData(vesselList)" data-toggle="modal" data-target="#myModal"> 
+          <span (click)="vesselData(vesselList)" data-toggle="modal" data-target="#myModal" style="padding-right: 10px;" > 
             <i class="fa fa-trash-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
           </span>
+          <span> 
+            <i class="fa fa-user " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" (click)="crewUser(vesselList)"></i>
+          </span>
+
 
           <!-- <button (click)="editVessel(vesselList.id)" >FFF</button> -->
                

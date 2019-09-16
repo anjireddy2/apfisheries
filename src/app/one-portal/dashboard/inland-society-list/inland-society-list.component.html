@@ -1,26 +1,23 @@
 <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)" size = "medium" color = "#fff" type = "ball-spin-clockwise-fade"></ngx-spinner>
 <div class="row">
-    <div class="col-md-12">
-      <div class="alert alert-success alert-dismissible" *ngIf="success">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>{{societyList.message}}</strong>
-      </div>
+  <div class="col-md-12">
+    <div class="alert alert-success alert-dismissible" *ngIf="delete_success">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>{{deleteSociety.message}}</strong>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="alert alert-danger alert-dismissible" *ngIf="error">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>{{societyList.message}}</strong>
-        <!-- <ul *ngFor = "let registerdata of registerData.message">
-         {{registerdata}}
-         
-        </ul> -->
-  
-     
-      </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="alert alert-danger alert-dismissible" *ngIf="delete_error">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <!-- This was my preferred answer, but keep in mind, if the value of scrollTop doesn't change in the component, you won't see anything happen.  -->
+      <strong>{{deleteSociety.message}}</strong>
+
+   
     </div>
-  </div>  
+  </div>
+</div> 
 <!-- <form> -->
     <div class="card bg-primary text-white" style="margin-bottom: 10px;">
         <div class="card-body e-pragati-userregistration">Inland Society Registration Data
@@ -82,8 +79,30 @@
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label for="power">Waterbody</label>
-                    <select class="form-control"  [(ngModel)]="waterbodyId"  name="waterbody" >
+                    <label for="power">Type Of Water Body</label>
+                    <select class="form-control"  [(ngModel)]="waterbodyType"  name="waterbodyType" >
+               
+                      <option *ngFor='let waterbody of Waterbody' [ngValue]='waterbody.id'>
+                      {{ waterbody.water_body_name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="power">Name Of Water Body</label>
+                    <select class="form-control"  [(ngModel)]="waterbodyName"  name="waterbodyName" >
+               
+                      <option *ngFor='let waterbody of Waterbody' [ngValue]='waterbody.id'>
+                      {{ waterbody.water_body_name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="power">Seasonality</label>
+                    <select class="form-control"  [(ngModel)]="seasonality"  name="seasonality" >
                
                       <option *ngFor='let waterbody of Waterbody' [ngValue]='waterbody.id'>
                       {{ waterbody.water_body_name}}
@@ -100,81 +119,52 @@
 
 <!-- </form> -->
 <div style="float: left; width: 100%; overflow: auto;">
-<table class="table" border="0">  
-<thead class="">  
-  <tr> 
-    <th>ID</th> 
-    <th>District</th>  
-    <th>Mandal </th>  
-    <th>FLC name</th>  
-    <th>Vessel owner</th>  
-    <th>Vessel number</th>  
-    <th>Status</th> 
-    <th>Boat type</th>  
-    <th>License renewal date</th>
-    <th>License valid upto</th>
-    <th>Adhar number</th> 
-    <th>Mobile number</th>
-    <th>Bank account</th>   
-    <th>Ration card number</th>
+  <table class="table" border="0">  
+          <thead class="">  
+            <tr> 
+              <th>ID</th> 
+              <th>District</th>  
+              <th>Mandal </th>  
+              <th>Grama Panchayat</th>  
+              <th>Village</th>  
+              <th>Type Of Water Body</th> 
+              <th>Name Of Water Body</th>  
+              <th>Seasonality</th>  
+              <th>Actions</th>
+             
+            </tr>  
+          </thead>  
+          <tbody>  
+            <tr *ngFor = "let inlandSociety of inlandSocietyList | paginate: { itemsPerPage: 6, currentPage: p}">  
+              <td >{{inlandSociety.id}}</td>
+              <td>{{inlandSociety.district_name}}</td>  
+              <td>{{inlandSociety.mandal_name}}</td>  
+              <td>{{inlandSociety.panchayat}}</td>  
+              <td>{{inlandSociety.village}}</td> 
+              <td>{{inlandSociety.waterbody_type}}</td> 
+              <td>{{inlandSociety.waterbody_name}}</td> 
+              <td>{{inlandSociety.seasonality}}</td>  
+             
+          
+              <td>
+            
   
-    <th>Action</th>
-  </tr>  
-</thead>  
-<tbody>  
-<tr *ngFor = "let inlandSociety of inlandSocietyList | paginate: { itemsPerPage: 6, currentPage: p}">  
-  <td >{{inlandSociety.id}}</td>
-            <td>{{inlandSociety.district_name}}</td>  
-            <td>{{inlandSociety.mandal_name}}</td>  
-            <td>{{inlandSociety.flc_name}}</td>  
-            <td>{{inlandSociety.vessel_owner_name}}</td> 
-            <td>{{inlandSociety.vessel_number}}</td>  
-            <td>{{inlandSociety.status}}</td> 
-            <td>{{inlandSociety.boat_type}}</td> 
-            <td>{{inlandSociety.license_renewal_date}}</td>  
-            <td>{{inlandSociety.license_valid_upto}}</td> 
-            <td>{{inlandSociety.aadhaar_no}}</td>  
-            <td>{{inlandSociety.mobile_number}}</td> 
-            <td>{{inlandSociety.bank_account_number}}</td> 
-            <td>{{inlandSociety.ration_card_number}}</td> 
-  <td>
-    <span style="padding-right: 10px;" >
-       <i class="fa fa-pencil-square-o" (click)="edidInlandSociety(WaterbodyList)" aria-hidden="true" style="color: #39c4f0; cursor: pointer;"></i>
-    </span> 
-       
-   <span (click)="inlandSocietyData(WaterbodyList)" data-toggle="modal" data-target="#myModal"> 
-     <i class="fa fa-trash-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
-   </span>
-     </td> 
+            <button (click)="addInlandSocietyMember(inlandSociety)" class="button btn btn-primary" >Add Inland Society member</button>
 
-</tr>  
-</tbody>  
-
-</table>  
-</div>
-<ul class="pagination" *ngIf="waterBodyPagination">  
-<pagination-controls (pageChange)="p = $event"></pagination-controls>  
-
-</ul>
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-          <h4 class="modal-title">Delete</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-       
-      </div>
-      <div class="modal-body">
-        Are you Sure You want to delete the vessel?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="deleteInlandSociety()">Ok</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-      </div>
-    </div>
-
-  </div>
-</div>
+            <span (click)="inlandSocietyData(inlandSociety)" style="margin-left: 15px;"> 
+                  <i class="fa fa-trash-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
+                </span>
+  
+              </td>  
+            
+        
+            </tr>  
+          </tbody>  
+          
+        </table>  
+        <ul class="pagination" *ngIf="waterBodyPagination">  
+            <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>  
+          
+          </ul>
+        </div>
 

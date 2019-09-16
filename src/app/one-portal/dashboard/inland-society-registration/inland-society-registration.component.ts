@@ -3,6 +3,7 @@ import { VesselRegistrationService } from '../vessel-registration.service';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inland-society-registration',
@@ -22,8 +23,12 @@ export class InlandSocietyRegistrationComponent implements OnInit {
   private Waterbody;
   private WaterbodyList;
   submitted: boolean;
+  success: boolean;
+  inlandSocietyList : any = [];
+  error: boolean;
 
-  constructor(private vesselRegistrationService: VesselRegistrationService, private formBuilder: FormBuilder, private _http: HttpClient, private spinner: NgxSpinnerService) { }
+  constructor(private vesselRegistrationService: VesselRegistrationService, private formBuilder: FormBuilder, private _http: HttpClient, 
+    private spinner: NgxSpinnerService, private router:Router) { }
 
   ngOnInit() {
     this.spinner.show();
@@ -32,7 +37,9 @@ export class InlandSocietyRegistrationComponent implements OnInit {
       panchayat: ['', [Validators.required]],
       village: ['', [Validators.required]],
       mandal: ['', [Validators.required]],
-      waterbody: ['', [Validators.required]]
+      waterbodyType: ['', [Validators.required]],
+      waterbodyName: ['', [Validators.required]],
+      seasonality: ['', [Validators.required]],
     });
     this.vesselRegistrationService.getDist().subscribe(data => {
       this.spinner.hide();
@@ -64,19 +71,24 @@ export class InlandSocietyRegistrationComponent implements OnInit {
   inlandSocietyRegistration() {
     this.spinner.show();
     this.submitted = true;
-    if(this.inlandSocietyRegistrationForm.invalid) {
-      this.spinner.hide();
-      return;
+    this.success = false;
+    this.error=false;
+    if (this.inlandSocietyRegistrationForm.invalid) {
+    this.spinner.hide();
+    return;
     }
-  }
- 
-  edidInlandSociety(WaterbodyList) {
-
-  }
-  inlandSocietyData(WaterbodyList) {
-
-  }
-  deleteInlandSociety() {
-
+    this.vesselRegistrationService.createInlandSociety(this.inlandSocietyRegistrationForm.value).subscribe(
+      data=> {
+    this.spinner.hide();
+    this.inlandSocietyList = data;
+      if(this.inlandSocietyList && this.inlandSocietyList.success == true) {
+        this.success = true;
+        window.scroll(0,0);
+        this.router.navigate(['dashboard/inland_society_list']);
+      } else {
+        this.error = true;
+        window.scroll(0,0);
+      }
+    });
   }
 }
