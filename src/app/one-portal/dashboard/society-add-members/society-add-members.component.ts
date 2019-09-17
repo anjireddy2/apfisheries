@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {VesselRegistrationService} from '../vessel-registration.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
+
 
 @Component({
   selector: 'app-society-add-members',
@@ -44,7 +46,8 @@ export class SocietyAddMembersComponent implements OnInit {
 
   // tslint:disable-next-line: max-line-length
   constructor(private route: ActivatedRoute, private vesselRegistrationService: VesselRegistrationService, 
-    private formBuilder: FormBuilder,  private spinner: NgxSpinnerService, private router: Router) { }
+    private formBuilder: FormBuilder,  private spinner: NgxSpinnerService, 
+    private router: Router, @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
 
 
 
@@ -117,9 +120,10 @@ export class SocietyAddMembersComponent implements OnInit {
       this.societyMembersForm.value.date_of_birth = new Date(this.rationVerify.date_of_birth);
       this.societyMembersForm.value.age =  this.rationVerify.age;
       this.societyMembersForm.value.gender =  this.rationVerify.gender;
-      this.societyMembersForm.value.member_name =  this.rationVerify.member_name;
+      this.societyMembersForm.value.member_name =  this.rationVerify.owner_name;
     }
     this.societyMembersForm.value.reference = this.reference;
+    this.societyMembersForm.value.userId = this.storage.get("user_id");
     this.vesselRegistrationService.addsocietymember(this.societyMembersForm.value).subscribe(data => {
       this.spinner.hide();
       this.addsocietyMember = data;
@@ -198,7 +202,7 @@ getadhar() {
     if(this.adharVerify && this.adharVerify.success === true) {
       this.adhar_success = true;
       this.showVerifyBtn = false;
-      this.reference = this.adharVerify.message;
+      this.reference = this.adharVerify.ref_no;
       this.adharVerify.success = true;
     } else {
       this.adharVerify.error = true;

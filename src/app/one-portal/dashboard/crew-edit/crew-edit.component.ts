@@ -2,19 +2,17 @@ import { Component, OnInit,Input, Inject  } from '@angular/core';
 import {VesselRegistrationService} from '../vessel-registration.service';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { $ } from 'protractor';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 
 @Component({
-  selector: 'app-crew-user',
-  templateUrl: './crew-user.component.html',
-  styleUrls: ['./crew-user.component.css']
+  selector: 'app-crew-edit',
+  templateUrl: './crew-edit.component.html',
+  styleUrls: ['./crew-edit.component.css']
 })
-export class CrewUserComponent implements OnInit {
+export class CrewEditComponent implements OnInit {
 
-  // minDate = new Date(); 
   @Input() private format = 'YYYY/MM/DD';
   crewUserRegisterForm: FormGroup;
   submitted = false;
@@ -75,13 +73,14 @@ export class CrewUserComponent implements OnInit {
       date_of_birth: [''],
   });
   const id =  this.route.snapshot.paramMap.get("id");
-  this.vesselRegistrationService.crewMemberList(id).subscribe(data => {
-    this.spinner.hide();
-    this.crewMemberList = data['message'];
-    this.waterBodyPagination = this.crewMemberList && this.crewMemberList.length > 6 ? true : false; 
-  }, error=> {
-    this.spinner.hide();
-  });
+  const vesselId =  this.route.snapshot.paramMap.get("vessel_id");
+  this.spinner.show();
+    this.vesselRegistrationService.editCrewMember(vesselId,id).subscribe(data => {
+      this.EditCrewMember = data['message'];
+      this.spinner.hide();
+    },error=>{
+      this.spinner.hide();
+    });
 }
   
   get f() { return this.crewUserRegisterForm.controls; }
@@ -94,18 +93,18 @@ export class CrewUserComponent implements OnInit {
     this.p = event;
   }
 
-  onClickSubmit(crewUserRegisterForm) {
+  onClickUpdate(crewUserRegisterForm) {
     this.spinner.show();
     this.error = false;
     this.success = false;
     this.submitted = true;
-    let vesselId = this.route.snapshot.paramMap.get("id");
+    let vesselId = this.route.snapshot.paramMap.get("vessel_id");
 
     if (this.crewUserRegisterForm.invalid) {
       this.spinner.hide();
       return;
     }
-    if(this.rationVerify) {
+    if(this.crewUserRegisterForm.controls['owner_name'].status === "DISABLED") {
       this.crewUserRegisterForm.value.father_name =  this.rationVerify.father_name;
       this.crewUserRegisterForm.value.owner_name =  this.rationVerify.owner_name;
       this.crewUserRegisterForm.value.gender =  this.rationVerify.gender;
@@ -114,13 +113,14 @@ export class CrewUserComponent implements OnInit {
     }
     this.crewUserRegisterForm.value.reference = this.adharVerify.ref_no;
     this.crewUserRegisterForm.value.userId = this.storage.get("user_id");
-    this.vesselRegistrationService.createCrewMember(vesselId,this.crewUserRegisterForm.value).subscribe(data => {
+    this.vesselRegistrationService.updateCrewMember(vesselId, this.EditCrewMember.id, this.crewUserRegisterForm.value).subscribe(data => {
       this.spinner.hide();
-      this.registerData = data;
-      this.crewMemberList = data['message'];
-      if(this.registerData && this.registerData.success == true) {
+      this.updatedData = data;
+      //  this.crewMemberList = data['message'];
+      if(this.updatedData && this.updatedData.success == true) {
+        this.crewUserRegisterForm.reset();
         this.success = true;
-        this.router.navigate(['/dashboard/vessel_registration']);
+        this.router.navigate(['/dashboard/crew_user_vessel',vesselId]);
       } else {
         this.error = true;
       }
@@ -183,11 +183,11 @@ export class CrewUserComponent implements OnInit {
         this.crewUserRegisterForm.controls['gender'].disable();
         this.crewUserRegisterForm.controls['age'].disable();
         this.crewUserRegisterForm.controls['date_of_birth'].disable();
-        // this.EditCrewMember.member_name = this.rationVerify.owner_name;
-        // this.EditCrewMember.memner_father_name = this.rationVerify.father_name;
-        // this.EditCrewMember.member_gender = this.rationVerify.gender;
-        // this.EditCrewMember.member_age = this.rationVerify.age;
-        // this.EditCrewMember.member_date_of_birth = this.rationVerify.date_of_birth;
+        this.EditCrewMember.member_name = this.rationVerify.owner_name;
+        this.EditCrewMember.memner_father_name = this.rationVerify.father_name;
+        this.EditCrewMember.member_gender = this.rationVerify.gender;
+        this.EditCrewMember.member_age = this.rationVerify.age;
+        this.EditCrewMember.member_date_of_birth = this.rationVerify.date_of_birth;
         this.rsuccess = true;
         this.rationVerifyBtn = false;
         this.rationVerify.success = true;
@@ -203,28 +203,5 @@ export class CrewUserComponent implements OnInit {
     }, error => {
        this.spinner.hide();
     });
-  }
-
-  deleteCrewUser(crewMemberId, index) {
-    this.delete_success = false;
-    this.delete_error = false;
-    let vesselId = this.route.snapshot.paramMap.get("id");
-    this.spinner.show();
-    this.vesselRegistrationService.deleteCrewMember(vesselId,crewMemberId.id).subscribe(data => {
-      this.deleteCrewMember = data;
-      this.spinner.hide();
-      this.crewMemberList.splice(index, 1);
-      if(this.deleteCrewMember.success == true) {
-        this.delete_success = true;
-       } else {
-         this.delete_error = true;
-      }
-      window.scroll(0,0);
-    },error=>{
-      this.spinner.hide();
-    });
-  }
-  editCrewUser(crewMemberId){
-    this.router.navigate(['dashboard/edit_crew_user_vessel', this.route.snapshot.paramMap.get("id"),crewMemberId.id])
   }
 }

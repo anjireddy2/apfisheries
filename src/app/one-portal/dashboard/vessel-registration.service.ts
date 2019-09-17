@@ -188,5 +188,8 @@ export class VesselRegistrationService
   public editCrewMember(vesselId, crewMemberId) {
     return this._http.get<VesselregistractionModule[]>(this.apiURL+"/vessel_details/"+vesselId+"/edit_crew_member?member_id="+crewMemberId);
   }
+  public updateCrewMember(vId:any,crew_id:any,registractionData: any) {
+    return this._http.post<VesselregistractionModule[]>(this.apiURL+"/vessel_details/"+vId+"/update_crew_member?member_id="+crew_id, registractionData);
+  }
   
 }

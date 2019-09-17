@@ -161,7 +161,7 @@ export class AddnewVesselComponent implements OnInit {
       if(this.adharVerify && this.adharVerify.success === true) {
         this.adhar_success = true;
         this.showVerifyBtn = false;
-        this.reference = this.adharVerify.message;
+        this.reference = this.adharVerify.ref_no;
         this.adharVerify.success = true;
       } else {
         this.adharVerify.error = true;

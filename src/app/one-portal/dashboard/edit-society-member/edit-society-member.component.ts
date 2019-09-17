@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { VesselRegistrationService } from '../vessel-registration.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 
 @Component({
   selector: 'app-edit-society-member',
@@ -34,7 +35,7 @@ export class EditSocietyMemberComponent implements OnInit {
   verifyGenderMale: boolean;
   verifyGenderFemale: boolean;verifyGender: boolean;
   constructor(private router: Router, private route: ActivatedRoute, private vesselRegistrationService: VesselRegistrationService, private formBuilder: FormBuilder,  
-    private spinner: NgxSpinnerService) { }
+    private spinner: NgxSpinnerService, @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
 
   ngOnInit() {
     this.editSocietyMembersForm = this.formBuilder.group({
@@ -70,7 +71,7 @@ export class EditSocietyMemberComponent implements OnInit {
       if(this.editSocietyMember.member_date_of_birth) {  
         this.editSocietyMembersForm.controls['date_of_birth'].setValue(new Date(this.editSocietyMember.member_date_of_birth));
       }
-      this.genderSelection(this.editSocietyMember.member_social_status)
+      this.genderSelection(this.editSocietyMember.gender);
 
     }, error=>{
       this.spinner.hide();
@@ -121,6 +122,7 @@ export class EditSocietyMemberComponent implements OnInit {
       this.editSocietyMembersForm.value.member_name =  this.rationVerify.owner_name;
       }
       this.editSocietyMembersForm.value.reference = this.reference;
+      this.editSocietyMembersForm.value.userId = this.storage.get("user_id");
      this.vesselRegistrationService.updateSocietymember(this.editSocietyMembersForm.value).subscribe(data => {
        this.spinner.hide();
        this.updateSocietyMember = data;
@@ -171,7 +173,7 @@ export class EditSocietyMemberComponent implements OnInit {
       if(this.adharVerify && this.adharVerify.success === true) {
         this.adhar_success = true;
         this.showVerifyBtn = false;
-        this.reference = this.adharVerify.message;
+        this.reference = this.adharVerify.ref_no;
         this.adharVerify.success = true;
       } else {
         this.adharVerify.error = true;

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {VesselRegistrationService} from '../vessel-registration.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 
@@ -39,7 +40,8 @@ export class EditvesselComponent implements OnInit {
   reference: any;
   adhar_error: boolean;
   adhar_success: boolean;
-  constructor(private formBuilder: FormBuilder,private vesselRegistrationService: VesselRegistrationService, private route: ActivatedRoute, private spinner: NgxSpinnerService)
+  constructor(private formBuilder: FormBuilder,private vesselRegistrationService: VesselRegistrationService,
+     private route: ActivatedRoute, private spinner: NgxSpinnerService, @Inject(LOCAL_STORAGE) private storage: WebStorageService)
    {
 
     }
@@ -122,6 +124,7 @@ export class EditvesselComponent implements OnInit {
     }    
     const vid = +this.route.snapshot.paramMap.get('id');
     this.updateForm.value.reference = this.reference;
+    this.updateForm.value.userId = this.storage.get("user_id");
     this.vesselRegistrationService.updateVessel(vid,this.updateForm.value).subscribe(data => {
       this.spinner.hide();
       this.vesselUpdate = data;
@@ -165,7 +168,7 @@ export class EditvesselComponent implements OnInit {
       if(this.adharVerify && this.adharVerify.success === true) {
         this.adhar_success = true;
         this.showVerifyBtn = false;
-        this.reference = this.adharVerify.message;
+        this.reference = this.adharVerify.ref_no;
         this.adharVerify.success = true;
       } else {
         this.adharVerify.error = true;

@@ -38,6 +38,7 @@ import { EditSocietyMemberComponent } from './one-portal/dashboard/edit-society-
 import { InlandSocietyAddMemberComponent } from './one-portal/dashboard/inland-society-add-member/inland-society-add-member.component';
 import { InlandSocietyEditMemberComponent } from './one-portal/dashboard/inland-society-edit-member/inland-society-edit-member.component';
 import { CrewUserComponent } from './one-portal/dashboard/crew-user/crew-user.component';
+import { CrewEditComponent } from './one-portal/dashboard/crew-edit/crew-edit.component';
 
 
 
@@ -82,6 +83,9 @@ const appRoutes: Routes = [
       }, {
         path: 'crew_user_vessel/:id',
         component: CrewUserComponent,
+      }, {
+        path: 'edit_crew_user_vessel/:vessel_id/:id',
+        component: CrewEditComponent,
       }, {
         path: 'society_registration',
         component: SocietyListComponent,
@@ -138,6 +142,7 @@ const appRoutes: Routes = [
     InlandSocietyAddMemberComponent,
     InlandSocietyEditMemberComponent,
     CrewUserComponent,
+    CrewEditComponent,
    
     
     

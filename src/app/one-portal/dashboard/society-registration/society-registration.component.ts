@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { VesselRegistrationService } from '../vessel-registration.service';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
+import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -31,7 +32,8 @@ export class SocietyRegistrationComponent implements OnInit {
   vsuccess: boolean;
   verror: boolean;
 
-  constructor(private router:Router,private vesselRegistrationService: VesselRegistrationService, private formBuilder: FormBuilder) { }
+  constructor(private router:Router,private vesselRegistrationService: VesselRegistrationService, 
+    private formBuilder: FormBuilder, @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
 
   ngOnInit() {
     this.societyRegistrationForm = this.formBuilder.group({
@@ -72,6 +74,7 @@ export class SocietyRegistrationComponent implements OnInit {
       return;
     }
     this.societyRegistrationForm.value.field = this.fieldArray;
+    this.societyRegistrationForm.value.userId = this.storage.get("user_id");
     this.vesselRegistrationService.createSociety(this.societyRegistrationForm.value).subscribe(
       data=>{
       this.societyList = data;
