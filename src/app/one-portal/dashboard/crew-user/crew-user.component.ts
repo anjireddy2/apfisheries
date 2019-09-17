@@ -117,13 +117,15 @@ export class CrewUserComponent implements OnInit {
     }
     this.crewUserRegisterForm.value.reference = this.adharVerify.ref_no;
     this.crewUserRegisterForm.value.userId = this.storage.get("user_id");
+    this.crewUserRegisterForm.value.date_of_birth = new Date(this.crewUserRegisterForm.value.date_of_birth).toDateString();
+
     this.vesselRegistrationService.createCrewMember(vesselId,this.crewUserRegisterForm.value).subscribe(data => {
       this.spinner.hide();
       this.registerData = data;
       this.crewMemberList = data['message'];
       if(this.registerData && this.registerData.success == true) {
         this.success = true;
-        this.router.navigate(['/dashboard/vessel_registration']);
+        // this.router.navigate(['/dashboard/vessel_registration']);
       } else {
         this.error = true;
       }

@@ -127,10 +127,14 @@ export class EditvesselComponent implements OnInit {
     const vid = +this.route.snapshot.paramMap.get('id');
     this.updateForm.value.reference = this.reference;
     this.updateForm.value.userId = this.storage.get("user_id");
+    this.vesselUpdate.value.licence_renewal_date = new Date(this.vesselUpdate.value.licence_renewal_date).toDateString();
+    this.vesselUpdate.value.licence_valid_date = new Date(this.vesselUpdate.value.licence_valid_date).toDateString();
+
     this.vesselRegistrationService.updateVessel(vid,this.updateForm.value).subscribe(data => {
       this.spinner.hide();
       this.vesselUpdate = data;
       if(this.vesselUpdate.success == true) {
+        this.router.navigate(['/dashboard/vessel_registration']);
         this.success = true;
       } else {
       // this.errorlist = this.vesselUpdate.message.split(",");

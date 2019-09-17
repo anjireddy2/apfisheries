@@ -116,6 +116,8 @@ export class CrewEditComponent implements OnInit {
     }
     this.crewUserRegisterForm.value.reference = this.adharVerify.ref_no;
     this.crewUserRegisterForm.value.userId = this.storage.get("user_id");
+    this.crewUserRegisterForm.value.date_of_birth = new Date(this.crewUserRegisterForm.value.date_of_birth).toDateString();
+
     this.vesselRegistrationService.updateCrewMember(vesselId, this.EditCrewMember.id, this.crewUserRegisterForm.value).subscribe(data => {
       this.spinner.hide();
       this.updatedData = data;

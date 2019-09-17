@@ -120,6 +120,9 @@ export class AddnewVesselComponent implements OnInit {
     }
     this.registerForm.value.userId = this.storage.get("user_id");
     this.registerForm.value.reference = this.reference;
+    this.registerForm.value.licence_renewal_date = new Date(this.registerForm.value.licence_renewal_date).toDateString();
+    this.registerForm.value.licence_valid_date = new Date(this.registerForm.value.licence_valid_date).toDateString();
+
     this.vesselRegistrationService.createVessel(distId1, mandalId1 , flcId1, this.registerForm.value).subscribe(data => {
       this.spinner.hide();
       this.registerData = data;
