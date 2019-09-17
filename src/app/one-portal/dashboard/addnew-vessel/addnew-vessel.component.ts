@@ -64,7 +64,7 @@ export class AddnewVesselComponent implements OnInit {
       flc: ['', [Validators.required]],
       vessel_name: [''],
       vessltype:['', [Validators.required]],
-      vessel_number:['', [Validators.required,Validators.minLength(20)]],
+      vessel_number:['', [Validators.required]],
        mfid:[''],
        gill_net_count:[''],
        drag_net_count:[''],

@@ -105,11 +105,11 @@ export class SocietyAddMembersComponent implements OnInit {
     this.submitted = true;
     this.error = false;
     this.success = false;
-    this.fishermanChk = true;
+    this.fishermanChk = this.verifyGenderMale ? true : false;
     if(this.netting != undefined && this.NetSewing != undefined && (this.netting.nativeElement.checked || this.NetSewing.nativeElement.checked)) {
       this.fishermanChk = false;
     }
-    if (this.societyMembersForm.invalid) {
+    if (this.fishermanChk || this.societyMembersForm.invalid) {
       this.spinner.hide();
       return;
     }
@@ -119,7 +119,10 @@ export class SocietyAddMembersComponent implements OnInit {
     this.societyMembersForm.value.netting = this.netting && this.netting.nativeElement ? this.netting.nativeElement.checked : null;
     this.societyMembersForm.value.fish_vendor = this.fishVendor && this.fishVendor.nativeElement ? this.fishVendor.nativeElement.checked : null;
     this.societyMembersForm.value.is_president = this.isPresident.nativeElement.checked;
-    if(this.rationVerify) {
+    if(this.rationVerify && (this.societyMembersForm.controls['member_name'].status === "DISABLED" ||
+    this.societyMembersForm.controls['date_of_birth'].status === "DISABLED" ||
+    this.societyMembersForm.controls['age'].status === "DISABLED" ||
+    this.societyMembersForm.controls['gender'].status === "DISABLED")) {
       this.societyMembersForm.value.date_of_birth = new Date(this.rationVerify.date_of_birth);
       this.societyMembersForm.value.age =  this.rationVerify.age;
       this.societyMembersForm.value.gender =  this.rationVerify.gender;
@@ -127,6 +130,7 @@ export class SocietyAddMembersComponent implements OnInit {
     }
     this.societyMembersForm.value.reference = this.reference;
     this.societyMembersForm.value.userId = this.storage.get("user_id");
+    this.societyMembersForm.value.date_of_birth = new Date(this.societyMembersForm.value.date_of_birth).toDateString();
     this.vesselRegistrationService.addsocietymember(this.societyMembersForm.value).subscribe(data => {
       this.spinner.hide();
       this.addsocietyMember = data;

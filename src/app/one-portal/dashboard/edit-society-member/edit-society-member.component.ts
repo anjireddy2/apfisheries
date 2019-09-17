@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { VesselRegistrationService } from '../vessel-registration.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -35,7 +35,7 @@ export class EditSocietyMemberComponent implements OnInit {
   verifyGenderMale: boolean;
   verifyGenderFemale: boolean;verifyGender: boolean;
   constructor(private router: Router, private route: ActivatedRoute, private vesselRegistrationService: VesselRegistrationService, private formBuilder: FormBuilder,  
-    private spinner: NgxSpinnerService, @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
+    private spinner: NgxSpinnerService, @Inject(LOCAL_STORAGE) private storage: WebStorageService, private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {
     if(!this.storage.get("user_id")) {
@@ -63,6 +63,12 @@ export class EditSocietyMemberComponent implements OnInit {
     this.vesselRegistrationService.editSocietyMember(society_id, society_member_id).subscribe(data => {
       this.spinner.hide();
       this.editSocietyMember = data['message'];
+      this.genderSelection(this.editSocietyMember.gender);
+      this.changeDetectorRef.detectChanges();
+      this.isPresident.nativeElement.checked = this.editSocietyMember.is_president ? true : false;  
+      if(this.editSocietyMember.member_date_of_birth) {  
+        this.editSocietyMembersForm.controls['date_of_birth'].setValue(new Date(this.editSocietyMember.member_date_of_birth));
+      }
       if(this.netting != undefined) {
         this.netting.nativeElement.checked = this.editSocietyMember.netting ? true : false;
         this.NetSewing.nativeElement.checked = this.editSocietyMember.net_sweing ? true : false;
@@ -70,12 +76,6 @@ export class EditSocietyMemberComponent implements OnInit {
       if(this.fishVendor != undefined) {
         this.fishVendor.nativeElement.checked = this.fishVendor != undefined && this.editSocietyMember.fish_vendor ? true : false;
       }
-      this.isPresident.nativeElement.checked = this.editSocietyMember.is_president ? true : false;  
-      if(this.editSocietyMember.member_date_of_birth) {  
-        this.editSocietyMembersForm.controls['date_of_birth'].setValue(new Date(this.editSocietyMember.member_date_of_birth));
-      }
-      this.genderSelection(this.editSocietyMember.gender);
-
     }, error=>{
       this.spinner.hide();
    });
@@ -103,11 +103,11 @@ export class EditSocietyMemberComponent implements OnInit {
     this.submitted = true;
     this.error = false;
     this.success = false;
-    this.fishermanChk = true;
+    this.fishermanChk = this.verifyGenderMale ? true : false;
     if(this.netting != undefined && this.NetSewing != undefined && (this.netting.nativeElement.checked || this.NetSewing.nativeElement.checked)) {
       this.fishermanChk = false;
     }
-    if (this.editSocietyMembersForm.invalid) {
+    if (this.fishermanChk || this.editSocietyMembersForm.invalid) {
       this.spinner.hide();
       return;
     }
@@ -118,7 +118,10 @@ export class EditSocietyMemberComponent implements OnInit {
     this.editSocietyMembersForm.value.netting = this.netting && this.netting.nativeElement ? this.netting.nativeElement.checked : null;
     this.editSocietyMembersForm.value.fish_vendor = this.fishVendor && this.fishVendor.nativeElement ? this.fishVendor.nativeElement.checked : null;
     this.editSocietyMembersForm.value.is_president = this.isPresident.nativeElement.checked;
-    if(this.rationVerify) {
+    if(this.rationVerify && (this.editSocietyMembersForm.controls['member_name'].status === "DISABLED" ||
+    this.editSocietyMembersForm.controls['date_of_birth'].status === "DISABLED" ||
+    this.editSocietyMembersForm.controls['age'].status === "DISABLED" ||
+    this.editSocietyMembersForm.controls['gender'].status === "DISABLED")) {
       this.editSocietyMembersForm.value.date_of_birth = new Date(this.rationVerify.date_of_birth);
       this.editSocietyMembersForm.value.age =  this.rationVerify.age;
       this.editSocietyMembersForm.value.gender =  this.rationVerify.gender;
@@ -126,6 +129,7 @@ export class EditSocietyMemberComponent implements OnInit {
       }
       this.editSocietyMembersForm.value.reference = this.reference;
       this.editSocietyMembersForm.value.userId = this.storage.get("user_id");
+      this.editSocietyMembersForm.value.date_of_birth = new Date(this.editSocietyMembersForm.value.date_of_birth).toDateString();
      this.vesselRegistrationService.updateSocietymember(this.editSocietyMembersForm.value).subscribe(data => {
        this.spinner.hide();
        this.updateSocietyMember = data;

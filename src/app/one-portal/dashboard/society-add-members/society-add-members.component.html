@@ -290,16 +290,16 @@
                        <td> 
                         {{addSocietmember1.member_mobile_no}} 
                        </td>
-                       <td> 
-                         <div *ngIf="addSocietMember1.gender === 'Male'">
+                       <td>
+                         <div *ngIf="addSocietmember1.gender == 'Male'">
                                <label><b>Swimming</b> : true</label>
                                <br>
                                <label><b>Netting </b> : {{addSocietmember1.netting ? 'Yes' : 'No'}}</label>
                                <br>
                                <label><b>Net Sewing</b> : {{addSocietmember1.net_sweing ? 'Yes' : 'No'}}</label>
                               </div>
-                              <div *ngIf="addSocietMember1.gender === 'Female'">
-                                <label><b>Fish Vendor</b> : {{addSocietMember1.fish_vendor ? 'Yes' : 'No'}}</label>
+                              <div *ngIf="addSocietmember1.gender == 'Female'">
+                                <label><b>Fish Vendor</b> : {{addSocietmember1.fish_vendor ? 'Yes' : 'No'}}</label>
                                 </div>
                                  
                         </td>

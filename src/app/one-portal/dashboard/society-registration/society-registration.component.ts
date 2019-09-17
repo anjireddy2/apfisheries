@@ -4,6 +4,7 @@ import { VesselRegistrationService } from '../vessel-registration.service';
 import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-society-registration',
@@ -33,7 +34,8 @@ export class SocietyRegistrationComponent implements OnInit {
   verror: boolean;
 
   constructor(private router:Router,private vesselRegistrationService: VesselRegistrationService, 
-    private formBuilder: FormBuilder, @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
+    private formBuilder: FormBuilder, @Inject(LOCAL_STORAGE) private storage: WebStorageService,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     if(!this.storage.get("user_id")) {
@@ -47,12 +49,18 @@ export class SocietyRegistrationComponent implements OnInit {
       mandal: ['', [Validators.required]],
       flc: ['', [Validators.required]],
       society_name: ['', [Validators.required]],
-      society_reg_no: ['', [Validators.required,Validators.minLength(12),Validators.maxLength(20)]],
+      society_reg_no: ['', [Validators.required]],
       field: this.formBuilder.array([
         this.addvesselRegNo(),
      ])
     });
-    this.vesselRegistrationService.getDist().subscribe(data => this.Dist = data);
+    this.spinner.show();
+    this.vesselRegistrationService.getDist().subscribe(data => {
+      this.spinner.hide();
+      this.Dist = data
+    }, error=> {
+      this.spinner.hide();
+    });
   }
   addvesselRegNo() : FormGroup {
     return this.formBuilder.group({
@@ -70,6 +78,7 @@ export class SocietyRegistrationComponent implements OnInit {
     this.vesselRegistrationService.getFlc(distId1,mandalId).subscribe(data => this.Flcs = data);
   }
   societyRegistration(societyRegistrationForm) {
+    this.spinner.show();
     this.submitted = true;
     this.success = false;
     this.error=false;
@@ -80,15 +89,19 @@ export class SocietyRegistrationComponent implements OnInit {
     this.societyRegistrationForm.value.userId = this.storage.get("user_id");
     this.vesselRegistrationService.createSociety(this.societyRegistrationForm.value).subscribe(
       data=>{
+        this.spinner.hide();
       this.societyList = data;
       if(this.societyList && this.societyList.success == true) {
       this.success = true;
       this.router.navigate(['dashboard/society_registration']);
       } else {
+        
         // this.errorlist = this.registerData.message.split(",");
         this.error = true;
       }
       window.scroll(0,0);
+    }, error=>{
+      this.spinner.hide();
     });
   }
   onlyNumberKey(event) {

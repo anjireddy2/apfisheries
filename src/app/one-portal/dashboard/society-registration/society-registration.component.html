@@ -108,7 +108,6 @@ width: 94% ;" *ngIf="successsms" >
                          formControlName="society_reg_no" [ngClass]="{ 'is-invalid': submitted && f.society_reg_no.errors }">
                          <div *ngIf="submitted && f.society_reg_no.errors" class="invalid-feedback">
                          <div *ngIf="f.society_reg_no.errors.required">Society Reg number is required</div>
-                        <div *ngIf="f.society_reg_no.errors.minlength">Society Reg number should have 12 to 20 digits</div>
                         </div>
                     </div>
                   </div>
