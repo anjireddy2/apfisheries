@@ -32,11 +32,11 @@ import { SocietyListComponent } from './one-portal/dashboard/society-list/societ
  import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 // import { InlandSocietyRegistrationComponent } from './one-portal/dashboard/inland-society-registration/inland-society-registration.component';
 import { StorageServiceModule} from 'angular-webstorage-service';
-import { InlandSocietyRegistrationComponent } from './one-portal/dashboard/inland-society-registration/inland-society-registration.component';
-import { InlandSocietyListComponent } from './one-portal/dashboard/inland-society-list/inland-society-list.component';
+// import { InlandSocietyRegistrationComponent } from './one-portal/dashboard/inland-society-registration/inland-society-registration.component';
+// import { InlandSocietyListComponent } from './one-portal/dashboard/inland-society-list/inland-society-list.component';
 import { EditSocietyMemberComponent } from './one-portal/dashboard/edit-society-member/edit-society-member.component';
-import { InlandSocietyAddMemberComponent } from './one-portal/dashboard/inland-society-add-member/inland-society-add-member.component';
-import { InlandSocietyEditMemberComponent } from './one-portal/dashboard/inland-society-edit-member/inland-society-edit-member.component';
+// import { InlandSocietyAddMemberComponent } from './one-portal/dashboard/inland-society-add-member/inland-society-add-member.component';
+// import { InlandSocietyEditMemberComponent } from './one-portal/dashboard/inland-society-edit-member/inland-society-edit-member.component';
 import { CrewUserComponent } from './one-portal/dashboard/crew-user/crew-user.component';
 import { CrewEditComponent } from './one-portal/dashboard/crew-edit/crew-edit.component';
 
@@ -98,23 +98,23 @@ const appRoutes: Routes = [
       }, {
         path: 'edit_society_member/:society_id/:society_member_id',
         component: EditSocietyMemberComponent,
-      }, { 
-        path: 'inland_society_list', 
-        component: InlandSocietyListComponent
-      }, {
-        path: 'addnew_inland_society',
-        component: InlandSocietyRegistrationComponent
-      }, {
-        path: 'addinland_society_members/:id',
-        component: InlandSocietyAddMemberComponent
-      }, {
-        path: 'editinland_society_member/:societyId/:memberId',
-        component: InlandSocietyEditMemberComponent
       }
     ]
   },
 ];
-
+// , { 
+//   path: 'inland_society_list', 
+//   component: InlandSocietyListComponent
+// }, {
+//   path: 'addnew_inland_society',
+//   component: InlandSocietyRegistrationComponent
+// }, {
+//   path: 'addinland_society_members/:id',
+//   component: InlandSocietyAddMemberComponent
+// }, {
+//   path: 'editinland_society_member/:societyId/:memberId',
+//   component: InlandSocietyEditMemberComponent
+// }
   //create our cost var with the information about the format that we want
 
 
@@ -136,11 +136,11 @@ const appRoutes: Routes = [
     SocietyRegistrationComponent,
     SocietyAddMembersComponent,
     SocietyListComponent,
-    InlandSocietyRegistrationComponent,
-    InlandSocietyListComponent,
+    // InlandSocietyRegistrationComponent,
+    // InlandSocietyListComponent,
     EditSocietyMemberComponent,
-    InlandSocietyAddMemberComponent,
-    InlandSocietyEditMemberComponent,
+    // InlandSocietyAddMemberComponent,
+    // InlandSocietyEditMemberComponent,
     CrewUserComponent,
     CrewEditComponent,
    

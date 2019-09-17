@@ -142,7 +142,12 @@ export class SocietyAddMembersComponent implements OnInit {
       }
       window.scroll(0, 0);
       // this.enableFields();
-      // this.societyMembersForm.reset(false);
+      // this.societyMembersForm.reset();
+    //   Object.keys(this.societyMembersForm.controls).forEach(control => {
+    //     this.societyMembersForm.controls[control].markAsPristine();
+    //     this.societyMembersForm.controls[control].setErrors(null);
+    // });
+      // this.societyMembersForm.reset();
       return;
   }, error => {
     this.spinner.hide();
