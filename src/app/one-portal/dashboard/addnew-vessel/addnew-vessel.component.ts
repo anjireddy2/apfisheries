@@ -116,6 +116,7 @@ export class AddnewVesselComponent implements OnInit {
     this.registerForm.value.owner_name =  this.rationVerify.owner_name;
     }
     this.registerForm.value.userId = this.storage.get("user_id");
+    this.registerForm.value.reference = this.reference;
     this.vesselRegistrationService.createVessel(distId1, mandalId1 , flcId1, this.registerForm.value).subscribe(data => {
       this.spinner.hide();
       this.registerData = data;

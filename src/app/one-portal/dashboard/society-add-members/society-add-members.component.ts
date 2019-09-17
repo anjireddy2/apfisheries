@@ -119,6 +119,7 @@ export class SocietyAddMembersComponent implements OnInit {
       this.societyMembersForm.value.gender =  this.rationVerify.gender;
       this.societyMembersForm.value.member_name =  this.rationVerify.member_name;
     }
+    this.societyMembersForm.value.reference = this.reference;
     this.vesselRegistrationService.addsocietymember(this.societyMembersForm.value).subscribe(data => {
       this.spinner.hide();
       this.addsocietyMember = data;

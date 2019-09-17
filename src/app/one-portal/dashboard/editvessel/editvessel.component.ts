@@ -121,6 +121,7 @@ export class EditvesselComponent implements OnInit {
       return;
     }    
     const vid = +this.route.snapshot.paramMap.get('id');
+    this.updateForm.value.reference = this.reference;
     this.vesselRegistrationService.updateVessel(vid,this.updateForm.value).subscribe(data => {
       this.spinner.hide();
       this.vesselUpdate = data;

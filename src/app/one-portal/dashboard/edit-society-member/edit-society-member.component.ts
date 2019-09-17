@@ -120,6 +120,7 @@ export class EditSocietyMemberComponent implements OnInit {
       this.editSocietyMembersForm.value.gender =  this.rationVerify.gender;
       this.editSocietyMembersForm.value.member_name =  this.rationVerify.owner_name;
       }
+      this.editSocietyMembersForm.value.reference = this.reference;
      this.vesselRegistrationService.updateSocietymember(this.editSocietyMembersForm.value).subscribe(data => {
        this.spinner.hide();
        this.updateSocietyMember = data;

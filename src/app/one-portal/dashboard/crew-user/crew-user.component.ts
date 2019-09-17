@@ -110,6 +110,7 @@ export class CrewUserComponent implements OnInit {
       this.crewUserRegisterForm.value.age =  this.rationVerify.age;
       this.crewUserRegisterForm.value.date_of_birth =  this.rationVerify.date_of_birth;
     }
+    this.crewUserRegisterForm.value.reference = this.reference;
     this.vesselRegistrationService.createCrewMember(vesselId,this.crewUserRegisterForm.value).subscribe(data => {
       this.spinner.hide();
       this.registerData = data;
@@ -150,6 +151,7 @@ export class CrewUserComponent implements OnInit {
     this.vesselRegistrationService.adharVerify(adhNum).subscribe(data => {
       this.spinner.hide();
       this.adharVerify = data;
+      this.reference = this.adharVerify.message;
       if(this.adharVerify && this.adharVerify.success === true) {
         this.adhar_success = true;
         this.showVerifyBtn = false;
