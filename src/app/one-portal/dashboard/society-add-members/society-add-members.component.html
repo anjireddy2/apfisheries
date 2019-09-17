@@ -120,9 +120,9 @@
                     <div class="col-md-4">
                             <div class="form-group">
                               <label for="power">Name <span class="vessel-mandatory-ind">*</span></label>
-                             <input type="text"   formControlName="vessel_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.vessel_name.errors }" [ngModel]="rationVerify.owner_name">
-                             <div *ngIf="submitted && f.vessel_name.errors" class="invalid-feedback">
-                              <div *ngIf="f.vessel_name.errors.required">Name is required</div>
+                             <input type="text"   formControlName="member_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.member_name.errors }" [ngModel]="rationVerify.owner_name">
+                             <div *ngIf="submitted && f.member_name.errors" class="invalid-feedback">
+                              <div *ngIf="f.member_name.errors.required">Name is required</div>
                           </div>
                             </div>
                     </div>  
@@ -306,13 +306,13 @@
                         
 
 <td>
-    <span (click) = editSmember(addSocietmember1) style="padding-right: 10px;"> 
+    <span (click) = "editSmember(addSocietmember1)" style="padding-right: 10px;"> 
         <i class="fa fa-pencil-square-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
         </span>
-<span (click) = deleteSmember(addSocietmember1);> 
+<span (click) = "deleteSmember(addSocietmember1, index)" style="padding-right: 10px;"> 
 <i class="fa fa-trash-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
 </span>
-<span *ngIf="addSocietmember1.isPresident" style="color:green">President</span>
+<span *ngIf="addSocietmember1.is_president" style="color:green">President</span>
 </td>
 </tr>
                    

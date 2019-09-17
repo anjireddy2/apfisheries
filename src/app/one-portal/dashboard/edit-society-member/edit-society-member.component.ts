@@ -38,7 +38,7 @@ export class EditSocietyMemberComponent implements OnInit {
 
   ngOnInit() {
     this.editSocietyMembersForm = this.formBuilder.group({
-      vessel_name: ['', Validators.required],
+      member_name: ['', Validators.required],
       aadhaar_number: ['', [Validators.required, Validators.minLength(12)]],
       ration_card: [''],
       social_status: [''],
@@ -73,7 +73,7 @@ export class EditSocietyMemberComponent implements OnInit {
       this.genderSelection(this.editSocietyMember.member_social_status)
 
     }, error=>{
-      this.spinner.hide()
+      this.spinner.hide();
    });
   }
 
@@ -100,7 +100,7 @@ export class EditSocietyMemberComponent implements OnInit {
     this.error = false;
     this.success = false;
     this.fishermanChk = true;
-    if(this.netting.nativeElement.checked || this.NetSewing.nativeElement.checked) {
+    if(this.netting != undefined && this.NetSewing != undefined && (this.netting.nativeElement.checked || this.NetSewing.nativeElement.checked)) {
       this.fishermanChk = false;
     }
     if (this.editSocietyMembersForm.invalid) {
@@ -109,20 +109,27 @@ export class EditSocietyMemberComponent implements OnInit {
     }
     this.editSocietyMembersForm.value.society_id = this.route.snapshot.paramMap.get('society_id');
     this.editSocietyMembersForm.value.society_member_id = this.route.snapshot.paramMap.get('society_member_id');
-    this.editSocietyMembersForm.value.Swimming = this.Swimming.nativeElement.checked;
-    this.editSocietyMembersForm.value.NetSewing = this.NetSewing.nativeElement.checked;
-    this.editSocietyMembersForm.value.netting = this.netting.nativeElement.checked;
+    this.editSocietyMembersForm.value.Swimming = this.Swimming && this.Swimming.nativeElement ? this.Swimming.nativeElement.checked : null;
+    this.editSocietyMembersForm.value.NetSewing = this.NetSewing && this.NetSewing.nativeElement ? this.NetSewing.nativeElement.checked : null;
+    this.editSocietyMembersForm.value.netting = this.netting && this.netting.nativeElement ? this.netting.nativeElement.checked : null;
+    this.editSocietyMembersForm.value.fish_vendor = this.fishVendor && this.fishVendor.nativeElement ? this.fishVendor.nativeElement.checked : null;
+    this.editSocietyMembersForm.value.is_president = this.isPresident.nativeElement.checked;
+    if(this.rationVerify) {
+      this.editSocietyMembersForm.value.date_of_birth = new Date(this.rationVerify.date_of_birth);
+      this.editSocietyMembersForm.value.age =  this.rationVerify.age;
+      this.editSocietyMembersForm.value.gender =  this.rationVerify.gender;
+      this.editSocietyMembersForm.value.member_name =  this.rationVerify.owner_name;
+      }
      this.vesselRegistrationService.updateSocietymember(this.editSocietyMembersForm.value).subscribe(data => {
        this.spinner.hide();
        this.updateSocietyMember = data;
        if (this.updateSocietyMember && this.updateSocietyMember.status === true) {
          this.router.navigate(["dashboard/addsociety_members", this.route.snapshot.paramMap.get('society_id')]);
-        //  this.success = true;
-        //  window.scroll(0, 0);
+         this.success = true;
        } else {
          this.error = true;
-         window.scroll(0, 0);
        }
+       window.scroll(0, 0);
    }, error => {
      this.spinner.hide();
    });
@@ -189,28 +196,32 @@ export class EditSocietyMemberComponent implements OnInit {
     if(this.rationVerify && this.rationVerify.success === true) {
       this.editSocietyMembersForm.controls['date_of_birth'].setValue(new Date(this.rationVerify.date_of_birth));
       this.rationVerify && this.rationVerify.age ? this.editSocietyMembersForm.controls['age'].disable() :  this.editSocietyMembersForm.controls['age'].enable();
-      this.rationVerify && this.rationVerify.social_status ? this.editSocietyMembersForm.controls['social_status'].disable() :  this.editSocietyMembersForm.controls['social_status'].enable();
-      this.rationVerify && this.rationVerify.employment_status ? this.editSocietyMembersForm.controls['employment_status'].disable() :  this.editSocietyMembersForm.controls['employment_status'].enable();
       this.rationVerify && this.rationVerify.date_of_birth ? this.editSocietyMembersForm.controls['date_of_birth'].disable() :  this.editSocietyMembersForm.controls['date_of_birth'].enable();
       this.rationVerify && this.rationVerify.gender ? this.editSocietyMembersForm.controls['gender'].disable() :  this.editSocietyMembersForm.controls['gender'].enable();
-      // age,employment_status,social_status,dob
+      this.rationVerify && this.rationVerify.owner_name ? this.editSocietyMembersForm.controls['member_name'].disable() :  this.editSocietyMembersForm.controls['member_name'].enable();
+      this.editSocietyMember.member_name = this.rationVerify.owner_name;
+      this.editSocietyMember.gender = this.rationVerify.gender;
+      this.editSocietyMember.age = this.rationVerify.age;
       this.success1 = true;
       this.rationVerifyBtn = false;
       this.rationVerify.success = true;
       this.genderSelection(this.rationVerify.gender);
     } else {
-      this.editSocietyMembersForm.controls['age'].enable();
-      this.editSocietyMembersForm.controls['gender'].enable();
-      this.editSocietyMembersForm.controls['social_status'].enable();
-      this.editSocietyMembersForm.controls['employment_status'].enable();
-      this.editSocietyMembersForm.controls['date_of_birth'].enable();
       this.error1 = true;
+      this.enableFiels();
     }
-    
     // this.verifyGender = this.rationVerify && this.rationVerify.gender && this.rationVerify.gender === "Male" ? true : false;
     window.scroll(0,0);
   }, error => {
      this.spinner.hide();
+     this.enableFiels();
   });
+  }
+
+  enableFiels() {
+    this.editSocietyMembersForm.controls['age'].enable();
+    this.editSocietyMembersForm.controls['gender'].enable();
+    this.editSocietyMembersForm.controls['date_of_birth'].enable();
+    this.editSocietyMembersForm.controls['member_name'].enable();
   }
 }
