@@ -83,6 +83,7 @@ export class SocietyRegistrationComponent implements OnInit {
     this.success = false;
     this.error=false;
     if (this.societyRegistrationForm.invalid) {
+      this.spinner.hide();
       return;
     }
     this.societyRegistrationForm.value.field = this.fieldArray;

@@ -141,6 +141,9 @@ export class SocietyAddMembersComponent implements OnInit {
         this.error = true;
       }
       window.scroll(0, 0);
+      // this.enableFields();
+      // this.societyMembersForm.reset(false);
+      return;
   }, error => {
     this.spinner.hide();
   });
