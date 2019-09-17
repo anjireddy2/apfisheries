@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import {VesselRegistrationService} from '../vessel-registration.service';
+import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -28,10 +29,15 @@ export class VesselRegistrationComponent implements OnInit {
   vesselDataId: any;
   p: any;
 
-  constructor(private vesselRegistrationService: VesselRegistrationService,private router:Router,private spinner: NgxSpinnerService) { }
+  constructor(private vesselRegistrationService: VesselRegistrationService,private router:Router,
+    private spinner: NgxSpinnerService, @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
 
   ngOnInit() {
-    this.vesselRegistrationService.getDist().subscribe(data => this.Dist = data);
+    if(!this.storage.get("user_id")) {
+      this.router.navigate(['/']);
+    } else {
+      this.vesselRegistrationService.getDist().subscribe(data => this.Dist = data);
+    }
   }
 
   getMandal() {

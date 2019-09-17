@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {VesselRegistrationService} from '../vessel-registration.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -41,14 +41,16 @@ export class EditvesselComponent implements OnInit {
   adhar_error: boolean;
   adhar_success: boolean;
   constructor(private formBuilder: FormBuilder,private vesselRegistrationService: VesselRegistrationService,
-     private route: ActivatedRoute, private spinner: NgxSpinnerService, @Inject(LOCAL_STORAGE) private storage: WebStorageService)
+     private route: ActivatedRoute, private router: Router, private spinner: NgxSpinnerService, @Inject(LOCAL_STORAGE) private storage: WebStorageService)
    {
 
     }
 
 
   ngOnInit() {
-    
+    if(!this.storage.get("user_id")) {
+      this.router.navigate(['/']);
+    } 
     this.updateForm = this.formBuilder.group({
       owner_name: ['', Validators.required],
       father_name: ['', Validators.required],

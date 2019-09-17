@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
+import { Router } from '@angular/router';
+import { Component, Inject } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +12,18 @@ export class AppComponent {
   title = 'e-pragati';
   newUser_Exist = true;
 
-  constructor() {
+  constructor(private router:Router,@Inject(LOCAL_STORAGE) private storage: WebStorageService) {
     
    }
 
   ngOnInit() {
+    if(!this.storage.get("user_id")) {
+      // localStorage.clear();
+      this.router.navigate(['/']);
+
+      
+    }
+    //console.log(this.storage.get("user_id"));
   }
 
   newUser()

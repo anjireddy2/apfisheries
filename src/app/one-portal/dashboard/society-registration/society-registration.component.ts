@@ -36,6 +36,9 @@ export class SocietyRegistrationComponent implements OnInit {
     private formBuilder: FormBuilder, @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
 
   ngOnInit() {
+    if(!this.storage.get("user_id")) {
+      this.router.navigate(['/']);
+    } 
     this.societyRegistrationForm = this.formBuilder.group({
       district_name: ['', [Validators.required]],
        ncdc_reg: ['', [Validators.required]],

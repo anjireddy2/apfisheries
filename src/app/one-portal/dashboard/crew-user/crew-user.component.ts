@@ -57,6 +57,9 @@ export class CrewUserComponent implements OnInit {
     private spinner: NgxSpinnerService, private route: ActivatedRoute, @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
 
   ngOnInit() {
+    if(!this.storage.get("user_id")) {
+      this.router.navigate(['/']);
+    } 
     this.spinner.show();
     this.crewUserRegisterForm = this.formBuilder.group({
       aadhaar_number: ['', [Validators.required,Validators.minLength(12)]],

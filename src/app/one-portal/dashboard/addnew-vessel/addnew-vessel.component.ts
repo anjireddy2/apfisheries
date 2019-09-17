@@ -46,6 +46,9 @@ export class AddnewVesselComponent implements OnInit {
     private spinner: NgxSpinnerService, @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
 
   ngOnInit() {
+    if(!this.storage.get("user_id")) {
+      this.router.navigate(['/']);
+    } 
     this.registerForm = this.formBuilder.group({
       owner_name: ['', Validators.required],
       father_name: ['', Validators.required],

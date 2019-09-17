@@ -52,6 +52,9 @@ export class SocietyAddMembersComponent implements OnInit {
 
 
   ngOnInit() {
+    if(!this.storage.get("user_id")) {
+      this.router.navigate(['/']);
+    } 
     this.spinner.show();
     this.societyMembersForm = this.formBuilder.group({
       member_name: ['', Validators.required],

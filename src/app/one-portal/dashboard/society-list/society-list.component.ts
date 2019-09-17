@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import {VesselRegistrationService} from '../vessel-registration.service';
 import { Observable, Subject  } from 'rxjs-compat';
 import { VesselregistractionModule } from '../../vesselregistraction/vesselregistraction.module';
 import { subscribeOn } from 'rxjs-compat/operator/subscribeOn';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
+
 @Component({
   selector: 'app-society-list',
   templateUrl: './society-list.component.html',
@@ -25,12 +27,15 @@ export class SocietyListComponent implements OnInit {
   Mandals: any;
   Flcs: any;
 
-  constructor(private vesselRegistrationService: VesselRegistrationService, private router: Router, 
+  constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService,private vesselRegistrationService: VesselRegistrationService, private router: Router, 
     private spinner: NgxSpinnerService) {
 
    }
 
   ngOnInit() {
+    if(!this.storage.get("user_id")) {
+      this.router.navigate(['/']);
+    } 
     this.spinner.show();
     this.vesselRegistrationService.getDist().subscribe(data => this.Dist = data);
     this.vesselRegistrationService.societyList().subscribe(data => {
