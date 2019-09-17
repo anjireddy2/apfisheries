@@ -90,10 +90,10 @@ margin-bottom: 0px !important;
 {
 font-size: 12px;
 }
+.table td, .table th
+{
+    font-size: 12px;
+}
 .vessel-mandatory-ind{
     color:red; font-weight:700;
 }
-input[type="date"]::before {
-    content: attr(placeholder);
-    width: 100%;
-  }

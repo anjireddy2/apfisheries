@@ -173,8 +173,8 @@ export class VesselRegistrationService
   }
   //End Of InlandSociety
 
-  public createCrewMember(registractionData: any) {
-    return this._http.post<VesselregistractionModule[]>(this.apiURL+"/vessel_details/create_crew_user/",registractionData);
+  public createCrewMember(vId:any,registractionData: any) {
+    return this._http.post<VesselregistractionModule[]>(this.apiURL+"/vessel_details/"+vId+"/create_crew_user/" , registractionData);
   }
 
   public crewMemberList(data: any) {
@@ -182,7 +182,11 @@ export class VesselRegistrationService
   }
 
   public deleteCrewMember(vesselId, crewMemberId) {
-    return this._http.delete<VesselregistractionModule[]>(this.apiURL+"/vessel_registrations/delete_crew_member?vessel_id="+vesselId+"&crew_member_id"+crewMemberId);
+    return this._http.delete<VesselregistractionModule[]>(this.apiURL+"/vessel_details/"+vesselId+"/delete_crew_member?member_id="+crewMemberId);
+  }
+  
+  public editCrewMember(vesselId, crewMemberId) {
+    return this._http.get<VesselregistractionModule[]>(this.apiURL+"/vessel_details/"+vesselId+"/edit_crew_member?member_id="+crewMemberId);
   }
   
 }

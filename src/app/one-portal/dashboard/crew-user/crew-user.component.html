@@ -52,7 +52,7 @@ width: 94% ;" *ngIf="successsms" >
     <div class="col-md-12">
       <div class="alert alert-success alert-dismissible" *ngIf="success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>{{registerData.message}}</strong>
+        <strong>crew member added successfully</strong>
       </div>
     </div>
   </div>
@@ -61,7 +61,7 @@ width: 94% ;" *ngIf="successsms" >
       <div class="alert alert-danger alert-dismissible" *ngIf="error">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <!-- This was my preferred answer, but keep in mind, if the value of scrollTop doesn't change in the component, you won't see anything happen.  -->
-        <strong>{{registerData.message}}</strong>
+        <strong></strong>
   
      
       </div>
@@ -80,7 +80,7 @@ width: 94% ;" *ngIf="successsms" >
             <div class="col-md-4">
                 <div class="form-group">
                   <label for="power">Aadhaar Number <span class="vessel-mandatory-ind">*</span></label>
-                 <input id="adharId" type="text" (keypress)="onlyNumberKey($event)" (keyup) = "getVerifyBtn('Aadhar')" maxlength="12"  formControlName="aadhaar_number"  value="" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.aadhaar_number.errors }">
+                 <input id="adharId" type="text" (keypress)="onlyNumberKey($event)" (keyup) = "getVerifyBtn('Aadhar')" maxlength="12" [ngModel]="EditCrewMember.member_aadhaar_id"  formControlName="aadhaar_number"  value="" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.aadhaar_number.errors }">
                  <div *ngIf="submitted && f.aadhaar_number.errors" class="invalid-feedback">
                 <div *ngIf="f.aadhaar_number.errors.required">Aadhaar number is required</div>
                 <div *ngIf="f.aadhaar_number.errors.minlength">Minimum required number is 12</div>
@@ -97,7 +97,7 @@ width: 94% ;" *ngIf="successsms" >
         <div class="col-md-4">
             <div class="form-group">
                <label for="power">Ration card Number <!--<span class="vessel-mandatory-ind">*</span>--></label> 
-             <input type="text" name="ration_card"  class="form-control" formControlName="ration_card" (keyup) = "getVerifyBtn('RationCard')" maxlength="15">
+             <input type="text" name="ration_card" [(ngModel)]="EditCrewMember.member_ration_card_number"  class="form-control" formControlName="ration_card" (keyup) = "getVerifyBtn('RationCard')" maxlength="15">
              <!-- <div *ngIf="submitted && f.ration_card.errors" class="invalid-feedback">
                 <div *ngIf="f.ration_card.errors.required">Ration Card number is required</div>
              
@@ -111,7 +111,7 @@ width: 94% ;" *ngIf="successsms" >
                 <div class="col-md-4">
                         <div class="form-group">
                           <label for="power">Crew Member Name <span class="vessel-mandatory-ind">*</span></label>
-                         <input type="text" formControlName="owner_name" [ngModel]="rationVerify.owner_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.owner_name.errors }">
+                         <input type="text" formControlName="owner_name" [ngModel]="EditCrewMember.member_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.owner_name.errors }">
                          <div *ngIf="submitted && f.owner_name.errors" class="invalid-feedback">
                           <div *ngIf="f.owner_name.errors.required">Crew Member name is required</div>
                       </div>
@@ -120,7 +120,7 @@ width: 94% ;" *ngIf="successsms" >
                  <div class="col-md-4">
                         <div class="form-group">
                           <label for="power">Father Name <span class="vessel-mandatory-ind">*</span></label>
-                         <input  type="text" formControlName="father_name" [ngModel]="rationVerify.father_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.father_name.errors }">
+                         <input  type="text" formControlName="father_name" [ngModel]="EditCrewMember.memner_father_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.father_name.errors }">
                          <div *ngIf="submitted && f.father_name.errors" class="invalid-feedback">
                           <div *ngIf="f.father_name.errors.required">Father name is required</div>
                         </div>
@@ -130,7 +130,7 @@ width: 94% ;" *ngIf="successsms" >
                   <div class="col-md-4">
                         <div class="form-group">
                           <label for="power">Mobile Number <span class="vessel-mandatory-ind">*</span></label>
-                         <input type="text" (keypress)="onlyNumberKey($event)" pattern="\d*" maxlength="10" formControlName="mobile_number" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.mobile_number.errors }">
+                         <input type="text" (keypress)="onlyNumberKey($event)" pattern="\d*" maxlength="10" [ngModel]="EditCrewMember.member_mobile_number" formControlName="mobile_number" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.mobile_number.errors }">
                          <div *ngIf="submitted && f.mobile_number.errors" class="invalid-feedback">
                          <div *ngIf="f.mobile_number.errors.required">Mobile number is required</div>
                         <div *ngIf="f.mobile_number.errors.minlength">Minimum required number is 10</div>
@@ -140,14 +140,14 @@ width: 94% ;" *ngIf="successsms" >
                   <div class="col-md-4">
                       <div class="form-group">
                         <label for="power">Email Id </label>
-                       <input type="email" name="email_id"  class="form-control" formControlName="email_id">
+                       <input type="email" name="email_id" [ngModel]="EditCrewMember.member_email"  class="form-control" formControlName="email_id">
                      
                       </div>
               </div>
                   <div class="col-md-4">
                       <div class="form-group">
                         <label for="power">Bank Account Number <span class="vessel-mandatory-ind">*</span></label>
-                       <input type="text" (keypress)="onlyNumberKey($event)" pattern="\d*" maxlength = "8" maxlength="20" formControlName="bank_account_number" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.bank_account_number.errors }">
+                       <input [ngModel]="EditCrewMember.bank_account_number" type="text" (keypress)="onlyNumberKey($event)" pattern="\d*" maxlength = "8" maxlength="20" formControlName="bank_account_number" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.bank_account_number.errors }">
                        <div *ngIf="submitted && f.bank_account_number.errors" class="invalid-feedback">
                        <div *ngIf="f.bank_account_number.errors.required">Bank Account number is required</div>
                       <div *ngIf="f.bank_account_number.errors.minlength">Bank Account number should have 8 to 20 digits</div>
@@ -160,7 +160,7 @@ width: 94% ;" *ngIf="successsms" >
                  <div class="col-md-4">
                         <div class="form-group">
                           <label for="power">IFSC Code  <span class="vessel-mandatory-ind">*</span></label>
-                         <input type="text" name="ifsc_code" formControlName="ifsc_code" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ifsc_code.errors }">
+                         <input [ngModel]="EditCrewMember.bank_ifsc" type="text" name="ifsc_code" formControlName="ifsc_code" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ifsc_code.errors }">
                          <div *ngIf="submitted && f.ifsc_code.errors" class="invalid-feedback">
                             <div *ngIf="f.ifsc_code.errors.required">IFSC Code is required</div>
                            <!-- <div *ngIf="f.ifsc_code.errors.minlength">Bank Account number should have 12 to 20 digits</div> -->
@@ -171,7 +171,7 @@ width: 94% ;" *ngIf="successsms" >
                         <div class="form-group">
                           <label for="power">Bank Name <span class="vessel-mandatory-ind">*</span></label>
                          <!-- <input type="text" name="bank_name" formControlName="bank_name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.bank_name.errors }"> -->
-                         <select class="form-control" formControlName="bank_name"    name="bank" [ngClass]="{ 'is-invalid': submitted && f.bank_name.errors }">
+                         <select [ngModel]="EditCrewMember.bank_name" class="form-control" formControlName="bank_name"    name="bank" [ngClass]="{ 'is-invalid': submitted && f.bank_name.errors }">
                           <option [ngValue]="undefined" hidden selected> --Select-- </option>
                           <!-- <option *ngFor='let bank of Bank' [ngValue]='bank.id'>
                           {{ bank.bank_name}}
@@ -250,6 +250,58 @@ width: 94% ;" *ngIf="successsms" >
                            </div>
                         </div>
                 </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="power" style="display: block; margin-bottom: 0px;">Date Of Birth</label>
+                     <!-- <input  type="date"  placeholder="select date" formControlName="licence_renewal_date" value="" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.licence_renewal_date.errors }"> -->
+                     <mat-form-field>
+                      <input matInput [matDatepicker]="picker1"   placeholder="Selct date" formControlName="date_of_birth" [ngModel]="EditCrewMember.member_date_of_birth">
+                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                      <mat-datepicker #picker1 > </mat-datepicker>
+                    </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="power">Gender<span class="vessel-mandatory-ind">*</span></label>
+                      <select class="form-control" formControlName="gender" name="gender" placeholder="Select" [ngModel]="EditCrewMember.member_gender" [ngClass]="{ 'is-invalid': submitted && f.mobile_number.errors }">
+                        <option [ngValue]="undefined" hidden selected> --Select-- </option>
+                        <option value="Male">  Male </option>
+                        <option value="Female"> Female </option>          
+                     </select>
+                     <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
+                      <div *ngIf="f.gender.errors.required">Gender is required</div>
+                     </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="power">Social Status</label>
+                      <select class="form-control" formControlName="social_status" name="social_status" [ngModel]="EditCrewMember.member_social_status">
+                        <option [ngValue]="undefined" hidden selected> --Select-- </option>
+                        <option value="OC"> OC </option>
+                        <option value="BC"> BC </option>
+                        <option value="SC"> SC </option>   
+                        <option value="SC"> ST </option>            
+                     </select>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="power">Employment Status</label>
+                      <select class="form-control" formControlName="employment_status" name="employment_status" [ngModel]="EditCrewMember.member_employment_status">
+                        <option [ngValue]="undefined" hidden selected> --Select-- </option>
+                            <option value="Employed"> Employed </option>
+                            <option value="UnEmployed"> UnEmployed </option>          
+                     </select>
+                  </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="power">Age </label>
+                     <input type="text" (keypress)="onlyNumberKey($event)" pattern="\d*" formControlName="age" class="form-control" [ngModel]="EditCrewMember.member_age">
+                </div>
+                </div>
         </div>
     
 
@@ -278,14 +330,17 @@ width: 94% ;" *ngIf="successsms" >
           <tbody>  
             <tr *ngFor = "let crewMember of crewMemberList | paginate: { itemsPerPage: 6, currentPage: p}">  
               <td >{{crewMember.id}}</td>
-              <td>{{crewMember.aadhaar_number}}</td>  
-              <td>{{societyList.ration_card}}</td>  
-              <td>{{societyList.crew_member_name}}</td>  
-              <td>{{societyList.father_name}}</td> 
-              <td>{{societyList.mobile_number}}</td>  
-              <td>{{societyList.bank_account_number}}</td> 
+              <td>{{crewMember.member_aadhaar_id}}</td>  
+              <td>{{crewMember.member_ration_card_number}}</td>  
+              <td>{{crewMember.member_name}}</td>  
+              <td>{{crewMember.memner_father_name}}</td> 
+              <td>{{crewMember.member_mobile_number}}</td>  
+              <td>{{crewMember.bank_account_number}}</td> 
               <td>
-                <span (click)="deleteCrewUser(crewMember, index)" style="margin-left: 15px;"> 
+                  <span (click)="editCrewUser(crewMember, index)" style="padding-right: 10px;"> 
+                      <i class="fa fa-pencil-square-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
+                    </span>
+                <span (click)="deleteCrewUser(crewMember)" style=""> 
                   <i class="fa fa-trash-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
                 </span>
               </td>

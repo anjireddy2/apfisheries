@@ -111,17 +111,18 @@
             <td>{{vesselList.ration_card_number}}</td> 
             
         
-            <td>
+            <td style="float: left; width: 90px;">
+              <span> 
+                <i class="fa fa-users " title="Add crew member" aria-hidden="true" style="color: #39c4f0; cursor: pointer; padding-right:10px; " (click)="crewUser(vesselList)"></i>
+              </span>
            <span style="padding-right: 10px;" >
-              <i class="fa fa-pencil-square-o" (click)="edidtVessel(vesselList)" aria-hidden="true" style="color: #39c4f0; cursor: pointer;"></i>
+              <i class="fa fa-pencil-square-o" title="Edit" (click)="edidtVessel(vesselList)" aria-hidden="true" style="color: #39c4f0; cursor: pointer;"></i>
            </span> 
               
-          <span (click)="vesselData(vesselList)" data-toggle="modal" data-target="#myModal" style="padding-right: 10px;" > 
-            <i class="fa fa-trash-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
+          <span (click)="vesselData(vesselList)" data-toggle="modal" data-target="#myModal" style="" > 
+            <i class="fa fa-trash-o " title="Delete" aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
           </span>
-          <span> 
-            <i class="fa fa-user " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" (click)="crewUser(vesselList)"></i>
-          </span>
+         
 
 
           <!-- <button (click)="editVessel(vesselList.id)" >FFF</button> -->
