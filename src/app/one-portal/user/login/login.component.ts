@@ -58,9 +58,9 @@ export class LoginComponent implements OnInit {
       });  
   }
 
-  onlyNumberKey(event) {
-    return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57;
-  }
+  // onlyNumberKey(event) {
+  //   return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57;
+  // }
 
   forgot() {
     this.router.navigate(['/forgot']);
