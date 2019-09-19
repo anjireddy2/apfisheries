@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() 
     {
       this.loginForm = this.formBuilder.group({
-        mobile_number: ['',[Validators.required, Validators.minLength(10)]],
+        mobile_number: ['',[Validators.required]],
         password: ['', [Validators.required, Validators.minLength(6)]],
     });  
   }
@@ -38,7 +38,8 @@ export class LoginComponent implements OnInit {
     this.validUser1 = true;
     // stop here if form is invalid
     if (this.loginForm.invalid) {
-        return;
+      this.spinner.hide();
+      return;
     }
     this.vesselRegistrationService.login(this.loginForm.value).subscribe(data => {
         this.spinner.hide();

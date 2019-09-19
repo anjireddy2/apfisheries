@@ -22,11 +22,11 @@
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
-            <label for="power" class="my-app-select-register-option-head">Mobile Number <span class="vessel-mandatory-ind">*</span></label>
-           <input type="text" maxlength="10" formControlName="mobile_number" placeholder="Mobile Number"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.mobile_number.errors }">
+            <label for="power" class="my-app-select-register-option-head">User Name/Mobile Number  <span class="vessel-mandatory-ind">*</span></label>
+           <input type="text" maxlength="10" formControlName="mobile_number" placeholder="User name or Mobile number"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.mobile_number.errors }">
            <div *ngIf="submitted && f.mobile_number.errors" class="invalid-feedback ">
-            <div *ngIf="f.mobile_number.errors.required" class="my-app-select-register-option-head">Mobile number is required</div>
-            <div *ngIf="f.mobile_number.errors.minlength" class="my-app-select-register-option-head">Please Enter valid mobile number</div>
+            <div *ngIf="f.mobile_number.errors.required" class="my-app-select-register-option-head">User Name/Mobile Number is required</div>
+            <!-- <div *ngIf="f.mobile_number.errors.minlength" class="my-app-select-register-option-head">Please Enter valid mobile number</div> -->
 
           </div>
           </div>
@@ -36,7 +36,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="form-group" style="margin-bottom: 0rem;">
-            <label for="power" class="my-app-select-register-option-head">password <span class="vessel-mandatory-ind">*</span></label>
+            <label for="power" class="my-app-select-register-option-head">Password <span class="vessel-mandatory-ind">*</span></label>
            <input type="password" formControlName="password" placeholder="Password"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
            <div *ngIf="submitted && f.password.errors" class="invalid-feedback ">
             <div *ngIf="f.password.errors.required" class="my-app-select-register-option-head">Password is required</div>
