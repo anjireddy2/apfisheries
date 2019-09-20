@@ -123,7 +123,7 @@ export class CrewEditComponent implements OnInit {
       this.updatedData = data;
       //  this.crewMemberList = data['message'];
       if(this.updatedData && this.updatedData.success == true) {
-        this.crewUserRegisterForm.reset();
+        // this.crewUserRegisterForm.reset();
         this.success = true;
         this.router.navigate(['/dashboard/crew_user_vessel',vesselId]);
       } else {

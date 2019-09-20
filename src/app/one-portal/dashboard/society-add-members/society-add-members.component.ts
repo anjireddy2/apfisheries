@@ -135,24 +135,20 @@ export class SocietyAddMembersComponent implements OnInit {
       this.spinner.hide();
       this.addsocietyMember = data;
       if (this.addsocietyMember && this.addsocietyMember.status === true) {
-        this.router.navigate(["/dashboard/society_registration"])
+        // this.router.navigate(["/dashboard/society_registration"])
         this.success = true;
       } else {
         this.error = true;
       }
       window.scroll(0, 0);
-      // this.enableFields();
-      // this.societyMembersForm.reset();
-    //   Object.keys(this.societyMembersForm.controls).forEach(control => {
-    //     this.societyMembersForm.controls[control].markAsPristine();
-    //     this.societyMembersForm.controls[control].setErrors(null);
-    // });
-      // this.societyMembersForm.reset();
-      return;
+      this.enableFields();
+      this.submitted = false;
+      this.societyMembersForm.reset({});
   }, error => {
     this.spinner.hide();
   });
 }
+
 onlyNumberKey(event) {
     return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57;
 }

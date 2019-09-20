@@ -89,14 +89,13 @@ export class SocietyRegistrationComponent implements OnInit {
     this.societyRegistrationForm.value.field = this.fieldArray;
     this.societyRegistrationForm.value.userId = this.storage.get("user_id");
     this.vesselRegistrationService.createSociety(this.societyRegistrationForm.value).subscribe(
-      data=>{
-        this.spinner.hide();
+    data=>{
+      this.spinner.hide();
       this.societyList = data;
       if(this.societyList && this.societyList.success == true) {
       this.success = true;
       this.router.navigate(['dashboard/society_registration']);
       } else {
-        
         // this.errorlist = this.registerData.message.split(",");
         this.error = true;
       }

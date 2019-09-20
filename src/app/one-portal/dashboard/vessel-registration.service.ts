@@ -8,7 +8,7 @@ export class VesselRegistrationService
 {
   
  
-   //apiURL = 'http://10.129.8.64:3000';
+  //  apiURL = 'http://10.129.8.64:3000';
    apiURL = 'https://safe-wave-93434.herokuapp.com';
     //apiURL = 'http://10.129.9.22:3000';
     
@@ -160,7 +160,7 @@ export class VesselRegistrationService
     return this._http.get<VesselregistractionModule[]>(this.apiURL + '/inland_society_registrations/'+societyid+'/inland_society_members/');
   }
 
-  public addInlandsocietymember(societymember) {
+  public editInlandSocietyMember(societymember) {
     return this._http.post<VesselregistractionModule[]>(this.apiURL+"/inland_society_registrations/add_inland_members",societymember);
   }
 
@@ -168,8 +168,8 @@ export class VesselRegistrationService
     return this._http.delete<VesselregistractionModule[]>(this.apiURL+"/inland_society_registrations/"+sid1+'/delete_inland_society/');
   }
 
-  public getInlandSocietyMembers(societyid) {
-    return this._http.get<VesselregistractionModule[]>(this.apiURL + '/inland_society_registrations/'+societyid+'/inland_society_member_data/');
+  public getInlandSocietyMembers(society_id,society_member_id) {
+    return this._http.get<VesselregistractionModule[]>(this.apiURL + '/inland_society_registrations/'+society_id+'/inland_society_member_data/'+society_member_id);
   }
   //End Of InlandSociety
 

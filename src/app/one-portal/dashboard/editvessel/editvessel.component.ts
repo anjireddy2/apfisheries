@@ -96,6 +96,8 @@ export class EditvesselComponent implements OnInit {
       this.vesselRegistrationService.getMandal(this.editVessel.district_id).subscribe(data => this.Mandals = data);
       this.vesselRegistrationService.getFlc(this.editVessel.district_id,this.editVessel.mandal_id).subscribe(data => this.Flcs = data);
       this.vesselRegistrationService.getPanchyats(this.editVessel.district_id,this.editVessel.mandal_id).subscribe(data => this.Panchayats = data);
+    }, error=> {
+      this.spinner.hide();
     });
   }
   get f() { return this.updateForm.controls; }

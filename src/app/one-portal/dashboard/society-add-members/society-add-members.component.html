@@ -1,94 +1,45 @@
 <ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)" size = "medium" color = "#fff" type = "ball-spin-clockwise-fade"></ngx-spinner>
 <!-- {{addSocietMember1.message[0].id}} -->
 
-<div class="row">
-                <div class="col-md-12">
-                  <div class="alert alert-success alert-dismissible" *ngIf="delete_success">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>{{deleteData.message}}</strong>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="alert alert-danger alert-dismissible" *ngIf="delete_error">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <!-- This was my preferred answer, but keep in mind, if the value of scrollTop doesn't change in the component, you won't see anything happen.  -->
-                    <strong>{{deleteData.message}}</strong>
-              
-                 
-                  </div>
-                </div>
-              </div> 
+<div class="row" *ngIf="delete_success || delete_error">
+  <div class="col-md-12">
+    <div class="alert alert-dismissible" [ngClass] = "{'alert-danger' : delete_error, 'alert-success' : delete_success}">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>{{deleteData.message}}</strong>
+    </div>
+  </div>
+</div>
 
-<div class="row">
-                <div class="col-md-12">
-                  <div class="alert alert-success alert-dismissible" *ngIf="adhar_success">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>{{adharVerify.message}}</strong>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="alert alert-danger alert-dismissible" *ngIf="adhar_error">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <!-- This was my preferred answer, but keep in mind, if the value of scrollTop doesn't change in the component, you won't see anything happen.  -->
-                    <strong>{{adharVerify.message}}</strong>
+<div class="row" *ngIf="adhar_error || adhar_success">
+  <div class="col-md-12">
+    <div class="alert alert-dismissible" [ngClass] = "{'alert-danger' : adhar_error, 'alert-success' : adhar_success}">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>{{adharVerify.message}}</strong>
+    </div>
+  </div>
+</div>
               
-                 
-                  </div>
-                </div>
-              </div> 
-              
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="alert alert-success alert-dismissible" *ngIf="success1">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>{{rationVerify.message}}</strong>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="alert alert-danger alert-dismissible" *ngIf="error1">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <!-- This was my preferred answer, but keep in mind, if the value of scrollTop doesn't change in the component, you won't see anything happen.  -->
-                    <strong>{{rationVerify.message}}</strong>
-              
-                 
-                  </div>
-                </div>
-              </div>  
-        <div class="row">
-        <div class="col-md-12">
-          <div class="alert alert-success alert-dismissible" *ngIf="success">
-            <strong>{{addsocietyMember.message}}</strong>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="alert alert-danger alert-dismissible" *ngIf="error">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-             {{addsocietyMember.message}}
-             
-      
-         
-          </div>
-        </div>
-      </div>  
+<div class="row" *ngIf="success1 || error1">
+  <div class="col-md-12">
+    <div class="alert alert-dismissible" [ngClass] = "{'alert-danger': error1, 'alert-success': success1}">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>{{rationVerify.message}}</strong>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="success || error"> 
+  <div class="col-md-12">
+    <div class="alert alert-dismissible" [ngClass] = "{'alert-danger': error, 'alert-success': success}">
+      <strong>{{addsocietyMember.message}}</strong>
+    </div>
+  </div>
+</div>
 <form [formGroup]="societyMembersForm" (ngSubmit) = "onSubmit(societyMembersForm)">
-
-
-
-            <div class="card bg-primary text-white" style="margin-bottom: 10px;">
-                    <div class="card-body e-pragati-userregistration">
-                            Society members
-                        
-                      
-                    </div>
-             </div>
+    <div class="card bg-primary text-white" style="margin-bottom: 10px;">
+            <div class="card-body e-pragati-userregistration">
+                    Society members
+            </div>
+      </div>
              <div class="row">
                     <div class="col-md-4">
                             <div class="form-group">
@@ -188,42 +139,6 @@
                      <input type="text" (keypress)="onlyNumberKey($event)" pattern="\d*" formControlName="age" class="form-control" [(ngModel)]="rationVerify.age">
                 </div>
                 </div>
-                   
-                    <!-- <div class="col-md-4">
-                            <div class="form-group">
-                              <label for="power">Social status <span class="vessel-mandatory-ind">*</span></label>
-                              <select class="form-control"   formControlName="status" [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
-                             <option>--SELECT--</option>
-                                <option>
-                               OC
-                                </option>
-                                <option>
-                                        SC
-                                </option>
-                                <option>
-                                        BC
-                                </option>
-                                <option>
-                                        ST
-                                </option>
-                              </select>
-                              <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
-                                  <div *ngIf="f.status.errors.required">social status  is required</div>
-    
-                                 </div>
-                            </div>
-                          </div>
-                          <div class="col-md-4">
-                                <div class="form-group">
-                                  <label for="power">Certificate No. <span class="vessel-mandatory-ind">*</span></label>
-                                 <input type="text"  formControlName="certificate_number"   maxlength="15"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.certificate_number.errors }">
-                                 <div *ngIf="submitted && f.certificate_number.errors" class="invalid-feedback">
-                                        <div *ngIf="f.certificate_number.errors.required">Certificate number is required</div>
-                                        <div *ngIf="f.certificate_number.errors.minlength">Minimum required number is 15</div>
-                                         
-                                        </div>
-                                </div>
-                        </div>  -->
                         <div class="col-md-4" *ngIf="verifyGenderMale" style="margin-top: 2%;">
                                 <div class="form-group">
                                         <label for="power">Fishermen Skills <span class="vessel-mandatory-ind">*</span></label><br>

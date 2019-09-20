@@ -1,0 +1,172 @@
+<ngx-spinner bdColor = "rgba(51, 51, 51, 0.8)" size = "medium" color = "#fff" type = "ball-spin-clockwise-fade"></ngx-spinner>
+<div class="row" *ngIf="delete_success || delete_error">
+  <div class="col-md-12">
+    <div class="alert alert-dismissible" [ngClass] = "{'alert-danger' : delete_error, 'alert-success' : delete_success}">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>{{deleteSociety.message}}</strong>
+    </div>
+  </div>
+</div> 
+<!-- <form> -->
+    <div class="card bg-primary text-white" style="margin-bottom: 10px;">
+        <div class="card-body e-pragati-userregistration">Inland Society Registration Data
+            <a class="nav-link p-1 pull-right btn btn-default" (click)="addnewInlandSociety()" style="background: #ffff;
+            color: #39c4f0; cursor: pointer">
+                Add New Inland Society
+            </a>
+          </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+              <label for="power">District</label>
+              <select class="form-control"  [(ngModel)]="distId" (ngModelChange)="getMandal()">
+                <option *ngFor='let dist of Dist' [ngValue]='dist.id'>
+                {{ dist.district_name}}
+                </option>
+                
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4">
+              <div class="form-group">
+                <label for="power">Mandal</label>
+                <select class="form-control" [(ngModel)]="mandalId" (ngModelChange)='getPanchayats()' name="mandal" >
+               
+                  <option *ngFor='let mandal of Mandals' [ngValue]='mandal.id'>
+                  {{ mandal.mandal_name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                  <label for="power">Grama Panchayat</label>
+                 
+                  <select class="form-control"  [(ngModel)]="gramalId"  name="panchayat" >
+               
+                    <option *ngFor='let Panchayat of Panchayats' [ngValue]='Panchayat.id'>
+                    {{ Panchayat.panchayat_name}}
+                    </option>
+                  </select>
+
+                </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="power">Village</label>
+                    <select class="form-control"  [(ngModel)]="villageId"  name="village">
+               
+                      <option *ngFor='let village of Village' [ngValue]='village.id'>
+                      {{ village.village_name}}
+                      </option>
+                    </select>
+
+
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="power">Type Of Water Body</label>
+                    <select class="form-control"  [(ngModel)]="waterbodyType"  name="waterbodyType" >
+               
+                      <option *ngFor='let waterbody of Waterbody' [ngValue]='waterbody.id'>
+                      {{ waterbody.water_body_name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="power">Name Of Water Body</label>
+                    <select class="form-control"  [(ngModel)]="waterbodyName"  name="waterbodyName" >
+               
+                      <option *ngFor='let waterbody of Waterbody' [ngValue]='waterbody.id'>
+                      {{ waterbody.water_body_name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="power">Seasonality</label>
+                    <select class="form-control"  [(ngModel)]="seasonality"  name="seasonality" >
+               
+                      <option *ngFor='let waterbody of Waterbody' [ngValue]='waterbody.id'>
+                      {{ waterbody.water_body_name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="power">Society Name</label>
+                   <input type="text"  class="form-control" [(ngModel)]="society_name">
+          </div>
+          </div>
+          <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="power">SOCIETY Reg. Number</label>
+                   <input type="text" [(ngModel)]="society_reg_no" class="form-control">
+              </div>
+            </div>
+          
+      </div>
+      <div class="col-md-12 ">
+        <input type="submit" [disabled] = "!distId && !mandalId && !society_reg_no && 
+        !society_name && !villageId && !gramalId && !seasonality && !waterbodyName && !waterbodyType " class="btn btn-info pull-right" style="margin-bottom: 10px;"  value="Search" >
+       
+  </div>
+
+<!-- </form> -->
+<div style="float: left; width: 100%; overflow: auto;">
+  <table class="table" border="0">  
+          <thead class="">  
+            <tr> 
+              <th>ID</th> 
+              <th>District</th>  
+              <th>Mandal </th>  
+              <th>Grama Panchayat</th>  
+              <th>Village</th>  
+              <th>Type Of Water Body</th> 
+              <th>Name Of Water Body</th>  
+              <th>Seasonality</th>  
+              <th>Actions</th>
+             
+            </tr>  
+          </thead>  
+          <tbody>  
+            <tr *ngFor = "let inlandSociety of inlandSocietyList | paginate: { itemsPerPage: 6, currentPage: p}">  
+              <td >{{inlandSociety.id}}</td>
+              <td>{{inlandSociety.district_name}}</td>  
+              <td>{{inlandSociety.mandal_name}}</td>  
+              <td>{{inlandSociety.panchayat}}</td>  
+              <td>{{inlandSociety.village}}</td> 
+              <td>{{inlandSociety.waterbody_type}}</td> 
+              <td>{{inlandSociety.waterbody_name}}</td> 
+              <td>{{inlandSociety.seasonality}}</td>  
+             
+          
+              <td>
+            
+  
+            <button (click)="addInlandSocietyMember(inlandSociety)" class="button btn btn-primary" >Add Inland Society member</button>
+
+            <span (click)="inlandSocietyData(inlandSociety)" style="margin-left: 15px;"> 
+                  <i class="fa fa-trash-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
+                </span>
+  
+              </td>  
+            
+        
+            </tr>  
+          </tbody>  
+          
+        </table>  
+        <ul class="pagination" *ngIf="waterBodyPagination">  
+            <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>  
+          
+          </ul>
+        </div>
+

@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
   onClickSubmit(loginForm)
   {
     this.spinner.show();
+    this.validUser = false;
     this.submitted = true;
     this.validUser1 = true;
     // stop here if form is invalid
