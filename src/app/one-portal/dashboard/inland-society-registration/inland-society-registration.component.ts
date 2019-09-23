@@ -48,6 +48,7 @@ export class InlandSocietyRegistrationComponent implements OnInit {
       seasonality: ['', [Validators.required]],
       society_name: ['', [Validators.required]],
       society_reg_no: ['', [Validators.required]],
+      society_type: ['',[Validators.required]]
     });
     this.vesselRegistrationService.getDist().subscribe(data => {
       this.spinner.hide();

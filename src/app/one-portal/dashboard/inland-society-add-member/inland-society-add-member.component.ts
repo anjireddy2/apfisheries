@@ -43,6 +43,7 @@ export class InlandSocietyAddMemberComponent implements OnInit {
   certificateMandatory: boolean;
   waterBodyPagination: boolean;
   reference: any;
+  employment_status: string;
 
   constructor(private route: ActivatedRoute, private vesselRegistrationService: VesselRegistrationService, 
     private formBuilder: FormBuilder,  private spinner: NgxSpinnerService, private router: Router,
@@ -61,13 +62,14 @@ export class InlandSocietyAddMemberComponent implements OnInit {
       NetSewing: [''],
       fish_vendor: [''],
       activeFishermen:[''],
-      certificate_number: [''],
-      age: [''],
-      employment_status: [''],
-      date_of_birth: [''],
+      certificate_number: ['',[Validators.required]],
+      age: ['',[Validators.required]],
+      employment_status: ['',[Validators.required]],
+      date_of_birth: ['',[Validators.required]],
       social_status: ['',[Validators.required]],
       is_president: ['']
    });
+   this.employment_status = 'UnEmployed';
 
    const vid = +this.route.snapshot.paramMap.get('id');
    this.vesselRegistrationService.addedInlandSocietyMembers(vid).subscribe(data => {

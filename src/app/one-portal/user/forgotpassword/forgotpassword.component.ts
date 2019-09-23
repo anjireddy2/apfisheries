@@ -63,9 +63,6 @@ export class ForgotpasswordComponent implements OnInit {
   }
 
   get f() { return this.forgotForm.controls; }
-  onlyNumberKey(event) {
-    return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57;
-}
 login() {
   this.router.navigate(['/newlogin/login']);
 }
