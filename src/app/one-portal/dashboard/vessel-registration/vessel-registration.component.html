@@ -20,7 +20,7 @@
     <div class="row" >
         <div class="col-md-4">
             <div class="form-group">
-              <label for="power">District</label>
+              <label for="power">District <span style="color: red;" class="vessel-mandatory-ind">*</span></label>
               <select  class="form-control"  [(ngModel)]="distId" (ngModelChange)="getMandal()" name="dist">
                 <!-- <option value="" disabled="true" [selected]="!distId">--please select--</option> -->
                 <option [ngValue]="undefined" hidden selected> --Select-- </option>
@@ -29,14 +29,18 @@
                 {{ dist.district_name}}
                 </option>
               </select>
+              <div *ngIf="distman" style="color: red;">
+                  District is mandatory
+              </div>
             </div>
+           
           </div>
           <div class="col-md-4">
             <div class="form-group">
               <label for="power">Mandal</label>
               <select class="form-control" [(ngModel)]="mandalId" (ngModelChange)='getFlc()'   name="mandal">
                 <option [ngValue]="undefined" hidden selected> --Select-- </option>
-
+                <option [ngValue]="undefined">--Select--</option>
                 <option *ngFor='let mandal of Mandals' [ngValue]='mandal.id'>
                 {{ mandal.mandal_name}}
                 </option>
@@ -48,7 +52,7 @@
                   <label for="power">Fish Landing Centre </label>
                   <select class="form-control" [(ngModel)]="flcid"      name="flc">
                     <option [ngValue]="undefined" hidden selected> --Select-- </option>
-
+                    <option [ngValue]="undefined">--Select--</option>
                     <option *ngFor='let flc of Flcs' [ngValue]='flc.id'>
                     {{ flc.flc_name}}
                     </option>
@@ -63,7 +67,7 @@
                 </div>
               </div>
           <div class="col-md-12 ">
-                <input [disabled]="!distId && !mandalId && !flcid" type="button" class="btn btn-info pull-right " style="margin-bottom: 10px;"  value="Search" (click)="getVesselDetails()">
+                <input type="button" class="btn btn-info pull-right " style="margin-bottom: 10px;"  value="Search" (click)="getVesselDetails()">
                
           </div>
     </div>
@@ -91,6 +95,11 @@
           </tr>  
         </thead>  
         <tbody>  
+          <tr *ngIf="nodatafound">
+            <td style="font-weight: bold;
+            width: 122px;
+            float: left; color: red;">No Data Found</td>
+          </tr>
           <tr *ngFor = "let vesselList of VesselLists | paginate: { itemsPerPage: 6, currentPage: p}">  
             <td >{{vesselList.id}}</td>
             <td>{{vesselList.district_name}}</td>  

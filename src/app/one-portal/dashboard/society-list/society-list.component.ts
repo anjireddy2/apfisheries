@@ -16,6 +16,7 @@ export class SocietyListComponent implements OnInit {
   SocietyList: any = [];
   waterBodyPagination = false;
   p: any;
+  distman = false;
   addSocietyMember: any;
   deleteSociety: any;
   delete_success: boolean;
@@ -26,6 +27,7 @@ export class SocietyListComponent implements OnInit {
   flcid: any;
   Mandals: any;
   Flcs: any;
+  nodatafound = false;
 
   constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService,private vesselRegistrationService: VesselRegistrationService, private router: Router, 
     private spinner: NgxSpinnerService) {
@@ -48,6 +50,12 @@ export class SocietyListComponent implements OnInit {
   }
 
   getSocietyDetails() {
+    this.distman = false;
+    if(this.distId == undefined)
+    {
+      this.distman = true;
+      return;
+    }
     //this.spinner.show();
     let  distId1 = this.distId;
     let mandalId=this.mandalId;
@@ -55,6 +63,10 @@ export class SocietyListComponent implements OnInit {
     this.vesselRegistrationService.getSocietyList(distId1,mandalId,flcId1).subscribe(data => {
       this.spinner.hide();
       this.SocietyList = data;
+      if (this.SocietyList.length == 0)
+      {
+        this.nodatafound = true;
+      }
       this.waterBodyPagination = this.SocietyList && this.SocietyList.length > 6 ? true : false; 
     }, error => {
       this.spinner.hide();

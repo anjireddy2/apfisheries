@@ -78,7 +78,11 @@ width: 94% ;" *ngIf="successsms" >
                 <div class="col-md-4">
                         <div class="form-group">
                           <label for="power">Vessel owner name <span class="vessel-mandatory-ind">*</span></label>
-                         <input type="text" formControlName="owner_name" [ngModel]="rationVerify.owner_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.owner_name.errors }">
+                         <input  type="text" formControlName="owner_name" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"  [ngModel]="rationVerify.owner_name"  class="form-control" allow-pattern="^[a-zA-Z ]*$"  [ngClass]="{ 'is-invalid': submitted && f.owner_name.errors }" >
+                         <!-- <div style="color: red;" *ngIf="f.owner_name.errors.pattern">
+                          owner name should be in alphabetical order
+                        </div> -->
+
                          <div *ngIf="submitted && f.owner_name.errors" class="invalid-feedback">
                           <div *ngIf="f.owner_name.errors.required">vessel name is required</div>
                       </div>
@@ -87,7 +91,7 @@ width: 94% ;" *ngIf="successsms" >
                  <div class="col-md-4">
                         <div class="form-group">
                           <label for="power">Father Name <span class="vessel-mandatory-ind">*</span></label>
-                         <input  type="text" formControlName="father_name" [ngModel]="rationVerify.father_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.father_name.errors }">
+                         <input  type="text" formControlName="father_name" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"  [ngModel]="rationVerify.owner_name"  class="form-control" allow-pattern="^[a-zA-Z ]*$"  [ngClass]="{ 'is-invalid': submitted && f.owner_name.errors }"  [ngModel]="rationVerify.father_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.father_name.errors }">
                          <div *ngIf="submitted && f.father_name.errors" class="invalid-feedback">
                           <div *ngIf="f.father_name.errors.required">Father name is required</div>
                         </div>
@@ -107,8 +111,11 @@ width: 94% ;" *ngIf="successsms" >
                   <div class="col-md-4">
                       <div class="form-group">
                         <label for="power">Email Id </label>
-                       <input type="email" name="email_id"  class="form-control" formControlName="email_id">
-                     
+                        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <!-- <div *ngIf="f.email.errors.required">Email is required</div> -->
+                            <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                        </div>
                       </div>
               </div>
                   <div class="col-md-4">

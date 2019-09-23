@@ -104,9 +104,9 @@ export class SocietyRegistrationComponent implements OnInit {
       this.spinner.hide();
     });
   }
-  onlyNumberKey(event) {
-    return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57;
-  }
+  // onlyNumberKey(event) {
+  //   return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57;
+  // }
   addFieldValue() {
       const control = <FormArray>this.societyRegistrationForm.controls.field["controls"];
       control.push(this.addvesselRegNo());

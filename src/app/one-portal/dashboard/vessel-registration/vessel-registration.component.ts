@@ -28,6 +28,8 @@ export class VesselRegistrationComponent implements OnInit {
   vessel_reg_no: any;
   vesselDataId: any;
   p: any;
+  nodatafound =false;
+  distman = false;
 
   constructor(private vesselRegistrationService: VesselRegistrationService,private router:Router,
     private spinner: NgxSpinnerService, @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
@@ -55,6 +57,12 @@ export class VesselRegistrationComponent implements OnInit {
   }
 
   getVesselDetails() {
+    this.distman = false;
+    if(this.distId == undefined)
+    {
+      this.distman = true;
+      return;
+    }
     this.spinner.show();
     let  distId1 = this.distId;
     let mandalId=this.mandalId;
@@ -62,10 +70,16 @@ export class VesselRegistrationComponent implements OnInit {
     this.vesselRegistrationService.getVesselDetails(distId1,mandalId,flcId1).subscribe(data => {
       this.spinner.hide();
       this.VesselLists = data;
+      if (this.VesselLists.length == 0)
+      {
+        this.nodatafound = true;
+      }
       this.waterBodyPagination = this.VesselLists && this.VesselLists.length > 6 ? true : false; 
     }, error => {
       this.spinner.hide();
+
     }); 
+
   }
 
 

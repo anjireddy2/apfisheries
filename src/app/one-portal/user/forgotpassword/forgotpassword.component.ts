@@ -49,6 +49,8 @@ export class ForgotpasswordComponent implements OnInit {
       this.success = true;
      
       window.scroll(0,0);
+      this.router.navigate(['/newlogin/login']);
+
     }
     else
     {
@@ -63,8 +65,10 @@ export class ForgotpasswordComponent implements OnInit {
   }
 
   get f() { return this.forgotForm.controls; }
-login() {
-  this.router.navigate(['/newlogin/login']);
-}
+   
+  
+  login() {
+      this.router.navigate(['/newlogin/login']);
+    }
 
 }

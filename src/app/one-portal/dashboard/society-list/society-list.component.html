@@ -39,6 +39,9 @@
             {{ dist.district_name}}
             </option>
           </select>
+          <div *ngIf="distman" style="color: red;">
+              District is mandatory
+          </div>
         </div>
       </div>
       <div class="col-md-4">
@@ -67,7 +70,7 @@
           </div>
     </div>
     <div class="col-md-12 ">
-      <input  [disabled]="!distId && !mandalId && !flcid" type="button" class="btn btn-info pull-right " style="margin-bottom: 10px;"  value="Search" (click)="getSocietyDetails()">
+      <input   type="button" class="btn btn-info pull-right " style="margin-bottom: 10px;"  value="Search" (click)="getSocietyDetails()">
      
 </div>
 </form>
@@ -87,6 +90,11 @@
                   </tr>  
                 </thead> 
                 <tbody> 
+                    <tr *ngIf="nodatafound">
+                        <td style="font-weight: bold;
+                        width: 122px;
+                        float: left; color: red;">No Data Found</td>
+                      </tr>
                   <!-- <div style="margin-top: 11%; color: green; text-align: center;" 
                       *ngIf="SocietyList && SocietyList.length == 0">No Results Found</div>  -->
                   <tr *ngFor = "let societyList of SocietyList | paginate: { itemsPerPage: 6, currentPage: p}">  

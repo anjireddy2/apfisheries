@@ -58,7 +58,7 @@ export class AddnewVesselComponent implements OnInit {
       ration_card: [''],
       ifsc_code: ['', Validators.required],
       bank_name: ['', Validators.required],
-      email_id: [''],
+      email: ['', [Validators.email]],
       district_name: ['', [Validators.required]],
       mandal: ['', [Validators.required]],
       flc: ['', [Validators.required]],
