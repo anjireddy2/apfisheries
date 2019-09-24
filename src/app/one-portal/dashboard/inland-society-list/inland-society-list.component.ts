@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { VesselRegistrationService } from '../vessel-registration.service';
 import { HttpClient } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
+import { WebStorageService, LOCAL_STORAGE } from 'angular-webstorage-service';
 
 @Component({
   selector: 'app-inland-society-list',
@@ -31,24 +32,26 @@ export class InlandSocietyListComponent implements OnInit {
   delete_error: boolean;
   deleteSociety: any = [];
   p: any
+  flcid: any;
+  SocietyList: any = [];
 
 
 
   constructor(private vesselRegistrationService: VesselRegistrationService, private _http: HttpClient, 
-    private spinner: NgxSpinnerService, private router: Router,) { }
+    private spinner: NgxSpinnerService, private router: Router, @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
 
   ngOnInit() {
-    this.spinner.show();
+    // this.spinner.show();
     this.vesselRegistrationService.getDist().subscribe(data => {
       this.Dist = data;
     });
-    this.vesselRegistrationService.inlandSocietyList().subscribe(data => {
-      this.spinner.hide();
-      this.inlandSocietyList = data;
-      this.waterBodyPagination = this.inlandSocietyList && this.inlandSocietyList.length > 6 ? true : false; 
-    }, error=> {
-      this.spinner.hide();
-    });
+    // this.vesselRegistrationService.inlandSocietyList().subscribe(data => {
+    //   this.spinner.hide();
+    //   this.inlandSocietyList = data;
+    //   this.waterBodyPagination = this.inlandSocietyList && this.inlandSocietyList.length > 6 ? true : false; 
+    // }, error=> {
+    //   this.spinner.hide();
+    // });
   }
 
   getMandal() {
@@ -94,7 +97,7 @@ export class InlandSocietyListComponent implements OnInit {
     //this.spinner.show();
     let  distId1 = this.distId;
     let mandalId=this.mandalId;
-    // let flcId1=this.flcid;
+    let flcId1=this.flcid;
     // this.vesselRegistrationService.getVesselDetails(distId1,mandalId,flcId1).subscribe(data => {
     //   this.spinner.hide();
     //   this.SocietyList = data;
@@ -106,6 +109,7 @@ export class InlandSocietyListComponent implements OnInit {
     //   ); 
   }
   addInlandSocietyMember(inlandSociety) {
+    this.storage.set("society_type",inlandSociety.society_type);
     this.router.navigate(['/dashboard/addinland_society_members', inlandSociety.id]);
     // this.vesselRegistrationService.addSociety(inlandSociety.id).subscribe(data => {
     //   this.addSocietyMember = data;

@@ -22,6 +22,8 @@
             <div class="form-group">
               <label for="power">District</label>
               <select class="form-control"  [(ngModel)]="distId" (ngModelChange)="getMandal()">
+                  <option [ngValue]="undefined" hidden selected> --Select-- </option>
+                  <option value="undefined">--Select--</option>
                 <option *ngFor='let dist of Dist' [ngValue]='dist.id'>
                 {{ dist.district_name}}
                 </option>
@@ -33,7 +35,8 @@
               <div class="form-group">
                 <label for="power">Mandal</label>
                 <select class="form-control" [(ngModel)]="mandalId" (ngModelChange)='getPanchayats()' name="mandal" >
-               
+                    <option [ngValue]="undefined" hidden selected> --Select-- </option>
+                    <option value="undefined">--Select--</option>
                   <option *ngFor='let mandal of Mandals' [ngValue]='mandal.id'>
                   {{ mandal.mandal_name}}
                   </option>
@@ -45,7 +48,8 @@
                   <label for="power">Grama Panchayat</label>
                  
                   <select class="form-control"  [(ngModel)]="gramalId"  name="panchayat" >
-               
+                      <option [ngValue]="undefined" hidden selected> --Select-- </option>
+                      <option value="undefined">--Select--</option>
                     <option *ngFor='let Panchayat of Panchayats' [ngValue]='Panchayat.id'>
                     {{ Panchayat.panchayat_name}}
                     </option>
@@ -57,7 +61,8 @@
                   <div class="form-group">
                     <label for="power">Village</label>
                     <select class="form-control"  [(ngModel)]="villageId"  name="village">
-               
+                        <option [ngValue]="undefined" hidden selected> --Select-- </option>
+                        <option value="undefined">--Select--</option>
                       <option *ngFor='let village of Village' [ngValue]='village.id'>
                       {{ village.village_name}}
                       </option>
@@ -70,7 +75,8 @@
                   <div class="form-group">
                     <label for="power">Type Of Water Body</label>
                     <select class="form-control"  [(ngModel)]="waterbodyType"  name="waterbodyType" >
-               
+                        <option [ngValue]="undefined" hidden selected> --Select-- </option>
+                        <option value="undefined">--Select--</option>
                       <option *ngFor='let waterbody of Waterbody' [ngValue]='waterbody.id'>
                       {{ waterbody.water_body_name}}
                       </option>
@@ -81,7 +87,8 @@
                   <div class="form-group">
                     <label for="power">Name Of Water Body</label>
                     <select class="form-control"  [(ngModel)]="waterbodyName"  name="waterbodyName" >
-               
+                        <option [ngValue]="undefined" hidden selected> --Select-- </option>
+                        <option value="undefined">--Select--</option>
                       <option *ngFor='let waterbody of Waterbody' [ngValue]='waterbody.id'>
                       {{ waterbody.water_body_name}}
                       </option>
@@ -92,7 +99,8 @@
                   <div class="form-group">
                     <label for="power">Seasonality</label>
                     <select class="form-control"  [(ngModel)]="seasonality"  name="seasonality" >
-               
+                        <option [ngValue]="undefined" hidden selected> --Select-- </option>
+                        <option value="undefined">--Select--</option>
                       <option *ngFor='let waterbody of Waterbody' [ngValue]='waterbody.id'>
                       {{ waterbody.water_body_name}}
                       </option>
@@ -114,8 +122,10 @@
           
       </div>
       <div class="col-md-12 ">
-        <input type="submit" [disabled] = "!distId && !mandalId && !society_reg_no && 
-        !society_name && !villageId && !gramalId && !seasonality && !waterbodyName && !waterbodyType " class="btn btn-info pull-right" style="margin-bottom: 10px;"  value="Search" >
+          <!-- [disabled] = "!distId && !mandalId && !society_reg_no && 
+          !society_name && !villageId && !gramalId && !seasonality && !waterbodyName && !waterbodyType " -->
+        <input type="submit" 
+        (click)="getInlandSocietyDetails()" class="btn btn-info pull-right" style="margin-bottom: 10px;"  value="Search" >
        
   </div>
 

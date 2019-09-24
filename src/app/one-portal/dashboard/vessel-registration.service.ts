@@ -144,9 +144,9 @@ export class VesselRegistrationService
     return this._http.post<VesselregistractionModule[]>(this.apiURL+"/inland_society_registrations/create", registrationData);
   }
 
-  public inlandSocietyList(): any {
-    return this._http.get<VesselregistractionModule[]>(this.apiURL + "/inland_society_registrations");
-  }
+  // public inlandSocietyList(): any {
+  //   return this._http.get<VesselregistractionModule[]>(this.apiURL + "/inland_society_registrations");
+  // }
 
   public getInlandSocietyDetails(did:number,mid:number,flcid:number):any {
     return this._http.get<VesselregistractionModule[]>(this.apiURL+"/districts/"+did+"/mandals/"+mid+"/fish_landing_centers/"+flcid+"/inland_society_details/");
@@ -156,20 +156,24 @@ export class VesselRegistrationService
     return this._http.delete<VesselregistractionModule[]>(this.apiURL+"/inland_society_registrations/"+sid1+'/delete_inland_society/');
   }
   
-  public addedInlandSocietyMembers(societyid) {
-    return this._http.get<VesselregistractionModule[]>(this.apiURL + '/inland_society_registrations/'+societyid+'/inland_society_members/');
+  public addedInlandSocietyMembers(societyid, societyData) {
+    return this._http.post<VesselregistractionModule[]>(this.apiURL + '/inland_society_registrations/'+societyid+'/add_inland_society_members/',societyData);
   }
 
-  public editInlandSocietyMember(societymember) {
-    return this._http.post<VesselregistractionModule[]>(this.apiURL+"/inland_society_registrations/add_inland_members",societymember);
+  public editInlandSocietyMember(societyid, societyData) {
+    return this._http.post<VesselregistractionModule[]>(this.apiURL+"/inland_society_registrations/"+societyid+"update_inland_society_members",societyData);
   }
 
   public deleteInlandMember(sid1) {
     return this._http.delete<VesselregistractionModule[]>(this.apiURL+"/inland_society_registrations/"+sid1+'/delete_inland_society/');
   }
 
-  public getInlandSocietyMembers(society_id,society_member_id) {
-    return this._http.get<VesselregistractionModule[]>(this.apiURL + '/inland_society_registrations/'+society_id+'/inland_society_member_data/'+society_member_id);
+  public getInlandSocietyMembers(society_id) {
+    return this._http.get<VesselregistractionModule[]>(this.apiURL + '/inland_society_registrations/'+society_id+'/inland_society_members_data/');
+  }
+
+  public getInlandSocietyMemberData(society_id,society_member_id) {
+    return this._http.get<VesselregistractionModule[]>(this.apiURL + '/inland_society_registrations/'+society_id+'/inland_society_members_data/'+society_member_id);
   }
   //End Of InlandSociety
 

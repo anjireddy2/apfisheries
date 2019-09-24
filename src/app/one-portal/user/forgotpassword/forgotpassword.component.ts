@@ -20,7 +20,6 @@ export class ForgotpasswordComponent implements OnInit {
   constructor(private router:Router, private vesselRegistrationService: VesselRegistrationService, private formBuilder: FormBuilder,  private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
-    this.forgotForm.reset();
     this.forgotForm = this.formBuilder.group({
       my_input: ['', Validators.required],
       new_pwd: ['', [Validators.required,Validators.minLength(6)]],

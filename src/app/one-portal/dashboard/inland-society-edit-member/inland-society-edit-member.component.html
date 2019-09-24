@@ -64,7 +64,9 @@
             <div class="col-md-4">
                     <div class="form-group">
                     <label for="power">Name <span class="vessel-mandatory-ind">*</span></label>
-                    <input type="text"   formControlName="member_name"  class="form-control" [(ngModel)] ="editInlandSocietyData.owner_name" [ngClass]="{ 'is-invalid': submitted && f.member_name.errors }">
+                    <input type="text"   formControlName="member_name"  class="form-control" 
+                    onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"
+                    [(ngModel)] ="editInlandSocietyData.owner_name" [ngClass]="{ 'is-invalid': submitted && f.member_name.errors }">
                     <div *ngIf="submitted && f.member_name.errors" class="invalid-feedback">
                     <div *ngIf="f.member_name.errors.required">Name is required</div>
                 </div>
@@ -108,27 +110,29 @@
                      </div>
                 </div>
               </div> -->
-              <div class="col-md-4">
-                    <div class="form-group">
-                      <label for="power">Caste Certificate Number </label>
-                     <input type="text"  formControlName="certificate_number"  [(ngModel)]="editInlandSocietyData.castCertificateNumber" maxlength="15"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.certificate_number.errors }">
-                     <div *ngIf="submitted && certificateMandatory" class="invalid-feedback" style="display: block;">Certificate number is required
-                            <!-- <div *ngIf="f.certificate_number.errors.required"></div>Certificate number is required</div>
-                            <div *ngIf="f.certificate_number.errors.minlength">Minimum required number is 15</div> -->
-                             
-                            </div>
-                    </div>
-            </div>
+             
             <div class="col-md-4">
                 <div class="form-group">
-                  <label for="power" style="display: block; margin-bottom: 0px;">Date Of Birth</label>
+                  <label for="power" style="display: block; margin-bottom: 0px;">Date Of Birth <span class="vessel-mandatory-ind">*</span></label>
                  <!-- <input  type="date"  placeholder="select date" formControlName="licence_renewal_date" value="" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.licence_renewal_date.errors }"> -->
                  <mat-form-field>
-                  <input matInput [matDatepicker]="picker1"   placeholder="Selct date" formControlName="date_of_birth" [(ngModel)]="editInlandSocietyData.date_of_birth">
+                  <input matInput [matDatepicker]="picker1"   placeholder="Selct date" formControlName="date_of_birth" [(ngModel)]="editInlandSocietyData.date_of_birth"  [ngClass]="{ 'is-invalid': submitted && f.date_of_birth.errors }">
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                   <mat-datepicker #picker1 > </mat-datepicker>
                 </mat-form-field>
+                <div *ngIf="submitted && f.date_of_birth.errors" class="invalid-feedback">
+                    <div *ngIf="f.date_of_birth.errors.required">Date Of Birth is required</div>
+                    </div>
                 </div>
+              </div>
+              <div class="col-md-2">
+                  <div class="form-group">
+                    <label for="power">Age  <span class="vessel-mandatory-ind">*</span></label>
+                   <input type="text" (keypress)="onlyNumberKey($event)" pattern="\d*" minlength = "2" maxlength="2" formControlName="age" class="form-control" [(ngModel)]="editInlandSocietyData.age"  [ngClass]="{ 'is-invalid': submitted && f.age.errors }">
+                   <div *ngIf="submitted && f.age.errors" class="invalid-feedback">
+                      <div *ngIf="f.age.errors.required">Age is required</div>
+                      </div>
+                  </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
@@ -145,32 +149,44 @@
               </div>
               <div class="col-md-4">
                 <div class="form-group">
-                  <label for="power">Social Status</label>
-                  <select class="form-control" formControlName="social_status" name="social_status" [(ngModel)]="editInlandSocietyData.member_social_status">
+                  <label for="power">Social Status <span class="vessel-mandatory-ind">*</span></label>
+                  <select class="form-control" formControlName="social_status" name="social_status" [(ngModel)]="editInlandSocietyData.member_social_status"  [ngClass]="{ 'is-invalid': submitted && f.social_status.errors }">
                     <option [ngValue]="undefined" hidden selected> --Select-- </option>
                     <option value="OC"> OC </option>
                     <option value="BC"> BC </option>
                     <option value="SC"> SC </option>   
                     <option value="SC"> ST </option>            
                  </select>
+                 <div *ngIf="submitted && f.social_status.errors" class="invalid-feedback">
+                    <div *ngIf="f.social_status.errors.required">Social Status is required</div>
+                    </div>
                 </div>
               </div>
+              <div class="col-md-4" *ngIf="['BC','SC','ST'].indexOf(editInlandSocietyData.member_social_status)!= -1 ">
+                  <div class="form-group">
+                    <label for="power">Caste Certificate Number </label>
+                   <input type="text"  formControlName="certificate_number"  [(ngModel)]="editInlandSocietyData.castCertificateNumber" maxlength="15"  class="form-control">
+                   <!-- <div *ngIf="submitted && certificateMandatory" class="invalid-feedback" style="display: block;">Certificate number is required -->
+                          <!-- <div *ngIf="f.certificate_number.errors.required"></div>Certificate number is required</div>
+                          <div *ngIf="f.certificate_number.errors.minlength">Minimum required number is 15</div> -->
+                           
+                          <!-- </div> -->
+                  </div>
+          </div>
               <div class="col-md-4">
                 <div class="form-group">
-                  <label for="power">Employment Status</label>
-                  <select class="form-control" formControlName="employment_status" name="employment_status" [(ngModel)]="editInlandSocietyData.member_emp_status">
+                  <label for="power">Employment Status <span class="vessel-mandatory-ind">*</span></label>
+                  <select class="form-control" formControlName="employment_status" name="employment_status" [(ngModel)]="editInlandSocietyData.member_emp_status"  [ngClass]="{ 'is-invalid': submitted && f.employment_status.errors }">
                     <option [ngValue]="undefined" hidden selected> --Select-- </option>
                         <option value="Employed"> Employed </option>
                         <option value="UnEmployed"> UnEmployed </option>          
                  </select>
+                 <div *ngIf="submitted && f.employment_status.errors" class="invalid-feedback">
+                    <div *ngIf="f.employment_status.errors.required">Employment Status is required</div>
+                    </div>
               </div>
               </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label for="power">Age </label>
-                 <input type="text" (keypress)="onlyNumberKey($event)" pattern="\d*" formControlName="age" class="form-control" [(ngModel)]="editInlandSocietyData.age">
-            </div>
-            </div>
+              
         </div>
         
         <div class="row"> 
@@ -199,7 +215,10 @@
         <div class="row" style="margin-top: 2%;">
             <div class="col-md-4">
               <div class="form-group">
-                <input #isPresident type="checkbox" name="is_president" formControlName="is_president"> Chief Executor         
+                <input #isPresident type="checkbox" name="is_president" formControlName="is_president"> Chief Promoter  <span class="vessel-mandatory-ind">*</span>          
+                <div *ngIf="submitted && f.is_president.errors.required" class="invalid-feedback" style="display: block">
+                    <div>Chief Promoter is required</div>
+                    </div>	
               </div>
             </div>
           </div>

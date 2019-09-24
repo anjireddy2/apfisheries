@@ -55,21 +55,22 @@ export class InlandSocietyEditMemberComponent implements OnInit {
       NetSewing: [''],
       activeFishermen:[''],
       fish_vendor: [''],
-      is_president: [''],
+      is_president: ['',[Validators.required]],
       certificate_number: [''],
       gender: ['',[Validators.required]],
-      date_of_birth: [''],
-      employment_status: [''],
-      age: []
+      date_of_birth: ['',[Validators.required]],
+      employment_status: ['',[Validators.required]],
+      age: ['',Validators.required]
    });
 
    const vid = +this.route.snapshot.paramMap.get('id');
    let society_id = this.route.snapshot.paramMap.get('society_id');
    let society_member_id = this.route.snapshot.paramMap.get('society_member_id');
      
-   this.vesselRegistrationService.getInlandSocietyMembers(society_id,society_member_id).subscribe(data => {
+   this.vesselRegistrationService.getInlandSocietyMembers(society_id).subscribe(data => {
      this.spinner.hide();
      this.editInlandSocietyData = data['message'];
+     this.editInlandSocietyMembersForm.controls['is_president'].disable();
      this.genderSelection(this.editInlandSocietyData.gender);
      this.changeDetectorRef.detectChanges();
      this.isPresident.nativeElement.checked = this.editInlandSocietyData.is_president ? true : false;  
@@ -137,7 +138,7 @@ export class InlandSocietyEditMemberComponent implements OnInit {
       this.editInlandSocietyMembersForm.value.reference = this.reference;
       this.editInlandSocietyMembersForm.value.userId = this.storage.get("user_id");
       this.editInlandSocietyMembersForm.value.date_of_birth = new Date(this.editInlandSocietyMembersForm.value.date_of_birth).toDateString();
-    this.vesselRegistrationService.editInlandSocietyMember(this.editInlandSocietyMembersForm.value).subscribe(data => {
+    this.vesselRegistrationService.editInlandSocietyMember(this.editInlandSocietyMembersForm.value.society_id, this.editInlandSocietyMembersForm.value).subscribe(data => {
       this.spinner.hide();
       this.editInlandSocietyMember = data;
       if (this.editInlandSocietyMember && this.editInlandSocietyMember.status === true) {

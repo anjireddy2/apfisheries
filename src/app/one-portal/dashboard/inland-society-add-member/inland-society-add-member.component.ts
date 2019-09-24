@@ -44,6 +44,8 @@ export class InlandSocietyAddMemberComponent implements OnInit {
   waterBodyPagination: boolean;
   reference: any;
   employment_status: string;
+  society_type: string;
+  error_society_type: boolean;
 
   constructor(private route: ActivatedRoute, private vesselRegistrationService: VesselRegistrationService, 
     private formBuilder: FormBuilder,  private spinner: NgxSpinnerService, private router: Router,
@@ -62,20 +64,27 @@ export class InlandSocietyAddMemberComponent implements OnInit {
       NetSewing: [''],
       fish_vendor: [''],
       activeFishermen:[''],
-      certificate_number: ['',[Validators.required]],
+      certificate_number: [''],
       age: ['',[Validators.required]],
       employment_status: ['',[Validators.required]],
       date_of_birth: ['',[Validators.required]],
       social_status: ['',[Validators.required]],
-      is_president: ['']
-   });
-   this.employment_status = 'UnEmployed';
-
-   const vid = +this.route.snapshot.paramMap.get('id');
-   this.vesselRegistrationService.addedInlandSocietyMembers(vid).subscribe(data => {
-     this.addedSocietyMembersList = data;
-     this.waterBodyPagination = this.addedSocietyMembersList && this.addedSocietyMembersList.length > 6 ? true : false; 
-   });
+      is_president: ['',[Validators.required]]
+    });
+    this.employment_status = 'UnEmployed';
+    this.society_type = this.storage.get('society_type') === "Inland FisherMen" ? "Male" : "Female";
+    this.genderSelection(this.society_type);
+  //  this.inlandSocietyMembersForm.controls['gender'].disable();
+    const vid = +this.route.snapshot.paramMap.get('id');
+    const member_id = 10;
+    this.vesselRegistrationService.addedInlandSocietyMembers(vid,member_id).subscribe(data => {
+      this.addedSocietyMembersList = data;
+      //  var ind = this.addedSocietyMembersList.findIndex(obj=>obj.is_president === true)
+      if(this.addedSocietyMembersList.findIndex(obj=>obj.is_president == true) > -1) {
+        this.inlandSocietyMembersForm.get('is_president').disable();
+      }
+      this.waterBodyPagination = this.addedSocietyMembersList && this.addedSocietyMembersList.length > 6 ? true : false; 
+    });
   }
 
   genderSelection(gender) {
@@ -131,7 +140,7 @@ export class InlandSocietyAddMemberComponent implements OnInit {
     this.inlandSocietyMembersForm.value.reference = this.reference;
     this.inlandSocietyMembersForm.value.userId = this.storage.get("user_id");
     this.inlandSocietyMembersForm.value.date_of_birth = new Date(this.inlandSocietyMembersForm.value.date_of_birth).toDateString();
-    this.vesselRegistrationService.editInlandSocietyMember(this.inlandSocietyMembersForm.value).subscribe(data => {
+    this.vesselRegistrationService.editInlandSocietyMember(this.inlandSocietyMembersForm.value.society_id, this.inlandSocietyMembersForm.value).subscribe(data => {
       this.spinner.hide();
       this.addInlandSocietyMember = data;
       if (this.addInlandSocietyMember && this.addInlandSocietyMember.status === true) {
@@ -227,6 +236,7 @@ export class InlandSocietyAddMemberComponent implements OnInit {
     this.success1 = false;
     this.verifyGenderMale = false;
     this.verifyGenderFemale = false;
+    this.error_society_type = false;
     this.spinner.show();
     let  rationNum = this.inlandSocietyMembersForm.controls.ration_card.value;
     let adhNum = this.inlandSocietyMembersForm.controls.aadhaar_number.value;
@@ -238,7 +248,12 @@ export class InlandSocietyAddMemberComponent implements OnInit {
         this.rationVerify && this.rationVerify.age ? this.inlandSocietyMembersForm.controls['age'].disable() :  this.inlandSocietyMembersForm.controls['age'].enable();
         this.rationVerify && this.rationVerify.owner_name ? this.inlandSocietyMembersForm.controls['member_name'].disable() :  this.inlandSocietyMembersForm.controls['member_name'].enable();
         this.rationVerify && this.rationVerify.date_of_birth ? this.inlandSocietyMembersForm.controls['date_of_birth'].disable() :  this.inlandSocietyMembersForm.controls['date_of_birth'].enable();
-        this.rationVerify && this.rationVerify.gender ? this.inlandSocietyMembersForm.controls['gender'].disable() :  this.inlandSocietyMembersForm.controls['gender'].enable();
+        // this.rationVerify && this.rationVerify.gender ? this.inlandSocietyMembersForm.controls['gender'].disable() :  this.inlandSocietyMembersForm.controls['gender'].enable();
+       if(this.rationVerify && this.rationVerify.gender == this.society_type) {
+        this.inlandSocietyMembersForm.controls['gender'].disable();
+       } else {
+         this.error_society_type = true;
+       }
         // age,employment_status,social_status,dob
         this.success1 = true;
         this.rationVerifyBtn = false;
