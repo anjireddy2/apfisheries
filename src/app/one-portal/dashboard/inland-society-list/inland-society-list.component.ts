@@ -33,7 +33,8 @@ export class InlandSocietyListComponent implements OnInit {
   deleteSociety: any = [];
   p: any
   flcid: any;
-  SocietyList: any = [];
+  nodatafound: boolean;
+  // SocietyList: any = [];
 
 
 
@@ -95,13 +96,17 @@ export class InlandSocietyListComponent implements OnInit {
   }
   getInlandSocietyDetails() {
     //this.spinner.show();
+    this.nodatafound = false
     let  distId1 = this.distId;
     let mandalId=this.mandalId;
     let flcId1=this.flcid;
     // this.vesselRegistrationService.getVesselDetails(distId1,mandalId,flcId1).subscribe(data => {
     //   this.spinner.hide();
-    //   this.SocietyList = data;
-    //   this.waterBodyPagination = this.SocietyList && this.SocietyList.length > 6 ? true : false; 
+    //   this.inlandSocietyList = data;
+    // if (this.inlandSocietyList.length == 0) {
+    //   this.nodatafound = true;
+    // }
+    //   this.waterBodyPagination = this.inlandSocietyList && this.inlandSocietyList.length > 6 ? true : false; 
 
     // }, error => {
     //   this.spinner.hide();

@@ -51,6 +51,7 @@
              <div *ngIf="submitted && f.aadhaar_number.errors" class="invalid-feedback">
                 <div *ngIf="f.aadhaar_number.errors.required">Aadhaar number is required</div>
                 <div *ngIf="f.aadhaar_number.errors.minlength">Minimum required number is 12</div>
+                <div *ngIf="f.aadhaar_number.errors.maxlength">Maximum required number is 12</div>
                  
                 </div>
                 <button *ngIf="showVerifyBtn" type="button" style="float: right;
@@ -64,10 +65,10 @@
         <div class="form-group">
           <label for="power">Ration card Number <span class="vessel-mandatory-ind">*</span></label>
          <input type="text" name="ration_card" formControlName="ration_card" class="form-control" (keyup) = "getVerifyBtn('RationCard')" maxlength="15" [ngClass]="{ 'is-invalid': submitted && f.ration_card.errors }" [(ngModel)]="editVessel.ration_card_number">
-         <!-- <div *ngIf="submitted && f.ration_card.errors" class="invalid-feedback">
-            <div *ngIf="f.ration_card.errors.required">Ration Card number is required</div> -->
-           <!-- <div *ngIf="f.ration_card.errors.minlength">Bank Account number should have 12 to 20 digits</div> -->
-           <!-- </div> -->
+         <div *ngIf="submitted && f.ration_card.errors" class="invalid-feedback">
+            <!-- <div *ngIf="f.ration_card.errors.required">Ration Card number is required</div> -->
+           <div *ngIf="f.ration_card.errors.maxlength">Ration Card number should have 15 letters</div>
+          </div>
            <button *ngIf="rationVerifyBtn" type="button" style="float: right;
                margin-top: 9px;
                font-size: 12px;" class="btn btn-primary" (click)="getRation()">Verfiy</button>
@@ -320,7 +321,7 @@
                     <div class="form-group">
                       <label for="power">Vessel Number</label>
                      <input type="text" name="vessel_number" value="" class="form-control" [(ngModel)]="editVessel.boat_id"  formControlName="vessel_number" value="" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.vessel_number.errors }">
-                     <div *ngIf="submitted && f.bank_account_number.errors" class="invalid-feedback">
+                     <div *ngIf="submitted && f.vessel_number.errors" class="invalid-feedback">
                         <div *ngIf="f.vessel_number.errors && f.vessel_number.errors.required">Vessel number is required</div>
                        <div *ngIf="f.vessel_number.errors && f.vessel_number.errors.minlength">Vessel Number should have 20 </div>
                        </div>

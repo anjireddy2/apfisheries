@@ -58,6 +58,7 @@ export class VesselRegistrationComponent implements OnInit {
 
   getVesselDetails() {
     this.distman = false;
+    this.nodatafound = false;
     if(this.distId == undefined)
     {
       this.distman = true;

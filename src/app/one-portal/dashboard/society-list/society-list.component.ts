@@ -51,6 +51,7 @@ export class SocietyListComponent implements OnInit {
 
   getSocietyDetails() {
     this.distman = false;
+    this.nodatafound = false;
     if(this.distId == undefined)
     {
       this.distman = true;

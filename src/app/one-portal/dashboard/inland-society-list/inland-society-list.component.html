@@ -131,8 +131,8 @@
 
 <!-- </form> -->
 <div style="float: left; width: 100%; overflow: auto;">
-  <table class="table" border="0">  
-          <thead class="">  
+  <table class="table">  
+          <thead>  
             <tr> 
               <th>ID</th> 
               <th>District</th>  
@@ -143,10 +143,12 @@
               <th>Name Of Water Body</th>  
               <th>Seasonality</th>  
               <th>Actions</th>
-             
             </tr>  
           </thead>  
-          <tbody>  
+          <tbody>
+              <tr *ngIf="nodatafound">
+                  <td style="font-weight: bold; width: 122px; float: left; color: red;">No Data Found</td>
+                </tr>
             <tr *ngFor = "let inlandSociety of inlandSocietyList | paginate: { itemsPerPage: 6, currentPage: p}">  
               <td >{{inlandSociety.id}}</td>
               <td>{{inlandSociety.district_name}}</td>  

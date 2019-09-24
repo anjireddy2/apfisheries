@@ -58,7 +58,10 @@
                             (keyup) = "getVerifyBtn('RationCard')" maxlength="15" [ngClass]="{ 'is-invalid': submitted && f.ration_card.errors }" >
                         <button *ngIf="rationVerifyBtn" type="button" style="float: right; margin-top: 9px;font-size: 12px;" class="btn btn-primary" (click)="getRation()">Verfiy</button>
                         <div *ngIf = "rationVerify.success && !rationVerifyBtn" style="color:green; float:right">Verfied <i class="fa fa-check-circle-o" aria-hidden="true"></i></div>
-
+                        <div *ngIf="submitted && f.ration_card.errors" class="invalid-feedback">
+                            <!-- <div *ngIf="f.ration_card.errors.required">Ration Card number is required</div> -->
+                           <div *ngIf="f.ration_card.errors.maxlength">Ration Card number should have 15 letters</div>
+                          </div>
                     </div>
             </div>
             <div class="col-md-4">
