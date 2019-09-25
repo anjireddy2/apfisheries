@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild, Inject, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {VesselRegistrationService} from '../vessel-registration.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
@@ -41,9 +41,12 @@ export class InlandSocietyEditMemberComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private vesselRegistrationService: VesselRegistrationService, private formBuilder: FormBuilder,  
     private spinner: NgxSpinnerService, @Inject(LOCAL_STORAGE) private storage: WebStorageService,
-    private changeDetectorRef: ChangeDetectorRef) { }
+    private changeDetectorRef: ChangeDetectorRef, private router: Router) { }
 
   ngOnInit() {
+    if(!this.storage.get("user_id")) {
+      this.router.navigate(['/']);
+    } 
     this.editInlandSocietyMembersForm = this.formBuilder.group({
       member_name: ['', Validators.required],
       aadhaar_number: ['', [Validators.required, Validators.minLength(12)]],

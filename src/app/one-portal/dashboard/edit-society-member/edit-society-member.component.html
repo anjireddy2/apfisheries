@@ -91,7 +91,7 @@
           <div class="col-md-4">
             <div class="form-group">
               <label for="power">Gender<span class="vessel-mandatory-ind">*</span></label>
-              <select class="form-control" formControlName="gender" name="gender" placeholder="Select" [(ngModel)]="editSocietyMember.gender" (ngModelChange)="genderSelection(editSocietyMembersForm.value.gender)" [ngClass]="{ 'is-invalid': submitted && f.mobile_number.errors }">
+              <select class="form-control" formControlName="gender" name="gender" placeholder="Select" [(ngModel)]="editSocietyMember.gender" (change)="genderSelection(editSocietyMembersForm.value.gender)" [ngClass]="{ 'is-invalid': submitted && f.mobile_number.errors }">
                 <option [ngValue]="undefined" hidden selected> --Select-- </option>
                 <option value="Male">  Male </option>
                 <option value="Female"> Female </option>          

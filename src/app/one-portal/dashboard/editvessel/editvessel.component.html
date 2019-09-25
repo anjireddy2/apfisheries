@@ -232,8 +232,8 @@
      <div class="row">
             <div class="col-md-4">
                     <div class="form-group">
-                      <label for="power">District</label>
-                      <select class="form-control" formControlName="district_name"  [(ngModel)]="distId"  (ngModelChange)="getMandal()" name="dist" [ngClass]="{ 'is-invalid': submitted && f.district_name.errors }">
+                      <label for="power">District<span class="vessel-mandatory-ind">*</span></label>
+                      <select class="form-control" formControlName="district_name"  [(ngModel)]="distId"  (change)="getMandal()" name="dist" [ngClass]="{ 'is-invalid': submitted && f.district_name.errors }">
                         <option *ngFor='let dist of Dist' [ngValue]='dist.id' >
                         {{ dist.district_name}}
                         </option>
@@ -247,8 +247,8 @@
                   </div>
                <div class="col-md-4">
                     <div class="form-group">
-                      <label for="power">Mandal</label>
-                      <select class="form-control" [(ngModel)]="mandalId" (ngModelChange)='getFlc()'   formControlName="mandal" [ngClass]="{ 'is-invalid': submitted && f.mandal.errors }">
+                      <label for="power">Mandal<span class="vessel-mandatory-ind">*</span></label>
+                      <select class="form-control" [(ngModel)]="mandalId" (change)='getFlc()'   formControlName="mandal" [ngClass]="{ 'is-invalid': submitted && f.mandal.errors }">
                      
                         <option *ngFor='let mandal of Mandals' [ngValue]='mandal.id'>
                         {{ mandal.mandal_name}}
@@ -262,7 +262,7 @@
                   </div>
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label for="power">Fish Landing Centre </label>
+                      <label for="power">Fish Landing Centre <span class="vessel-mandatory-ind">*</span></label>
                       <select class="form-control" [(ngModel)]="flcid" formControlName="flc" [ngClass]="{ 'is-invalid': submitted && f.flc.errors }">
                      
                         <option *ngFor='let flc of Flcs' [ngValue]='flc.id'>
@@ -295,7 +295,7 @@
                       <!-- <div class="col-md-4">
                             <div class="form-group">
                               <label for="power">Village  </label>
-                              <select name="village_name" class="form-control" [(ngModel)]="mandalId" (ngModelChange)='getPanchayats($event)'   name="mandal">
+                              <select name="village_name" class="form-control" [(ngModel)]="mandalId" (change)='getPanchayats($event)'   name="mandal">
                              
                                 <option *ngFor='let mandal of Mandals' [ngValue]='mandal.id'>
                                 {{ mandal.mandal_name}}
@@ -305,7 +305,7 @@
                           </div>  -->
                            <div class="col-md-4">
                                 <div class="form-group">
-                                  <label for="power">Vessel Type  </label>
+                                  <label for="power">Vessel Type <span class="vessel-mandatory-ind">*</span> </label>
                                   <select formControlName="vessltype" class="form-control" name="vessltype" [ngClass]="{ 'is-invalid': submitted && f.vessltype.errors }">
                                     <option value="1">MC</option>
                                     <option value="2">MO</option>
@@ -319,7 +319,7 @@
                         
              <div class="col-md-4">
                     <div class="form-group">
-                      <label for="power">Vessel Number</label>
+                      <label for="power">Vessel Number<span class="vessel-mandatory-ind">*</span></label>
                      <input type="text" name="vessel_number" value="" class="form-control" [(ngModel)]="editVessel.boat_id"  formControlName="vessel_number" value="" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.vessel_number.errors }">
                      <div *ngIf="submitted && f.vessel_number.errors" class="invalid-feedback">
                         <div *ngIf="f.vessel_number.errors && f.vessel_number.errors.required">Vessel number is required</div>
@@ -331,7 +331,7 @@
             
              <div class="col-md-4">
                 <div class="form-group">
-                  <label for="power">Licence Renewal Date</label>
+                  <label for="power">Licence Renewal Date<span class="vessel-mandatory-ind">*</span></label>
                  <mat-form-field>
                   <input matInput [matDatepicker]="picker1"  placeholder="Selct date"   formControlName="licence_renewal_date">
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -346,7 +346,7 @@
         
         <div class="col-md-4">
                 <div class="form-group">
-                  <label for="power">Licence Valid Upto</label>
+                  <label for="power">Licence Valid Upto<span class="vessel-mandatory-ind">*</span></label>
                  <mat-form-field>
                   <input matInput [matDatepicker]="picker"  placeholder="Select date"   formControlName="licence_valid_date">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>

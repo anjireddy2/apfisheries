@@ -42,6 +42,9 @@ export class InlandSocietyListComponent implements OnInit {
     private spinner: NgxSpinnerService, private router: Router, @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
 
   ngOnInit() {
+    if(!this.storage.get("user_id")) {
+      this.router.navigate(['/']);
+    } 
     // this.spinner.show();
     this.vesselRegistrationService.getDist().subscribe(data => {
       this.Dist = data;
@@ -120,5 +123,9 @@ export class InlandSocietyListComponent implements OnInit {
     //   this.addSocietyMember = data;
     // });
   }
+
+  // editInlandSocietyData(inlandSociety) {
+  //   this.router.navigate(["/dashboard/inland_society_registration_edit",inlandSociety.id]);
+  // }
 
 }

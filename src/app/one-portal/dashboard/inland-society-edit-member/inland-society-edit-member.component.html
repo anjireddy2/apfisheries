@@ -92,7 +92,7 @@
         <!-- <div class="col-md-4">
                 <div class="form-group">
                   <label for="power">Social status <span class="vessel-mandatory-ind">*</span></label>
-                  <select class="form-control" [(ngModel)]="status"  (ngModelChange)="checkCertificate()" formControlName="status" [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
+                  <select class="form-control" [(ngModel)]="status"  (change)="checkCertificate()" formControlName="status" [ngClass]="{ 'is-invalid': submitted && f.status.errors }">
                  <option>--SELECT--</option>
                     <option>
                    OC
@@ -140,7 +140,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="power">Gender<span class="vessel-mandatory-ind">*</span></label>
-                  <select class="form-control" formControlName="gender" name="gender" placeholder="Select" [(ngModel)]="editInlandSocietyData.gender" (ngModelChange)="genderSelection(editInlandSocietyMembersForm.value.gender)" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }">
+                  <select class="form-control" formControlName="gender" name="gender" placeholder="Select" [(ngModel)]="editInlandSocietyData.gender" (change)="genderSelection(editInlandSocietyMembersForm.value.gender)" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }">
                     <option [ngValue]="undefined" hidden selected> --Select-- </option>
                     <option value="Male">  Male </option>
                     <option value="Female"> Female </option>          

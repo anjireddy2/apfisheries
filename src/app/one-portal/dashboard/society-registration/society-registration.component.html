@@ -40,7 +40,7 @@ width: 94% ;" *ngIf="successsms" >
                 <div class="col-md-4">
                     <div class="form-group">
                       <label for="power">District <span class="vessel-mandatory-ind">*</span></label>
-                      <select class="form-control" [(ngModel)]="distId" (ngModelChange)="getMandal()" name="dist" formControlName="district_name"  [ngClass]="{ 'is-invalid': submitted && f.district_name.errors }">
+                      <select class="form-control" [(ngModel)]="distId" (change)="getMandal()" name="dist" formControlName="district_name"  [ngClass]="{ 'is-invalid': submitted && f.district_name.errors }">
                           <option [ngValue]="undefined" hidden selected> --Select-- </option>
                           <option [ngValue]="undefined">--Select--</option>
                         <option *ngFor='let dist of Dist' [ngValue]='dist.id'>
@@ -56,7 +56,7 @@ width: 94% ;" *ngIf="successsms" >
                   <div class="col-md-4">
                     <div class="form-group">
                       <label for="power">Mandal<span class="vessel-mandatory-ind">*</span></label>
-                      <select class="form-control" [(ngModel)]="mandalId" (ngModelChange)='getFlc()'  name="mandal"  formControlName="mandal" [ngClass]="{ 'is-invalid': submitted && f.mandal.errors }">
+                      <select class="form-control" [(ngModel)]="mandalId" (change)='getFlc()'  name="mandal"  formControlName="mandal" [ngClass]="{ 'is-invalid': submitted && f.mandal.errors }">
                           
                         <option [ngValue]="undefined" hidden selected> --Select-- </option>
                         <option [ngValue]="undefined">--Select--</option>

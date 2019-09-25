@@ -245,7 +245,7 @@ width: 94% ;" *ngIf="successsms" >
                 <div class="col-md-4">
                         <div class="form-group">
                           <label for="power">District <span class="vessel-mandatory-ind">*</span></label>
-                          <select class="form-control" formControlName="district_name"  [(ngModel)]="distId" (ngModelChange)="getMandal()" name="dist" [ngClass]="{ 'is-invalid': submitted && f.district_name.errors }">
+                          <select class="form-control" formControlName="district_name"  [(ngModel)]="distId" (change)="getMandal()" name="dist" [ngClass]="{ 'is-invalid': submitted && f.district_name.errors }">
                             <option [ngValue]="undefined" hidden selected> --Select-- </option>
                             <option *ngFor='let dist of Dist' [ngValue]='dist.id'>
                             {{ dist.district_name}}
@@ -261,7 +261,7 @@ width: 94% ;" *ngIf="successsms" >
                        <div class="col-md-4">
                         <div class="form-group">
                           <label for="power">Mandal <span class="vessel-mandatory-ind">*</span></label>
-                          <select class="form-control" [(ngModel)]="mandalId" (ngModelChange)='getFlc()'   formControlName="mandal" [ngClass]="{ 'is-invalid': submitted && f.mandal.errors }">
+                          <select class="form-control" [(ngModel)]="mandalId" (change)='getFlc()'   formControlName="mandal" [ngClass]="{ 'is-invalid': submitted && f.mandal.errors }">
                             <option [ngValue]="undefined" hidden selected> --Select-- </option>
                             <option *ngFor='let mandal of Mandals' [ngValue]='mandal.id'>
                             {{ mandal.mandal_name}}

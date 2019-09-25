@@ -39,6 +39,7 @@ import { InlandSocietyAddMemberComponent } from './one-portal/dashboard/inland-s
 import { InlandSocietyEditMemberComponent } from './one-portal/dashboard/inland-society-edit-member/inland-society-edit-member.component';
 import { CrewUserComponent } from './one-portal/dashboard/crew-user/crew-user.component';
 import { CrewEditComponent } from './one-portal/dashboard/crew-edit/crew-edit.component';
+// import { InlandSocietyRegistrationEditComponent } from './one-portal/dashboard/inland-society-registration-edit/inland-society-registration-edit.component';
 
 
 
@@ -89,7 +90,7 @@ const appRoutes: Routes = [
       }, {
         path: 'society_registration',
         component: SocietyListComponent,
-      }, {
+      },{
         path: 'addnew_society',
         component: SocietyRegistrationComponent,
       }, {
@@ -114,6 +115,11 @@ const appRoutes: Routes = [
     ]
   },
 ];
+
+// {
+//   path: 'inland_society_registration_edit/:inland_society_id',
+//   component: InlandSocietyRegistrationEditComponent
+// },
 
   //create our cost var with the information about the format that we want
 
@@ -143,6 +149,7 @@ const appRoutes: Routes = [
     InlandSocietyEditMemberComponent,
     CrewUserComponent,
     CrewEditComponent,
+    // InlandSocietyRegistrationEditComponent,
    
     
     

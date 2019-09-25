@@ -21,7 +21,7 @@
         <div class="col-md-4">
             <div class="form-group">
               <label for="power">District</label>
-              <select class="form-control"  [(ngModel)]="distId" (ngModelChange)="getMandal()">
+              <select class="form-control"  [(ngModel)]="distId" (change)="getMandal()">
                   <option [ngValue]="undefined" hidden selected> --Select-- </option>
                   <option value="undefined">--Select--</option>
                 <option *ngFor='let dist of Dist' [ngValue]='dist.id'>
@@ -34,7 +34,7 @@
           <div class="col-md-4">
               <div class="form-group">
                 <label for="power">Mandal</label>
-                <select class="form-control" [(ngModel)]="mandalId" (ngModelChange)='getPanchayats()' name="mandal" >
+                <select class="form-control" [(ngModel)]="mandalId" (change)='getPanchayats()' name="mandal" >
                     <option [ngValue]="undefined" hidden selected> --Select-- </option>
                     <option value="undefined">--Select--</option>
                   <option *ngFor='let mandal of Mandals' [ngValue]='mandal.id'>
@@ -164,7 +164,9 @@
             
   
             <button (click)="addInlandSocietyMember(inlandSociety)" class="button btn btn-primary" >Add Inland Society member</button>
-
+            <!-- <span (click)="editInlandSocietyData(inlandSociety)" style="margin-left: 15px;"> 
+              <i class="fa fa-pencil-square-o" aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
+            </span> -->
             <span (click)="inlandSocietyData(inlandSociety)" style="margin-left: 15px;"> 
                   <i class="fa fa-trash-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
                 </span>

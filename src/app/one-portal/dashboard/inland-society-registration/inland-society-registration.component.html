@@ -23,7 +23,7 @@
         <div class="col-md-4">
             <div class="form-group">
               <label for="power">District<span class="vessel-mandatory-ind">*</span></label>
-              <select class="form-control" formControlName="district_name"  [(ngModel)]="distId" (ngModelChange)="getMandal()" [ngClass]="{ 'is-invalid': submitted && f.district_name.errors }">
+              <select class="form-control" formControlName="district_name" (change)="getMandal()" [ngClass]="{ 'is-invalid': submitted && f.district_name.errors }">
                 <option [ngValue]="undefined" hidden selected> --Select-- </option>
                 <option [ngValue]="undefined"> --Select-- </option>
                 <option *ngFor='let dist of Dist' [ngValue]='dist.id'>
@@ -40,7 +40,7 @@
           <div class="col-md-4">
               <div class="form-group">
                 <label for="power">Mandal<span class="vessel-mandatory-ind">*</span></label>
-                <select class="form-control" [(ngModel)]="mandalId" (ngModelChange)='getPanchayats()' name="mandal" formControlName="mandal" [ngClass]="{ 'is-invalid': submitted && f.mandal.errors }">
+                <select class="form-control" (change)='getPanchayats()' name="mandal" formControlName="mandal" [ngClass]="{ 'is-invalid': submitted && f.mandal.errors }">
                   <option [ngValue]="undefined" hidden selected> --Select-- </option>
                   <option [ngValue]="undefined"> --Select-- </option>
                   <option *ngFor='let mandal of Mandals' [ngValue]='mandal.id'>
@@ -57,7 +57,7 @@
                 <div class="form-group">
                   <label for="power">Grama Panchayat<span class="vessel-mandatory-ind">*</span></label>
                   <!-- <option [ngValue]="undefined" hidden selected> --Select-- </option> -->
-                  <select class="form-control"  [(ngModel)]="gramalId"  name="panchayat" formControlName="panchayat" [ngClass]="{ 'is-invalid': submitted && f.panchayat.errors }">
+                  <select class="form-control"  name="panchayat" formControlName="panchayat" [ngClass]="{ 'is-invalid': submitted && f.panchayat.errors }">
                     <option [ngValue]="undefined" hidden selected> --Select-- </option>
                     <option [ngValue]="undefined"> --Select-- </option>
                     <option *ngFor='let Panchayat of Panchayats' [ngValue]='Panchayat.id'>
@@ -74,7 +74,7 @@
               <div class="col-md-4">
                   <div class="form-group">
                     <label for="power">Village<span class="vessel-mandatory-ind">*</span></label>
-                    <select class="form-control"  [ngModel]="villageId"  name="village" formControlName="village" [ngClass]="{ 'is-invalid': submitted && f.village.errors }">
+                    <select class="form-control"  name="village" formControlName="village" [ngClass]="{ 'is-invalid': submitted && f.village.errors }">
                       <option [ngValue]="undefined" hidden selected> --Select-- </option>
                       <option [ngValue]="undefined"> --Select-- </option>
                       <option *ngFor='let village of Village' [ngValue]='village.id'>
@@ -91,7 +91,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="power">Type Of Water Body<span class="vessel-mandatory-ind">*</span></label>
-                    <select class="form-control"  [ngModel]="waterbodyType"  name="waterbodyType" formControlName="waterbodyType" [ngClass]="{ 'is-invalid': submitted && f.waterbodyType.errors }">
+                    <select class="form-control"  name="waterbodyType" formControlName="waterbodyType" [ngClass]="{ 'is-invalid': submitted && f.waterbodyType.errors }">
                       <option [ngValue]="undefined" hidden selected> --Select-- </option>
                       <option [ngValue]="undefined"> --Select-- </option>
                       <option *ngFor='let waterbody of Waterbody' [ngValue]='waterbody.id'>
@@ -108,7 +108,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="power">Name Of Water Body<span class="vessel-mandatory-ind">*</span></label>
-                    <select class="form-control"  [ngModel]="waterbodyName"  name="waterbodyName" formControlName="waterbodyName" [ngClass]="{ 'is-invalid': submitted && f.waterbodyName.errors }">
+                    <select class="form-control" name="waterbodyName" formControlName="waterbodyName" [ngClass]="{ 'is-invalid': submitted && f.waterbodyName.errors }">
                       <option [ngValue]="undefined" hidden selected> --Select-- </option>
                       <option [ngValue]="undefined"> --Select-- </option>
                       <option *ngFor='let waterbody of Waterbody' [ngValue]='waterbody.id'>
@@ -125,7 +125,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="power">Seasonality<span class="vessel-mandatory-ind">*</span></label>
-                    <select class="form-control"  [ngModel]="seasonality"  name="seasonality" formControlName="seasonality" [ngClass]="{ 'is-invalid': submitted && f.seasonality.errors }">
+                    <select class="form-control" name="seasonality" formControlName="seasonality" [ngClass]="{ 'is-invalid': submitted && f.seasonality.errors }">
                       <option [ngValue]="undefined" hidden selected> --Select-- </option>
                       <option [ngValue]="undefined"> --Select-- </option>
                       <option *ngFor='let waterbody of Waterbody' [ngValue]='waterbody.id'>
@@ -167,24 +167,7 @@
                     <div *ngIf="f.society_type.errors.required">Society Type is required</div>
                    </div>
               </div>
-      </div>
-
-                <!-- <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="power">Waterbody<span class="vessel-mandatory-ind">*</span></label>
-                    <select class="form-control"  [ngModel]="waterbodyId"  name="waterbody" formControlName="waterbody" [ngClass]="{ 'is-invalid': submitted && f.waterbody.errors }">
-               
-                      <option *ngFor='let waterbody of Waterbody' [ngValue]='waterbody.id'>
-                      {{ waterbody.water_body_name}}
-                      </option>
-                    </select>
-                    <div *ngIf="submitted && f.waterbody.errors" class="invalid-feedback">
-                        <div *ngIf="f.waterbody.errors && f.waterbody.errors.required">Waterbody is required</div>
-
-                       </div>
-
-                  </div>
-                </div> -->
+            </div>
           
       </div>
       <div class="col-md-12 ">

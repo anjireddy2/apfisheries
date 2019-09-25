@@ -21,7 +21,7 @@
         <div class="col-md-4">
             <div class="form-group">
               <label for="power">District <span style="color: red;" class="vessel-mandatory-ind">*</span></label>
-              <select  class="form-control"  [(ngModel)]="distId" (ngModelChange)="getMandal()" name="dist">
+              <select  class="form-control"  [(ngModel)]="distId" (change)="getMandal()" name="dist">
                 <!-- <option value="" disabled="true" [selected]="!distId">--please select--</option> -->
                 <option [ngValue]="undefined" hidden selected> --Select-- </option>
 
@@ -38,7 +38,7 @@
           <div class="col-md-4">
             <div class="form-group">
               <label for="power">Mandal</label>
-              <select class="form-control" [(ngModel)]="mandalId" (ngModelChange)='getFlc()'   name="mandal">
+              <select class="form-control" [(ngModel)]="mandalId" (change)='getFlc()'   name="mandal">
                 <option [ngValue]="undefined" hidden selected> --Select-- </option>
                 <option [ngValue]="undefined">--Select--</option>
                 <option *ngFor='let mandal of Mandals' [ngValue]='mandal.id'>

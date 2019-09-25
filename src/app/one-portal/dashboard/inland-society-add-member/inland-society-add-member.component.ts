@@ -52,6 +52,9 @@ export class InlandSocietyAddMemberComponent implements OnInit {
     @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
 
   ngOnInit() {
+    if(!this.storage.get("user_id")) {
+      this.router.navigate(['/']);
+    } 
     this.inlandSocietyMembersForm = this.formBuilder.group({
       member_name: ['', Validators.required],
       aadhaar_number: ['', [Validators.required, Validators.minLength(12)]],
