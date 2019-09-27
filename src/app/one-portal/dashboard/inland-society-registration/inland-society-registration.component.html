@@ -161,8 +161,8 @@
             <div class="col-md-8" style="margin-top: 3%;">
               <div class="form-group" style="display: inline-block">
                 <label for="power" style="padding-right: 10px;">Society Type<span class="vessel-mandatory-ind">*</span> </label>
-                <input type="radio"  name="society_type" value="Inland FisherMen" formControlName="society_type"> Inland FisherMen
-                <input type="radio" name="society_type" value="Inland FisherWomen" formControlName="society_type"> Inland FisherWomen
+                <input type="radio"  name="society_type" value="3" formControlName="society_type"> Inland FisherMen
+                <input type="radio" name="society_type" value="4" formControlName="society_type"> Inland FisherWomen
                 <div *ngIf="submitted && f.society_type.errors" class="invalid-feedback" style="display: block !important;">
                     <div *ngIf="f.society_type.errors.required">Society Type is required</div>
                    </div>

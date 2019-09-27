@@ -75,7 +75,7 @@ export class InlandSocietyAddMemberComponent implements OnInit {
       is_president: ['',[Validators.required]]
     });
     this.employment_status = 'UnEmployed';
-    this.society_type = this.storage.get('society_type') === "Inland FisherMen" ? "Male" : "Female";
+    this.society_type = this.storage.get('society_type') === "3" ? "Male" : "Female";
     this.genderSelection(this.society_type);
   //  this.inlandSocietyMembersForm.controls['gender'].disable();
     const vid = +this.route.snapshot.paramMap.get('id');

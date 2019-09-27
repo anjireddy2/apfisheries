@@ -42,6 +42,7 @@ export class SocietyAddMembersComponent implements OnInit {
   deleteData:any = [] ;
   verifyGenderMale: boolean;
   verifyGenderFemale: boolean;
+  society_type: string;
   
 
   // tslint:disable-next-line: max-line-length
@@ -74,6 +75,9 @@ export class SocietyAddMembersComponent implements OnInit {
       fish_vendor: ['']
     });
 // this.rationVerify.employment_status = "Employed";
+    this.society_type = this.storage.get('society_type1') == "1" ? "Male" : "Female";
+    this.genderSelection(this.society_type);
+    this.societyMembersForm.controls['gender'].disable();
     const vid = +this.route.snapshot.paramMap.get('id');
     this.vesselRegistrationService.addSociety(vid).subscribe(data => {
       this.spinner.hide();
