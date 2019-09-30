@@ -323,7 +323,7 @@
                      <input type="text" name="vessel_number" value="" class="form-control" [(ngModel)]="editVessel.boat_id"  formControlName="vessel_number" value="" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.vessel_number.errors }">
                      <div *ngIf="submitted && f.vessel_number.errors" class="invalid-feedback">
                         <div *ngIf="f.vessel_number.errors && f.vessel_number.errors.required">Vessel number is required</div>
-                       <div *ngIf="f.vessel_number.errors && f.vessel_number.errors.minlength">Vessel Number should have 20 </div>
+                       <!-- <div *ngIf="f.vessel_number.errors && f.vessel_number.errors.minlength">Vessel Number should have 20 </div> -->
                        </div>
                     </div>
             </div> 

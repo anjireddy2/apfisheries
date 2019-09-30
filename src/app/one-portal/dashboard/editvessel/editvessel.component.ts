@@ -66,7 +66,7 @@ export class EditvesselComponent implements OnInit {
       flc: ['', [Validators.required]],
       vessltype:['', [Validators.required]],
       vessel_name: [''],
-      vessel_number:['', [Validators.required,Validators.minLength(20)]],
+      vessel_number:['', [Validators.required]],
       licence_renewal_date:['', [Validators.required]],
       licence_valid_date:['', [Validators.required]],
       mfid_number:[''],
