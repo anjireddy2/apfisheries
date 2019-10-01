@@ -75,9 +75,9 @@ export class SocietyAddMembersComponent implements OnInit {
       fish_vendor: ['']
     });
 // this.rationVerify.employment_status = "Employed";
-    this.society_type = this.storage.get('society_type1') == "1" ? "Male" : "Female";
-    this.genderSelection(this.society_type);
-    this.societyMembersForm.controls['gender'].disable();
+    // this.society_type = this.storage.get('society_type1') == "1" ? "Male" : "Female";
+    // this.genderSelection(this.society_type);
+    // this.societyMembersForm.controls['gender'].disable();
     const vid = +this.route.snapshot.paramMap.get('id');
     this.vesselRegistrationService.addSociety(vid).subscribe(data => {
       this.spinner.hide();
@@ -139,15 +139,15 @@ export class SocietyAddMembersComponent implements OnInit {
       this.spinner.hide();
       this.addsocietyMember = data;
       if (this.addsocietyMember && this.addsocietyMember.status === true) {
-        // this.router.navigate(["/dashboard/society_registration"])
+        this.router.navigate(["/dashboard/society_registration"])
         this.success = true;
       } else {
         this.error = true;
       }
       window.scroll(0, 0);
-      this.enableFields();
-      this.submitted = false;
-      this.societyMembersForm.reset({});
+      // this.enableFields();
+      // this.submitted = false;
+      // this.societyMembersForm.reset({});
   }, error => {
     this.spinner.hide();
   });

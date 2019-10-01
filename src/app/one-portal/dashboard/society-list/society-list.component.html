@@ -49,7 +49,7 @@
           <label for="power">Mandal</label>
           <select class="form-control" [(ngModel)]="mandalId" (change)='getFlc()'   name="mandal">
             <option [ngValue]="undefined" hidden selected> --Select-- </option>
-
+            <option [ngValue]="undefined">--Select--</option>
             <option *ngFor='let mandal of Mandals' [ngValue]='mandal.id'>
             {{ mandal.mandal_name}}
             </option>
@@ -61,7 +61,7 @@
               <label for="power">Fish Landing Centre </label>
               <select class="form-control" [(ngModel)]="flcid"      name="flc">
                 <option [ngValue]="undefined" hidden selected> --Select-- </option>
-
+                <option [ngValue]="undefined">--Select--</option>
                 <option *ngFor='let flc of Flcs' [ngValue]='flc.id'>
                 {{ flc.flc_name}}
                 </option>

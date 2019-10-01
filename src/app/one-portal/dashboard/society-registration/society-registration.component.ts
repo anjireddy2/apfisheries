@@ -89,6 +89,7 @@ export class SocietyRegistrationComponent implements OnInit {
     }
     this.societyRegistrationForm.value.field = this.fieldArray;
     this.societyRegistrationForm.value.userId = this.storage.get("user_id");
+    // this.storage.set("society_type1",this.societyRegistrationForm.value.society_type);
     this.vesselRegistrationService.createSociety(this.societyRegistrationForm.value).subscribe(
     data=>{
       this.spinner.hide();

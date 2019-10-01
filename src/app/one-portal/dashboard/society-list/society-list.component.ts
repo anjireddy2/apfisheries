@@ -78,7 +78,7 @@ export class SocietyListComponent implements OnInit {
   }
 
   addMember(societyList) {
-    this.storage.set("society_type1",societyList.society_type);
+    // this.storage.set("society_type1",societyList.society_type);
     this.router.navigate(['/dashboard/addsociety_members', societyList.id]);
     this.vesselRegistrationService.addSociety(societyList.id).subscribe(data => {
       this.addSocietyMember = data;
