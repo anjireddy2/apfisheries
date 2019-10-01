@@ -63,7 +63,7 @@
     </div>
     <div class="col-md-4">
         <div class="form-group">
-          <label for="power">Ration card Number <span class="vessel-mandatory-ind">*</span></label>
+          <label for="power">Ration card Number </label>
          <input type="text" name="ration_card" formControlName="ration_card" class="form-control" (keyup) = "getVerifyBtn('RationCard')" maxlength="15" [ngClass]="{ 'is-invalid': submitted && f.ration_card.errors }" [(ngModel)]="editVessel.ration_card_number">
          <div *ngIf="submitted && f.ration_card.errors" class="invalid-feedback">
             <!-- <div *ngIf="f.ration_card.errors.required">Ration Card number is required</div> -->
