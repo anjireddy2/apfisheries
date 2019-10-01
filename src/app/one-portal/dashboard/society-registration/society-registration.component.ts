@@ -50,7 +50,7 @@ export class SocietyRegistrationComponent implements OnInit {
       flc: ['', [Validators.required]],
       society_name: ['', [Validators.required]],
       society_reg_no: ['', [Validators.required]],
-      society_type: ['', [Validators.required]],
+      // society_type: ['', [Validators.required]],
       field: this.formBuilder.array([
         this.addvesselRegNo(),
      ])
