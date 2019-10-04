@@ -148,7 +148,7 @@ export class InlandSocietyAddMemberComponent implements OnInit {
       this.addInlandSocietyMember = data;
       if (this.addInlandSocietyMember && this.addInlandSocietyMember.status === true) {
         location.reload();
-        console.log(this.addInlandSocietyMember.message);
+        // console.log(this.addInlandSocietyMember.message);
         this.success = true;
       } else {
         this.error = true;

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
 import {VesselRegistrationService} from '../vessel-registration.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -40,8 +40,9 @@ export class EditvesselComponent implements OnInit {
   reference: any;
   adhar_error: boolean;
   adhar_success: boolean;
+  bankList: any = [];
   constructor(private formBuilder: FormBuilder,private vesselRegistrationService: VesselRegistrationService,
-     private route: ActivatedRoute, private router: Router, private spinner: NgxSpinnerService, @Inject(LOCAL_STORAGE) private storage: WebStorageService)
+     private route: ActivatedRoute, private changeDetectorRef: ChangeDetectorRef, private router: Router, private spinner: NgxSpinnerService, @Inject(LOCAL_STORAGE) private storage: WebStorageService)
    {
 
     }
@@ -79,7 +80,7 @@ export class EditvesselComponent implements OnInit {
       gps_count:[''],
       fish_finder_count:[''],
       echo_sounder_count:[''],
-      
+      bank_others_name:['',[Validators.required]]
   }); 
     const vid = +this.route.snapshot.paramMap.get('id');
     this.spinner.show();
@@ -88,18 +89,27 @@ export class EditvesselComponent implements OnInit {
     this.vesselRegistrationService.vesselEdit(vid).subscribe(data => {
       this.spinner.hide();
       this.editVessel = data;
+      this.changeDetectorRef.detectChanges();
       this.updateForm.controls['licence_renewal_date'].setValue(new Date(this.editVessel.license_renewed_date));
       this.updateForm.controls['licence_valid_date'].setValue(new Date(this.editVessel.license_valid_upto));
-      
+      this.getVerifyBtn('Aadhar');
+      this.getVerifyBtn('RationCard');
       this.distId=this.editVessel.district_id;
       this.mandalId=this.editVessel.mandal_id;
       this.flcid = this.editVessel.fish_landing_center_id;
       this.updateForm.controls['vessltype'].setValue(this.editVessel.boat_type);
       this.vesselRegistrationService.getMandal(this.editVessel.district_id).subscribe(data => this.Mandals = data);
       this.vesselRegistrationService.getFlc(this.editVessel.district_id,this.editVessel.mandal_id).subscribe(data => this.Flcs = data);
-      this.vesselRegistrationService.getPanchyats(this.editVessel.district_id,this.editVessel.mandal_id).subscribe(data => this.Panchayats = data);
+      // this.vesselRegistrationService.getPanchyats(this.editVessel.district_id,this.editVessel.mandal_id).subscribe(data => this.Panchayats = data);
     }, error=> {
       this.spinner.hide();
+    });
+    this.vesselRegistrationService.getBankList().subscribe(data => {
+      if(data.success && data.banks.length > 0) {
+        data.banks.forEach(element => {
+          this.bankList.push({value:element})
+        });
+      }
     });
   }
   get f() { return this.updateForm.controls; }
@@ -124,6 +134,9 @@ export class EditvesselComponent implements OnInit {
     this.submitted = true;
     this.error = false;
     this.success = false;
+    if(this.updateForm.value.bank_name != 'others') {
+      this.updateForm.controls['bank_others_name'].setErrors(null);
+    }
     if (this.updateForm.invalid) {
       this.spinner.hide();
       window.scroll(0,0);
@@ -134,7 +147,10 @@ export class EditvesselComponent implements OnInit {
     this.updateForm.value.userId = this.storage.get("user_id");
     this.updateForm.value.licence_renewal_date = new Date(this.updateForm.value.licence_renewal_date).toDateString();
     this.updateForm.value.licence_valid_date = new Date(this.updateForm.value.licence_valid_date).toDateString();
-
+    if(this.rationVerify && this.rationVerify.success && this.updateForm.controls['owner_name'].status === "DISABLED") {
+      this.updateForm.value.father_name =  this.rationVerify.father_name;
+      this.updateForm.value.owner_name =  this.rationVerify.owner_name;
+      }
     this.vesselRegistrationService.updateVessel(vid,this.updateForm.value).subscribe(data => {
       this.spinner.hide();
       this.vesselUpdate = data;

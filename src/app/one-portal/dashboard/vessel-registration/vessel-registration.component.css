@@ -94,3 +94,7 @@ font-size: 12px;
 {
     font-size: 12px;
 }
+.vessel-verified {
+    background-color: green;
+    color: #fff;
+}

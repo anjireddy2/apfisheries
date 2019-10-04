@@ -40,6 +40,7 @@ export class AddnewVesselComponent implements OnInit {
   reference: any;
   adhar_error: boolean;
   adhar_success: boolean;
+  bankList : any = [];
  
 
   constructor(private router:Router,private formBuilder: FormBuilder,private vesselRegistrationService: VesselRegistrationService,private _http: HttpClient, 
@@ -76,9 +77,17 @@ export class AddnewVesselComponent implements OnInit {
        fish_finder_count:[''],
        echo_sounder:[''],  
       licence_renewal_date:['', [Validators.required]],
-      licence_valid_date:['', [Validators.required]]
+      licence_valid_date:['', [Validators.required]],
+      bank_others_name : ['',[Validators.required]]
   });
      this.vesselRegistrationService.getDist().subscribe(data => this.Dist = data);
+     this.vesselRegistrationService.getBankList().subscribe(data => {
+       if(data.success && data.banks.length > 0) {
+         data.banks.forEach(element => {
+           this.bankList.push({value:element})
+         });
+       }
+     });
   }
   
   get f() { return this.registerForm.controls; }
@@ -94,7 +103,7 @@ export class AddnewVesselComponent implements OnInit {
     let  distId1 = this.distId;
     let mandalId=this.mandalId;
     this.vesselRegistrationService.getFlc(distId1,mandalId).subscribe(data => this.Flcs = data); 
-    this.vesselRegistrationService.getPanchyats(distId1,mandalId).subscribe(data => this.Panchayats = data);
+    // this.vesselRegistrationService.getPanchyats(distId1,mandalId).subscribe(data => this.Panchayats = data);
     this.flcid = undefined;
   }
 
@@ -107,6 +116,9 @@ export class AddnewVesselComponent implements OnInit {
     this.error = false;
     this.success = false;
     this.submitted = true;
+    if(this.registerForm.value.bank_name != 'others') {
+      this.registerForm.controls['bank_others_name'].setErrors(null);
+    }
     if (this.registerForm.invalid) {
       this.spinner.hide();
         return;

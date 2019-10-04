@@ -196,4 +196,8 @@ export class VesselRegistrationService
     return this._http.post<VesselregistractionModule[]>(this.apiURL+"/vessel_details/"+vId+"/update_crew_member?member_id="+crew_id, registractionData);
   }
   
+  public getBankList():any {
+    return this._http.get<VesselregistractionModule[]>(this.apiURL+"/vessel_details/bank_details");
+  }
+  
 }

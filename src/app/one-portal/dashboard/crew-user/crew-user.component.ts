@@ -51,6 +51,7 @@ export class CrewUserComponent implements OnInit {
   edit_error: boolean;
   crewUpdate = true;
   updatedData : any = [];
+  bankList: any = [];
  
 
   constructor(private router:Router,private formBuilder: FormBuilder,private vesselRegistrationService: VesselRegistrationService,private _http: HttpClient, 
@@ -65,7 +66,7 @@ export class CrewUserComponent implements OnInit {
       aadhaar_number: ['', [Validators.required,Validators.minLength(12)]],
       bank_account_number: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(20)]],
       ration_card: [''],
-      email_id: [''],
+      email_id: ['',Validators.email],
       ifsc_code: ['', Validators.required],
       mobile_number: ['', Validators.required],
       bank_name: ['', Validators.required],
@@ -76,6 +77,7 @@ export class CrewUserComponent implements OnInit {
       gender: ['', Validators.required],
       age: [''],
       date_of_birth: [''],
+      bank_others_name: ['',[Validators.required]]
   });
   const id =  this.route.snapshot.paramMap.get("id");
   this.vesselRegistrationService.crewMemberList(id).subscribe(data => {
@@ -84,6 +86,13 @@ export class CrewUserComponent implements OnInit {
     this.waterBodyPagination = this.crewMemberList && this.crewMemberList.length > 6 ? true : false; 
   }, error=> {
     this.spinner.hide();
+  });
+  this.vesselRegistrationService.getBankList().subscribe(data => {
+    if(data.success && data.banks.length > 0) {
+      data.banks.forEach(element => {
+        this.bankList.push({value:element})
+      });
+    }
   });
 }
   
@@ -103,7 +112,9 @@ export class CrewUserComponent implements OnInit {
     this.success = false;
     this.submitted = true;
     let vesselId = this.route.snapshot.paramMap.get("id");
-
+    if(this.crewUserRegisterForm.value.bank_name != 'others') {
+      this.crewUserRegisterForm.controls['bank_others_name'].setErrors(null);
+    }
     if (this.crewUserRegisterForm.invalid) {
       this.spinner.hide();
       return;
@@ -118,6 +129,7 @@ export class CrewUserComponent implements OnInit {
     this.crewUserRegisterForm.value.reference = this.adharVerify.ref_no;
     this.crewUserRegisterForm.value.userId = this.storage.get("user_id");
     this.crewUserRegisterForm.value.date_of_birth = new Date(this.crewUserRegisterForm.value.date_of_birth).toDateString();
+    // debugger;
     this.vesselRegistrationService.createCrewMember(vesselId,this.crewUserRegisterForm.value).subscribe(data => {
       this.spinner.hide();
       this.registerData = data;

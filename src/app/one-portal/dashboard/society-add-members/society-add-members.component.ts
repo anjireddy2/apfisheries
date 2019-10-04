@@ -43,6 +43,7 @@ export class SocietyAddMembersComponent implements OnInit {
   verifyGenderMale: boolean;
   verifyGenderFemale: boolean;
   society_type: string;
+  employment_status: string;
   
 
   // tslint:disable-next-line: max-line-length
@@ -74,10 +75,12 @@ export class SocietyAddMembersComponent implements OnInit {
       is_president: [''],
       fish_vendor: ['']
     });
-// this.rationVerify.employment_status = "Employed";
+    this.employment_status = "UnEmployed";
     // this.society_type = this.storage.get('society_type1') == "1" ? "Male" : "Female";
-    // this.genderSelection(this.society_type);
-    // this.societyMembersForm.controls['gender'].disable();
+    // if(this.society_type) {
+      // this.genderSelection(this.society_type);
+      // this.societyMembersForm.controls['gender'].disable();
+    // }
     const vid = +this.route.snapshot.paramMap.get('id');
     this.vesselRegistrationService.addSociety(vid).subscribe(data => {
       this.spinner.hide();

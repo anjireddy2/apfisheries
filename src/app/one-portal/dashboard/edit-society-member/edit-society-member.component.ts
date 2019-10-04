@@ -65,6 +65,8 @@ export class EditSocietyMemberComponent implements OnInit {
       this.editSocietyMember = data['message'];
       this.genderSelection(this.editSocietyMember.gender);
       this.changeDetectorRef.detectChanges();
+      this.getVerifyBtn('Aadhar');
+      this.getVerifyBtn('RationCard');
       this.isPresident.nativeElement.checked = this.editSocietyMember.is_president ? true : false;  
       if(this.editSocietyMember.member_date_of_birth) {  
         this.editSocietyMembersForm.controls['date_of_birth'].setValue(new Date(this.editSocietyMember.member_date_of_birth));

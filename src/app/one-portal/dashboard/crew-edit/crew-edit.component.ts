@@ -1,4 +1,4 @@
-import { Component, OnInit,Input, Inject  } from '@angular/core';
+import { Component, OnInit,Input, Inject, ChangeDetectorRef  } from '@angular/core';
 import {VesselRegistrationService} from '../vessel-registration.service';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -49,10 +49,11 @@ export class CrewEditComponent implements OnInit {
   edit_error: boolean;
   crewUpdate = true;
   updatedData : any = [];
+  bankList: any = [];
  
 
   constructor(private router:Router,private formBuilder: FormBuilder,private vesselRegistrationService: VesselRegistrationService,private _http: HttpClient, 
-    private spinner: NgxSpinnerService, private route: ActivatedRoute, @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
+    private spinner: NgxSpinnerService, private changeDetectorRef: ChangeDetectorRef, private route: ActivatedRoute, @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
 
   ngOnInit() {
     if(!this.storage.get("user_id")) {
@@ -63,7 +64,7 @@ export class CrewEditComponent implements OnInit {
       aadhaar_number: ['', [Validators.required,Validators.minLength(12)]],
       bank_account_number: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(20)]],
       ration_card: [''],
-      email_id: [''],
+      email_id: ['',Validators.email],
       ifsc_code: ['', Validators.required],
       mobile_number: ['', Validators.required],
       bank_name: ['', Validators.required],
@@ -74,15 +75,26 @@ export class CrewEditComponent implements OnInit {
       gender: ['', Validators.required],
       age: [''],
       date_of_birth: [''],
+      bank_others_name: ['',[Validators.required]]
   });
   const id =  this.route.snapshot.paramMap.get("id");
   const vesselId =  this.route.snapshot.paramMap.get("vessel_id");
   this.spinner.show();
     this.vesselRegistrationService.editCrewMember(vesselId,id).subscribe(data => {
       this.EditCrewMember = data['message'];
+      this.changeDetectorRef.detectChanges();
+      this.getVerifyBtn('Aadhar');
+      this.getVerifyBtn('RationCard');
       this.spinner.hide();
     },error=>{
       this.spinner.hide();
+    });
+    this.vesselRegistrationService.getBankList().subscribe(data => {
+      if(data.success && data.banks.length > 0) {
+        data.banks.forEach(element => {
+          this.bankList.push({value:element})
+        });
+      }
     });
 }
   
@@ -102,7 +114,9 @@ export class CrewEditComponent implements OnInit {
     this.success = false;
     this.submitted = true;
     let vesselId = this.route.snapshot.paramMap.get("vessel_id");
-
+    if(this.crewUserRegisterForm.value.bank_name != 'others') {
+      this.crewUserRegisterForm.controls['bank_others_name'].setErrors(null);
+    }
     if (this.crewUserRegisterForm.invalid) {
       this.spinner.hide();
       return;

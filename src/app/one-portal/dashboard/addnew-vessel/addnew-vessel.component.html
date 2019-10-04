@@ -91,7 +91,7 @@ width: 94% ;" *ngIf="successsms" >
                  <div class="col-md-4">
                         <div class="form-group">
                           <label for="power">Father Name <span class="vessel-mandatory-ind">*</span></label>
-                         <input  type="text" formControlName="father_name" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"  [ngModel]="rationVerify.owner_name"  class="form-control" allow-pattern="^[a-zA-Z ]*$"  [ngClass]="{ 'is-invalid': submitted && f.owner_name.errors }"  [ngModel]="rationVerify.father_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.father_name.errors }">
+                         <input  type="text" formControlName="father_name" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"  [ngModel]="rationVerify.father_name"  class="form-control" allow-pattern="^[a-zA-Z ]*$"  [ngClass]="{ 'is-invalid': submitted && f.owner_name.errors }"  [ngModel]="rationVerify.father_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.father_name.errors }">
                          <div *ngIf="submitted && f.father_name.errors" class="invalid-feedback">
                           <div *ngIf="f.father_name.errors.required">Father name is required</div>
                         </div>
@@ -147,81 +147,20 @@ width: 94% ;" *ngIf="successsms" >
                          <!-- <input type="text" name="bank_name" formControlName="bank_name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.bank_name.errors }"> -->
                          <select class="form-control" formControlName="bank_name"    name="bank" [ngClass]="{ 'is-invalid': submitted && f.bank_name.errors }">
                           <option [ngValue]="undefined" hidden selected> --Select-- </option>
-                          <!-- <option *ngFor='let bank of Bank' [ngValue]='bank.id'>
-                          {{ bank.bank_name}}
-                          </option> -->
-
-                          
-                                <option value="Allahabad_Bank">
-                                    Allahabad Bank
-                                </option>
-                                <option value="Andhra_Bank">
-                                    Andhra Bank
-                                </option>
-                                <option value=" Axis_Bank">
-                                    Axis Bank
-                                </option>
-                                <option value="Bahrain_Kuwait">
-                                    Bank of Bahrain and Kuwait
-                                </option>
-                                <option value="bank_baroda_corporate">
-                                    Bank of Baroda - Corporate Banking
-                                </option>
-                                <option value="bank_baroda_retail">
-                                    Bank of Baroda - Retail Banking
-                                </option>
-                                <option option="Bank_india">
-                                    Bank of India
-                                </option>
-                                <option value='Bank_Maharashtra'>
-                                    Bank of Maharashtra
-                                </option>
-                                <option value="canara_bank">
-                                  Canara Bank
-                                  </option>
-                                  <option value="Central_bank">
-                                      Central Bank of India
-                                  </option>
-                                  <option value="city_uninon">
-                                      City Union Bank
-                                  </option>
-                                  <option value="Corporation_bank">
-                                      Corporation Bank
-                                  </option>
-                                  <option value="Dhanlaxmi_bank">
-                                      Dhanlaxmi  Bank
-                                  </option>
-                                  <option value="Federal_bank">
-                                      Federal  Bank
-                                  </option>
-                                  <option value="icic_bank">
-                                      ICICI  Bank
-                                  </option>
-                                  <option value="IDBI_bank">
-                                      IDBI Bank
-                                  </option>
-                                  <option value="india_bank">
-                                      Indian Bank
-                                  </option>
-                                  <option value="Karnataka_bank">
-                                      Karnataka Bank Ltd
-                                  </option>
-                                  <option value="kotak_bank">
-                                      Kotak Bank
-                                  </option>
-                                  <option value="karur_bank">
-                                      South  India Bank
-                                  </option>
-                                  <option value="sbi">
-                                      State Bank of India
-                                  </option> <option value="yes_bank">
-                                      Yes Bank Ltd
-                                  </option>
+                          <option *ngFor='let bank of bankList' [ngValue]='bank.value'>
+                            {{ bank.value}}
+                          </option>
+                          <option value="others">Others</option>
                         </select>
-                         <div *ngIf="submitted && f.bank_name.errors" class="invalid-feedback">
-                            <div *ngIf="f.bank_name.errors.required">Bank Name is required</div>
-                           <!-- <div *ngIf="f.bank_name.errors.minlength">Bank Account number should have 12 to 20 digits</div> -->
-                           </div>
+                        <div *ngIf="f.bank_name.value == 'others'" style="margin-top: 2%;">
+                            <input type="text" class="form-control" formControlName="bank_others_name" [ngClass]="{ 'is-invalid': submitted && (f.bank_name.value == 'others' && f.bank_others_name.errors) }"/>
+                        </div>
+                        <div *ngIf="submitted && f.bank_name.errors" class="invalid-feedback">
+                          <div *ngIf="f.bank_name.errors.required">Bank Name is required</div>
+                         </div>
+                         <div *ngIf="submitted && f.bank_name.value == 'others' && f.bank_others_name.errors && f.bank_others_name.errors.required" class="invalid-feedback" style="display: block">
+                          <div>Bank Name is required</div>
+                         </div>
                         </div>
                 </div>
                 
@@ -250,12 +189,11 @@ width: 94% ;" *ngIf="successsms" >
                             <option *ngFor='let dist of Dist' [ngValue]='dist.id'>
                             {{ dist.district_name}}
                             </option>
-                            
                           </select>
                           <div *ngIf="submitted && f.district_name.errors" class="invalid-feedback">
-                              <div *ngIf="f.district_name.errors.required">District  is required</div>
+                            <div *ngIf="f.district_name.errors.required">District  is required</div>
 
-                             </div>
+                           </div>
                         </div>
                       </div>
                        <div class="col-md-4">

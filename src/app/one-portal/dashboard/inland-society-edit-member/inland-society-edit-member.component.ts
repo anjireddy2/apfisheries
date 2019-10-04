@@ -146,7 +146,7 @@ export class InlandSocietyEditMemberComponent implements OnInit {
       this.editInlandSocietyMember = data;
       if (this.editInlandSocietyMember && this.editInlandSocietyMember.status === true) {
         location.reload();
-        console.log(this.editInlandSocietyMember.message);
+        // console.log(this.editInlandSocietyMember.message);
         this.success = true;
         window.scroll(0, 0);
       } else {
