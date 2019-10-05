@@ -57,7 +57,7 @@ export class EditvesselComponent implements OnInit {
       father_name: ['', Validators.required],
       aadhaar_number: ['', [Validators.required,Validators.minLength(12)]],
       mobile_number: ['', [Validators.required,Validators.minLength(10)]],
-      bank_account_number: ['', [Validators.required,Validators.minLength(12),Validators.maxLength(20)]],
+      bank_account_number: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(20)]],
       ration_card: [''],
       ifsc_code: ['', Validators.required],
       bank_name: ['', Validators.required],

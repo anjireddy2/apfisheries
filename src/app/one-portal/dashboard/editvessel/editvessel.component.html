@@ -113,7 +113,7 @@
                <input type="text" (keypress)="onlyNumberKey($event)" pattern="\d*" maxlength = "12" maxlength="20" [(ngModel)]="editVessel.bank_account_number" formControlName="bank_account_number" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.bank_account_number.errors }">
                <div *ngIf="submitted && f.bank_account_number.errors" class="invalid-feedback">
                <div *ngIf="f.bank_account_number.errors.required">Bank Account number is required</div>
-              <div *ngIf="f.bank_account_number.errors.minlength">Bank Account number should have 12 to 20 digits</div>
+              <div *ngIf="f.bank_account_number.errors.minlength">Bank Account number should have 8 to 20 digits</div>
               </div>
           </div>
         </div>
