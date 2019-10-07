@@ -10,10 +10,13 @@ import {  Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
 
   isCollapsed: boolean = true;
+  userName: any;
+  // usename: any;
 
   constructor(private router:Router, @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
 
   ngOnInit() {
+    this.userName = this.storage.get("user_name");
     if(!this.storage.get("user_id")) {
       this.router.navigate(['/']);
     } 
