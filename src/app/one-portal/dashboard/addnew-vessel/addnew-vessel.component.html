@@ -91,7 +91,7 @@ width: 94% ;" *ngIf="successsms" >
                  <div class="col-md-4">
                         <div class="form-group">
                           <label for="power">Father Name <span class="vessel-mandatory-ind">*</span></label>
-                         <input  type="text" formControlName="father_name" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"  [ngModel]="rationVerify.father_name"  class="form-control" allow-pattern="^[a-zA-Z ]*$"  [ngClass]="{ 'is-invalid': submitted && f.owner_name.errors }"  [ngModel]="rationVerify.father_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.father_name.errors }">
+                         <input  type="text" formControlName="father_name" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"  [ngModel]="rationVerify.father_name"  class="form-control" allow-pattern="^[a-zA-Z ]*$"  [ngModel]="rationVerify.father_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.father_name.errors }">
                          <div *ngIf="submitted && f.father_name.errors" class="invalid-feedback">
                           <div *ngIf="f.father_name.errors.required">Father name is required</div>
                         </div>
@@ -105,6 +105,7 @@ width: 94% ;" *ngIf="successsms" >
                          <div *ngIf="submitted && f.mobile_number.errors" class="invalid-feedback">
                          <div *ngIf="f.mobile_number.errors.required">Mobile number is required</div>
                         <div *ngIf="f.mobile_number.errors.minlength">Minimum required number is 10</div>
+                        <div *ngIf="f.mobile_number.errors.pattern">Please enter valid mobile number</div>
                         </div>
                     </div>
                   </div>

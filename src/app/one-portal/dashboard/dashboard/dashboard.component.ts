@@ -23,5 +23,6 @@ export class DashboardComponent implements OnInit {
   }
   logout() {
     this.storage.remove('user_id');
+    this.storage.remove('user_name');
   }
 }
