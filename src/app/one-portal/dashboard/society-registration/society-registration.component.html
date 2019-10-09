@@ -108,7 +108,7 @@ width: 94% ;" *ngIf="successsms" >
                 <div class="col-md-4">
                         <div class="form-group">
                           <label for="power">SOCIETY Reg. Number<span class="vessel-mandatory-ind">*</span> </label>
-                         <input type="text"  pattern="\d*" maxlength = "12" maxlength="20" class="form-control"
+                         <input type="text"  maxlength = "12" maxlength="20" class="form-control"
                          formControlName="society_reg_no" [ngClass]="{ 'is-invalid': submitted && f.society_reg_no.errors }">
                          <div *ngIf="submitted && f.society_reg_no.errors" class="invalid-feedback">
                          <div *ngIf="f.society_reg_no.errors.required">Society Reg number is required</div>

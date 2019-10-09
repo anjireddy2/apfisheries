@@ -114,6 +114,7 @@ width: 94% ;" *ngIf="successsms" >
                          <div *ngIf="submitted && f.mobile_number.errors" class="invalid-feedback">
                          <div *ngIf="f.mobile_number.errors.required">Mobile number is required</div>
                         <div *ngIf="f.mobile_number.errors.minlength">Minimum required number is 10</div>
+                        <div *ngIf="f.mobile_number.errors.pattern">Please enter valid mobile number</div>
                         </div>
                     </div>
                   </div>

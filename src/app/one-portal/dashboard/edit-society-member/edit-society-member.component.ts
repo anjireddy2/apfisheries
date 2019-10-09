@@ -50,7 +50,7 @@ export class EditSocietyMemberComponent implements OnInit {
       gender: ['', Validators.required],
       age: [''],
       date_of_birth: [''],
-      mobile_number: ['', [Validators.required, Validators.minLength(10)]],
+      mobile_number: ['', [Validators.required, Validators.minLength(10),Validators.pattern('[1-9][0-9]{9}')]],
       Swimming: [{value:true,disabled: true}],
       netting: [''],
       NetSewing: [''],

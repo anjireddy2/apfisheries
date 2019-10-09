@@ -119,7 +119,7 @@ export class CrewUserComponent implements OnInit {
       this.spinner.hide();
       return;
     }
-    if(this.rationVerify) {
+    if(this.crewUserRegisterForm.controls['owner_name'].status === "DISABLED") {
       this.crewUserRegisterForm.value.father_name =  this.rationVerify.father_name;
       this.crewUserRegisterForm.value.owner_name =  this.rationVerify.owner_name;
       this.crewUserRegisterForm.value.gender =  this.rationVerify.gender;
