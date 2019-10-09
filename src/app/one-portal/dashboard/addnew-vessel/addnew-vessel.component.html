@@ -101,7 +101,7 @@ width: 94% ;" *ngIf="successsms" >
                   <div class="col-md-4">
                         <div class="form-group">
                           <label for="power">Mobile Number <span class="vessel-mandatory-ind">*</span></label>
-                         <input type="text" (keypress)="onlyNumberKey($event)" pattern="\d*" maxlength="10" formControlName="mobile_number" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.mobile_number.errors }">
+                         <input type="text" (keypress)="onlyNumberKey($event)" pattern="\d{10}" maxlength="10" formControlName="mobile_number" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.mobile_number.errors }">
                          <div *ngIf="submitted && f.mobile_number.errors" class="invalid-feedback">
                          <div *ngIf="f.mobile_number.errors.required">Mobile number is required</div>
                         <div *ngIf="f.mobile_number.errors.minlength">Minimum required number is 10</div>
