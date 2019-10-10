@@ -51,6 +51,7 @@ export class SocietyListComponent implements OnInit {
 
   getSocietyDetails() {
     this.distman = false;
+    this.SocietyList = [];
     this.nodatafound = false;
     if(this.distId == undefined)
     {
@@ -71,6 +72,8 @@ export class SocietyListComponent implements OnInit {
       this.waterBodyPagination = this.SocietyList && this.SocietyList.length > 6 ? true : false; 
     }, error => {
       this.spinner.hide();
+      this.nodatafound = true;
+      this.waterBodyPagination = this.SocietyList && this.SocietyList.length > 6 ? true : false; 
     }); 
   }
   addnewSociety() {

@@ -81,6 +81,7 @@ export class VesselRegistrationComponent implements OnInit {
     }, error => {
       this.spinner.hide();
       this.nodatafound = true;
+      this.waterBodyPagination = this.VesselLists && this.VesselLists.length > 6 ? true : false;
     }); 
 
   }
