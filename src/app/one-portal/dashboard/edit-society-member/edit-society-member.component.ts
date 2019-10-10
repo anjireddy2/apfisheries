@@ -35,6 +35,7 @@ export class EditSocietyMemberComponent implements OnInit {
   updateSocietyMember: any = [];
   verifyGenderMale: boolean;
   verifyGenderFemale: boolean;verifyGender: boolean;
+  age_chk: boolean;
   constructor(private router: Router, private route: ActivatedRoute, private vesselRegistrationService: VesselRegistrationService, private formBuilder: FormBuilder,  
     private spinner: NgxSpinnerService, @Inject(LOCAL_STORAGE) private storage: WebStorageService, private changeDetectorRef: ChangeDetectorRef) { }
 
@@ -95,6 +96,11 @@ export class EditSocietyMemberComponent implements OnInit {
     // this.verifyGenderMale = this.societyMembersForm.value.gender && this.societyMembersForm.value.gender === 'Male' ? true : false;
     // this.verifyGenderFemale = this.societyMembersForm.value.gender && this.societyMembersForm.value.gender === 'Female' ? true : false;
   }
+  checkZeros(type) {
+    if(type == 'age') {
+      this.age_chk = this.editSocietyMembersForm.value.age!= '' && /^0*$/.test(this.editSocietyMembersForm.value.age) ? true : false;
+    }
+  }
 
   vid(vid: any) {
     throw new Error("Method not implemented.");
@@ -110,7 +116,7 @@ export class EditSocietyMemberComponent implements OnInit {
     if(this.netting != undefined && this.NetSewing != undefined && (this.netting.nativeElement.checked || this.NetSewing.nativeElement.checked)) {
       this.fishermanChk = false;
     }
-    if (this.fishermanChk || this.editSocietyMembersForm.invalid) {
+    if (this.fishermanChk || this.editSocietyMembersForm.invalid || this.age_chk) {
       this.spinner.hide();
       return;
     }
@@ -121,7 +127,7 @@ export class EditSocietyMemberComponent implements OnInit {
     this.editSocietyMembersForm.value.netting = this.netting && this.netting.nativeElement ? this.netting.nativeElement.checked : null;
     this.editSocietyMembersForm.value.fish_vendor = this.fishVendor && this.fishVendor.nativeElement ? this.fishVendor.nativeElement.checked : null;
     this.editSocietyMembersForm.value.is_president = this.isPresident.nativeElement.checked;
-    this.editSocietyMembersForm.value.date_of_birth = new Date(this.editSocietyMembersForm.value.date_of_birth).toDateString();
+    this.editSocietyMembersForm.value.date_of_birth = this.editSocietyMembersForm.value.date_of_birth ? new Date(this.editSocietyMembersForm.value.date_of_birth).toDateString() : null;
     if(this.rationVerify && (this.editSocietyMembersForm.controls['member_name'].status === "DISABLED" ||
     this.editSocietyMembersForm.controls['date_of_birth'].status === "DISABLED" ||
     this.editSocietyMembersForm.controls['age'].status === "DISABLED" ||

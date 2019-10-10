@@ -127,7 +127,8 @@
           <div class="col-md-4">
             <div class="form-group">
               <label for="power">Age </label>
-             <input type="text" (keypress)="onlyNumberKey($event)" pattern="\d*" formControlName="age" class="form-control" [(ngModel)]="editSocietyMember.age">
+             <input type="text" (keypress)="onlyNumberKey($event)" pattern="\d*" (keyup) = "checkZeros('age')"formControlName="age" class="form-control" [(ngModel)]="editSocietyMember.age" [ngClass] = "{'is-invalid' : age_chk}">
+             <div *ngIf="editSocietyMembersForm.value.age && editSocietyMembersForm.value.age.length > 0 && age_chk" class="invalid-feedback" style="display: block !important">Age should not have all zero's</div>
         </div>
         </div>
         <div class="col-md-4" *ngIf="verifyGenderMale" style="margin-top: 2%;">
@@ -147,6 +148,9 @@
     <div class="form-group">
         <label for="power">FisherWomen occupation <span class="vessel-mandatory-ind">*</span></label><br>
         <input #fishVendor type="checkbox" name="fish_vendor"   formControlName="fish_vendor"> Fish Vendor             
+        <div *ngIf="submitted && f.fish_vendor.errors && f.fish_vendor.errors.required" class="invalid-feedback" style="display: block">
+          <div>FisherWomen occupation is required</div>
+          </div>	
     </div>
   </div>
 

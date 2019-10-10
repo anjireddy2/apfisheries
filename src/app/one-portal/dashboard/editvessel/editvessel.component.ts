@@ -41,6 +41,9 @@ export class EditvesselComponent implements OnInit {
   adhar_error: boolean;
   adhar_success: boolean;
   bankList: any = [];
+  bank_act_chk: boolean;
+  vessel_chk: boolean;
+  ifsc_chk: boolean;
   constructor(private formBuilder: FormBuilder,private vesselRegistrationService: VesselRegistrationService,
      private route: ActivatedRoute, private changeDetectorRef: ChangeDetectorRef, private router: Router, private spinner: NgxSpinnerService, @Inject(LOCAL_STORAGE) private storage: WebStorageService)
    {
@@ -129,6 +132,16 @@ export class EditvesselComponent implements OnInit {
     return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57;
   }
 
+  checkZeros(type) {
+    if(type == 'bank_account_number') {
+      this.bank_act_chk = this.updateForm.value.bank_account_number != '' && /^0*$/.test(this.updateForm.value.bank_account_number) ? true : false;
+    } else if(type == 'vessel_number') {
+      this.vessel_chk = this.updateForm.value.vessel_number != '' && /^0*$/.test(this.updateForm.value.vessel_number) ? true : false;
+    } else if(type == 'ifsc_code') {
+      this.ifsc_chk = this.updateForm.value.ifsc_code!= '' && /^0*$/.test(this.updateForm.value.ifsc_code) ? true : false;
+    }
+  }
+
   onClickUpdate(vesselUpdate) {
     this.spinner.show();
     this.submitted = true;
@@ -137,7 +150,7 @@ export class EditvesselComponent implements OnInit {
     if(this.updateForm.value.bank_name != 'others') {
       this.updateForm.controls['bank_others_name'].setErrors(null);
     }
-    if (this.updateForm.invalid) {
+    if (this.updateForm.invalid || this.bank_act_chk || this.ifsc_chk || this.vessel_chk) {
       this.spinner.hide();
       window.scroll(0,0);
       return;

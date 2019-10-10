@@ -50,6 +50,9 @@ export class CrewEditComponent implements OnInit {
   crewUpdate = true;
   updatedData : any = [];
   bankList: any = [];
+  bank_act_chk: boolean;
+  ifsc_chk: boolean;
+  age_chk: boolean;
  
 
   constructor(private router:Router,private formBuilder: FormBuilder,private vesselRegistrationService: VesselRegistrationService,private _http: HttpClient, 
@@ -104,6 +107,16 @@ export class CrewEditComponent implements OnInit {
     return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57;
   }
 
+  checkZeros(type) {
+    if(type == 'bank_account_number') {
+      this.bank_act_chk = this.crewUserRegisterForm.value.bank_account_number != '' && /^0*$/.test(this.crewUserRegisterForm.value.bank_account_number) ? true : false;
+    } else if(type == 'ifsc_code') {
+      this.ifsc_chk = this.crewUserRegisterForm.value.ifsc_code!= '' && /^0*$/.test(this.crewUserRegisterForm.value.ifsc_code) ? true : false;
+    } else if(type == 'age') {
+      this.age_chk = this.crewUserRegisterForm.value.age!= '' && /^0*$/.test(this.crewUserRegisterForm.value.age) ? true : false;
+    }
+  }
+
   pageChanged(event) {
     this.p = event;
   }
@@ -117,7 +130,7 @@ export class CrewEditComponent implements OnInit {
     if(this.crewUserRegisterForm.value.bank_name != 'others') {
       this.crewUserRegisterForm.controls['bank_others_name'].setErrors(null);
     }
-    if (this.crewUserRegisterForm.invalid) {
+    if (this.crewUserRegisterForm.invalid || this.bank_act_chk || this.ifsc_chk || this.age_chk) {
       this.spinner.hide();
       return;
     }
@@ -130,7 +143,7 @@ export class CrewEditComponent implements OnInit {
     }
     this.crewUserRegisterForm.value.reference = this.adharVerify.ref_no;
     this.crewUserRegisterForm.value.userId = this.storage.get("user_id");
-    this.crewUserRegisterForm.value.date_of_birth = new Date(this.crewUserRegisterForm.value.date_of_birth).toDateString();
+    this.crewUserRegisterForm.value.date_of_birth = this.crewUserRegisterForm.value.date_of_birth ? new Date(this.crewUserRegisterForm.value.date_of_birth).toDateString() : null;
 
     this.vesselRegistrationService.updateCrewMember(vesselId, this.EditCrewMember.id, this.crewUserRegisterForm.value).subscribe(data => {
       this.spinner.hide();

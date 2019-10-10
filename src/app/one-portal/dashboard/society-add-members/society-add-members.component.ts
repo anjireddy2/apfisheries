@@ -45,6 +45,7 @@ export class SocietyAddMembersComponent implements OnInit {
   verifyGenderFemale: boolean;
   society_type: string;
   employment_status: string;
+  age_chk: boolean;
   
 
   // tslint:disable-next-line: max-line-length
@@ -106,6 +107,12 @@ export class SocietyAddMembersComponent implements OnInit {
     // this.verifyGenderFemale = this.societyMembersForm.value.gender && this.societyMembersForm.value.gender === 'Female' ? true : false;
   }
 
+  checkZeros(type) {
+    if(type == 'age') {
+      this.age_chk = this.societyMembersForm.value.age!= '' && /^0*$/.test(this.societyMembersForm.value.age) ? true : false;
+    }
+  }
+
   get f() { return this.societyMembersForm.controls; }
 
   onSubmit(societyMembersForm) {
@@ -117,7 +124,7 @@ export class SocietyAddMembersComponent implements OnInit {
     if(this.netting != undefined && this.NetSewing != undefined && (this.netting.nativeElement.checked || this.NetSewing.nativeElement.checked)) {
       this.fishermanChk = false;
     }
-    if (this.fishermanChk || this.societyMembersForm.invalid) {
+    if (this.fishermanChk || this.societyMembersForm.invalid || this.age_chk) {
       this.spinner.hide();
       return;
     }
@@ -127,7 +134,7 @@ export class SocietyAddMembersComponent implements OnInit {
     this.societyMembersForm.value.netting = this.netting && this.netting.nativeElement ? this.netting.nativeElement.checked : null;
     this.societyMembersForm.value.fish_vendor = this.fishVendor && this.fishVendor.nativeElement ? this.fishVendor.nativeElement.checked : null;
     this.societyMembersForm.value.is_president = this.isPresident.nativeElement.checked;
-    this.societyMembersForm.value.date_of_birth = new Date(this.societyMembersForm.value.date_of_birth).toDateString();
+    this.societyMembersForm.value.date_of_birth = this.societyMembersForm.value.date_of_birth ? new Date(this.societyMembersForm.value.date_of_birth).toDateString() : null;
     if(this.rationVerify && (this.societyMembersForm.controls['member_name'].status === "DISABLED" ||
     this.societyMembersForm.controls['date_of_birth'].status === "DISABLED" ||
     this.societyMembersForm.controls['age'].status === "DISABLED" ||

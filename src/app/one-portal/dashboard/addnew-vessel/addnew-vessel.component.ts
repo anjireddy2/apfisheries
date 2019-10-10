@@ -41,6 +41,9 @@ export class AddnewVesselComponent implements OnInit {
   adhar_error: boolean;
   adhar_success: boolean;
   bankList : any = [];
+  bank_act_chk: boolean;
+  vessel_chk: boolean;
+  ifsc_chk: boolean;
  
 
   constructor(private router:Router,private formBuilder: FormBuilder,private vesselRegistrationService: VesselRegistrationService,private _http: HttpClient, 
@@ -108,9 +111,19 @@ export class AddnewVesselComponent implements OnInit {
   }
 
   onlyNumberKey(event) {
+    // this.bank_act_chk = type == 'bank_account_number' && /^0*$/.test(this.registerForm.value.bank_account_number) ? true : false; 
     return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57;
   }
 
+  checkZeros(type) {
+    if(type == 'bank_account_number') {
+      this.bank_act_chk = this.registerForm.value.bank_account_number != '' && /^0*$/.test(this.registerForm.value.bank_account_number) ? true : false;
+    } else if(type == 'vessel_number') {
+      this.vessel_chk = this.registerForm.value.vessel_number != '' && /^0*$/.test(this.registerForm.value.vessel_number) ? true : false;
+    } else if(type == 'ifsc_code') {
+      this.ifsc_chk = this.registerForm.value.ifsc_code!= '' && /^0*$/.test(this.registerForm.value.ifsc_code) ? true : false;
+    }
+  }
   onClickSubmit(registerForm) {
     this.spinner.show();
     this.error = false;
@@ -119,7 +132,7 @@ export class AddnewVesselComponent implements OnInit {
     if(this.registerForm.value.bank_name != 'others') {
       this.registerForm.controls['bank_others_name'].setErrors(null);
     }
-    if (this.registerForm.invalid) {
+    if (this.registerForm.invalid || this.bank_act_chk || this.ifsc_chk || this.vessel_chk) {
       this.spinner.hide();
         return;
     }

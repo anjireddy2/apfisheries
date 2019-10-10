@@ -122,11 +122,12 @@ width: 94% ;" *ngIf="successsms" >
                   <div class="col-md-4">
                       <div class="form-group">
                         <label for="power">Bank Account Number <span class="vessel-mandatory-ind">*</span></label>
-                       <input type="text" (keypress)="onlyNumberKey($event)" pattern="\d*" minlength = "8" maxlength="20" formControlName="bank_account_number" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.bank_account_number.errors }">
+                       <input type="text" (keypress)="onlyNumberKey($event)" pattern="\d*" minlength = "8" maxlength="20" (keyup) = "checkZeros('bank_account_number')" formControlName="bank_account_number" class="form-control" [ngClass]="{ 'is-invalid': (submitted && f.bank_account_number.errors) || bank_act_chk }">
                        <div *ngIf="submitted && f.bank_account_number.errors" class="invalid-feedback">
                        <div *ngIf="f.bank_account_number.errors.required">Bank Account number is required</div>
                       <div *ngIf="f.bank_account_number.errors.minlength">Bank Account number should have 8 to 20 digits</div>
                       </div>
+                      <div *ngIf="registerForm.value.bank_account_number && registerForm.value.bank_account_number.length > 0 && bank_act_chk" class="invalid-feedback" style="display: block !important">Bank Account number should not have all zero's</div>
                   </div>
                 </div>
              
@@ -135,12 +136,13 @@ width: 94% ;" *ngIf="successsms" >
                  <div class="col-md-4">
                         <div class="form-group">
                           <label for="power">IFSC Code  <span class="vessel-mandatory-ind">*</span></label>
-                         <input type="text" name="ifsc_code" formControlName="ifsc_code" minlength = "8" maxlength="12" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ifsc_code.errors }">
+                         <input type="text" name="ifsc_code" formControlName="ifsc_code" minlength = "8" maxlength="12" class="form-control" (keyup) = "checkZeros('ifsc_code')"[ngClass]="{ 'is-invalid': (submitted && f.ifsc_code.errors ) || ifsc_chk}">
                          <div *ngIf="submitted && f.ifsc_code.errors" class="invalid-feedback">
                             <div *ngIf="f.ifsc_code.errors.required">IFSC Code is required</div>
                            <div *ngIf="f.ifsc_code.errors.minlength">IFSC code should have 8 to 12 digits</div>
                            <div *ngIf="f.ifsc_code.errors.pattern">IFSC code should not start with 0's</div>
                            </div>
+                           <div *ngIf="registerForm.value.ifsc_code && registerForm.value.ifsc_code.length > 0 && ifsc_chk" class="invalid-feedback" style="display: block !important">IFSC code should not have all zero's</div>
                         </div>
                 </div>
                 <div class="col-md-4">
@@ -267,12 +269,13 @@ width: 94% ;" *ngIf="successsms" >
                 <div class="col-md-4">
                         <div class="form-group">
                           <label for="power">Vessel Reg.No <span class="vessel-mandatory-ind">*</span></label>
-                         <input type="text" maxlength="17" style="text-transform: uppercase;" formControlName="vessel_number" value="" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.vessel_number.errors }">
+                         <input type="text" maxlength="17" style="text-transform: uppercase;" formControlName="vessel_number" value="" (keyup)="checkZeros('vessel_number')" class="form-control" [ngClass]="{ 'is-invalid': (submitted && f.vessel_number.errors) || vessel_chk }">
                          <div *ngIf="submitted && f.vessel_number.errors" class="invalid-feedback">
                             <div *ngIf="f.vessel_number.errors.required">Vessel number is required</div>
                             <div *ngIf="f.vessel_number.errors.minlength">Vessel number should have 15 to 17 digits</div>
 
-                          </div>
+                           </div>
+                           <div *ngIf="registerForm.value.vessel_number && registerForm.value.vessel_number.length > 0 && vessel_chk" class="invalid-feedback" style="display: block !important">Vessel number should not have all zero's</div>
                         </div>
                 </div> 
                 <div class="col-md-4">
