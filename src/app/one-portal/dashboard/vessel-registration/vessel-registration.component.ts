@@ -59,6 +59,7 @@ export class VesselRegistrationComponent implements OnInit {
 
   getVesselDetails() {
     this.distman = false;
+    this.VesselLists = [];
     this.nodatafound = false;
     if(this.distId == undefined) {
       this.distman = true;
@@ -79,7 +80,7 @@ export class VesselRegistrationComponent implements OnInit {
       this.waterBodyPagination = this.VesselLists && this.VesselLists.length > 6 ? true : false; 
     }, error => {
       this.spinner.hide();
-
+      this.nodatafound = true;
     }); 
 
   }

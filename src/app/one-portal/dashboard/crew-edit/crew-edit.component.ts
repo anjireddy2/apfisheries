@@ -12,7 +12,7 @@ import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
   styleUrls: ['./crew-edit.component.css']
 })
 export class CrewEditComponent implements OnInit {
-
+  minDate = new Date(); 
   @Input() private format = 'YYYY/MM/DD';
   crewUserRegisterForm: FormGroup;
   submitted = false;
@@ -65,8 +65,8 @@ export class CrewEditComponent implements OnInit {
       bank_account_number: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(20)]],
       ration_card: [''],
       email_id: ['',Validators.email],
-      ifsc_code: ['', Validators.required],
-      mobile_number: ['', Validators.required],
+      ifsc_code: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(12)]],
+      mobile_number: ['', [Validators.required,Validators.minLength(10),Validators.pattern('[1-9][0-9]{9}')]],
       bank_name: ['', Validators.required],
       father_name: ['', Validators.required],
       owner_name: ['', Validators.required],

@@ -14,7 +14,7 @@ import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 })
 export class CrewUserComponent implements OnInit {
 
-  // minDate = new Date(); 
+   minDate = new Date(); 
   @Input() private format = 'YYYY/MM/DD';
   crewUserRegisterForm: FormGroup;
   submitted = false;
@@ -52,7 +52,7 @@ export class CrewUserComponent implements OnInit {
   crewUpdate = true;
   updatedData : any = [];
   bankList: any = [];
- 
+ age:any = [];
 
   constructor(private router:Router,private formBuilder: FormBuilder,private vesselRegistrationService: VesselRegistrationService,private _http: HttpClient, 
     private spinner: NgxSpinnerService, private route: ActivatedRoute, @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
@@ -67,8 +67,8 @@ export class CrewUserComponent implements OnInit {
       bank_account_number: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(20)]],
       ration_card: [''],
       email_id: ['',Validators.email],
-      ifsc_code: ['', Validators.required],
-      mobile_number: ['', Validators.required],
+      ifsc_code: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(12)]],
+      mobile_number: ['', [Validators.required,Validators.minLength(10),Validators.pattern('[1-9][0-9]{9}')]],
       bank_name: ['', Validators.required],
       father_name: ['', Validators.required],
       owner_name: ['', Validators.required],
@@ -125,6 +125,14 @@ export class CrewUserComponent implements OnInit {
       this.crewUserRegisterForm.value.gender =  this.rationVerify.gender;
       this.crewUserRegisterForm.value.age =  this.rationVerify.age;
       this.crewUserRegisterForm.value.date_of_birth =  this.rationVerify.date_of_birth;
+      let age = this.crewUserRegisterForm.value.date_of_birth;
+      if (age) {
+        //convert date again to type Date
+        const bdate = new Date(age);
+        const timeDiff = Math.abs(Date.now() - bdate.getTime() );
+        this.age = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
+        console.log(this.age);
+      }
     }
     this.crewUserRegisterForm.value.reference = this.adharVerify.ref_no;
     this.crewUserRegisterForm.value.userId = this.storage.get("user_id");

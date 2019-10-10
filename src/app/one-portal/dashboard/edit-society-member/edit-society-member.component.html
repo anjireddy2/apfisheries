@@ -83,7 +83,7 @@
               <label for="power" style="display: block; margin-bottom: 0px;">Date Of Birth</label>
              <!-- <input  type="date"  placeholder="select date" formControlName="licence_renewal_date" value="" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.licence_renewal_date.errors }"> -->
              <mat-form-field>
-              <input matInput [matDatepicker]="picker1"   placeholder="Selct date" formControlName="date_of_birth" [(ngModel)]="editSocietyMember.date_of_birth">
+              <input matInput [matDatepicker]="picker1" [max]="minDate"  placeholder="Selct date" formControlName="date_of_birth" [(ngModel)]="editSocietyMember.date_of_birth">
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1 > </mat-datepicker>
             </mat-form-field>
@@ -145,7 +145,7 @@
   </div>
   <div class="col-md-4" *ngIf="verifyGenderFemale" style="margin-top: 2%;">
     <div class="form-group">
-        <label for="power">FisherWomen Skills</label><br>
+        <label for="power">FisherWomen occupation <span class="vessel-mandatory-ind">*</span></label><br>
         <input #fishVendor type="checkbox" name="fish_vendor"   formControlName="fish_vendor"> Fish Vendor             
     </div>
   </div>

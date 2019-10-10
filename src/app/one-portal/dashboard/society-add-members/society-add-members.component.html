@@ -61,7 +61,7 @@
                     <div class="col-md-4">
                                 <div class="form-group">
                                    <label for="power">Ration Card Number </label> 
-                                   <input type="text" name="ration_card" formControlName="ration_card" class="form-control" (keyup) = "getVerifyBtn('RationCard')" maxlength="15" [ngClass]="{ 'is-invalid': submitted && f.ration_card.errors }" >
+                                   <input type="text" name="ration_card" formControlName="ration_card" class="form-control" (keyup) = "getVerifyBtn('RationCard')" maxlength="15">
                                    <button *ngIf="rationVerifyBtn" type="button" style="float: right;
                margin-top: 9px;
                font-size: 12px;" class="btn btn-primary" (click)="getRation()">Verfiy</button>
@@ -94,7 +94,7 @@
                       <label for="power" style="display: block; margin-bottom: 0px;">Date Of Birth</label>
                      <!-- <input  type="date"  placeholder="select date" formControlName="licence_renewal_date" value="" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.licence_renewal_date.errors }"> -->
                      <mat-form-field>
-                      <input matInput [matDatepicker]="picker1"   placeholder="Selct date" formControlName="date_of_birth" [(ngModel)]="rationVerify.date_of_birth">
+                      <input matInput [matDatepicker]="picker1" [max]="minDate"  placeholder="Selct date" formControlName="date_of_birth" [(ngModel)]="rationVerify.date_of_birth">
                       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                       <mat-datepicker #picker1 > </mat-datepicker>
                     </mat-form-field>
@@ -103,7 +103,7 @@
                   <div class="col-md-4">
                     <div class="form-group">
                       <label for="power">Gender<span class="vessel-mandatory-ind">*</span></label>
-                      <select class="form-control" formControlName="gender" name="gender" placeholder="Select" [(ngModel)]="rationVerify.gender" (change)="genderSelection(societyMembersForm.value.gender)"  [ngClass]="{ 'is-invalid': submitted && f.mobile_number.errors }">
+                      <select class="form-control" formControlName="gender" name="gender" placeholder="Select" [(ngModel)]="rationVerify.gender" (change)="genderSelection(societyMembersForm.value.gender)"  [ngClass]="{ 'is-invalid': submitted && f.gender.errors }">
                         <option [ngValue]="undefined" hidden selected> --Select-- </option>
                         <option value="Male">  Male </option>
                         <option value="Female"> Female </option>          
@@ -149,14 +149,14 @@
                                          <input #netting type="checkbox" name="Netting"  formControlName="netting" (click)="toggleChk()"> Netting
                                         <input #NetSewing type="checkbox" name="NetSewing"  formControlName="NetSewing" (click)="toggleChk()"> Net Sewing
                                         <div *ngIf="submitted && fishermanChk" class="invalid-feedback" style="display: block">
-                                                        <div>Fishermen Skills is required</div>
+                                                        <div>Please select atleast two fishermen skills </div>
                                                         </div>	
                                                       
                                 </div>
                         </div>
                         <div class="col-md-4" *ngIf="verifyGenderFemale" style="margin-top: 2%;">
                           <div class="form-group">
-                              <label for="power">FisherWomen Skills</label><br>
+                              <label for="power">FisherWomen occupation<span class="vessel-mandatory-ind">*</span></label><br>
                               <input #fishVendor type="checkbox" name="fish_vendor"   formControlName="fish_vendor"> Fish Vendor             
                           </div>
                         </div>
@@ -187,9 +187,10 @@
                                 <th scope="col">Ration Card</th>
                                 <th scope="col">Mobile Number</th>
                                 <th>
-                                 Fishermen Skills
+                                 Fishermen/Fisherwomen Skills
                                 </th>
                                 <th scope="col">Actions</th>
+                                <th scope="col">President</th>
                               </tr>
                     <tr *ngFor = "let addSocietmember1 of addSocietMember1.message | paginate: { itemsPerPage: 6, currentPage: p}">
                         <td> 
@@ -209,7 +210,7 @@
                        </td>
                        <td>
                          <div *ngIf="addSocietmember1.gender == 'Male'">
-                               <label><b>Swimming</b> : true</label>
+                               <label><b>Swimming</b> : {{addSocietmember1.swimming ? 'Yes' : 'No'}}</label>
                                <br>
                                <label><b>Netting </b> : {{addSocietmember1.netting ? 'Yes' : 'No'}}</label>
                                <br>
@@ -229,7 +230,10 @@
 <span (click) = "deleteSmember(addSocietmember1, index)" style="padding-right: 10px;"> 
 <i class="fa fa-trash-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
 </span>
-<span *ngIf="addSocietmember1.is_president" style="color:green">President</span>
+</td>
+<td>
+<span *ngIf="addSocietmember1.is_president" style="color:green">Yes</span>
+<span *ngIf="!addSocietmember1.is_president" style="color:green">No</span>
 </td>
 </tr>
                    

@@ -131,17 +131,18 @@
             
         
             <td style="float: left; width: 90px;">
+              <div *ngIf="vesselList.status == 'Active'">
               <span> 
                 <i class="fa fa-users " title="Add crew member" aria-hidden="true" style="color: #39c4f0; cursor: pointer; padding-right:10px; " (click)="crewUser(vesselList)"></i>
               </span>
-           <span style="padding-right: 10px;" >
+           <span style="padding-right: 10px;">
               <i class="fa fa-pencil-square-o" title="Edit" (click)="edidtVessel(vesselList)" aria-hidden="true" style="color: #39c4f0; cursor: pointer;"></i>
            </span> 
               
           <span (click)="vesselData(vesselList)" data-toggle="modal" data-target="#myModal"> 
             <i class="fa fa-trash-o " title="Delete" aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
           </span>
-         
+         </div>
 
 
           <!-- <button (click)="editVessel(vesselList.id)" >FFF</button> -->

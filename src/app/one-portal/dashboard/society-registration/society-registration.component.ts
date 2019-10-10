@@ -49,7 +49,7 @@ export class SocietyRegistrationComponent implements OnInit {
       mandal: ['', [Validators.required]],
       flc: ['', [Validators.required]],
       society_name: ['', [Validators.required]],
-      society_reg_no: ['', [Validators.required]],
+      society_reg_no: ['', [Validators.required,Validators.minLength(14)]],
       // society_type: ['', [Validators.required]],
       field: this.formBuilder.array([
         this.addvesselRegNo(),

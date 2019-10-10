@@ -55,7 +55,7 @@ export class EditSocietyMemberComponent implements OnInit {
       netting: [''],
       NetSewing: [''],
       is_president: [''],
-      fish_vendor: ['']
+      fish_vendor: [{value:true,disabled: true}]
    });
     this.spinner.show();
     let society_id = this.route.snapshot.paramMap.get('society_id');
@@ -120,6 +120,7 @@ export class EditSocietyMemberComponent implements OnInit {
     this.editSocietyMembersForm.value.netting = this.netting && this.netting.nativeElement ? this.netting.nativeElement.checked : null;
     this.editSocietyMembersForm.value.fish_vendor = this.fishVendor && this.fishVendor.nativeElement ? this.fishVendor.nativeElement.checked : null;
     this.editSocietyMembersForm.value.is_president = this.isPresident.nativeElement.checked;
+    this.editSocietyMembersForm.value.date_of_birth = new Date(this.editSocietyMembersForm.value.date_of_birth).toDateString();
     if(this.rationVerify && (this.editSocietyMembersForm.controls['member_name'].status === "DISABLED" ||
     this.editSocietyMembersForm.controls['date_of_birth'].status === "DISABLED" ||
     this.editSocietyMembersForm.controls['age'].status === "DISABLED" ||

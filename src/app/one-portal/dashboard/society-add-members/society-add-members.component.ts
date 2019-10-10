@@ -12,6 +12,7 @@ import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
   styleUrls: ['./society-add-members.component.css']
 })
 export class SocietyAddMembersComponent implements OnInit {
+  minDate = new Date(); 
   waterBodyPagination = false;
   societyMembersForm: FormGroup;
   submitted = false;
@@ -73,7 +74,7 @@ export class SocietyAddMembersComponent implements OnInit {
       netting: [''],
       NetSewing: [''],
       is_president: [''],
-      fish_vendor: ['']
+      fish_vendor: [{value:true,disabled: true}]
     });
     this.employment_status = "UnEmployed";
     // this.society_type = this.storage.get('society_type1') == "1" ? "Male" : "Female";
@@ -126,6 +127,7 @@ export class SocietyAddMembersComponent implements OnInit {
     this.societyMembersForm.value.netting = this.netting && this.netting.nativeElement ? this.netting.nativeElement.checked : null;
     this.societyMembersForm.value.fish_vendor = this.fishVendor && this.fishVendor.nativeElement ? this.fishVendor.nativeElement.checked : null;
     this.societyMembersForm.value.is_president = this.isPresident.nativeElement.checked;
+    this.societyMembersForm.value.date_of_birth = new Date(this.societyMembersForm.value.date_of_birth).toDateString();
     if(this.rationVerify && (this.societyMembersForm.controls['member_name'].status === "DISABLED" ||
     this.societyMembersForm.controls['date_of_birth'].status === "DISABLED" ||
     this.societyMembersForm.controls['age'].status === "DISABLED" ||

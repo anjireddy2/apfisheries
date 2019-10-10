@@ -57,7 +57,7 @@ export class AddnewVesselComponent implements OnInit {
       mobile_number: ['', [Validators.required,Validators.minLength(10),Validators.pattern('[1-9][0-9]{9}')]],
       bank_account_number: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(20)]],
       ration_card: [''],
-      ifsc_code: ['', Validators.required],
+      ifsc_code: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(12)]],
       bank_name: ['', Validators.required],
       email: ['', [Validators.email]],
       district_name: ['', [Validators.required]],

@@ -101,7 +101,7 @@
                   <div class="col-md-4">
                       <div class="form-group">
                         <label for="power">Email Id </label>
-                       <input type="email" name="email_id" [ngModel]="EditCrewMember.member_email"  class="form-control" formControlName="email_id">
+                       <input type="email" name="email_id" [ngModel]="EditCrewMember.member_email"  class="form-control" formControlName="email_id" [ngClass]="{ 'is-invalid': submitted && f.email_id.errors }">
                        <div *ngIf="submitted && f.email_id.errors" class="invalid-feedback">
                         <!-- <div *ngIf="f.email.errors.required">Email is required</div> -->
                             <div *ngIf="f.email_id.errors.email">Email must be a valid email address</div>
@@ -124,10 +124,10 @@
                  <div class="col-md-4">
                         <div class="form-group">
                           <label for="power">IFSC Code  <span class="vessel-mandatory-ind">*</span></label>
-                         <input [ngModel]="EditCrewMember.bank_ifsc" type="text" name="ifsc_code" formControlName="ifsc_code" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ifsc_code.errors }">
+                         <input [ngModel]="EditCrewMember.bank_ifsc" type="text" name="ifsc_code" maxlength = "8" maxlength="12" formControlName="ifsc_code" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ifsc_code.errors }">
                          <div *ngIf="submitted && f.ifsc_code.errors" class="invalid-feedback">
                             <div *ngIf="f.ifsc_code.errors.required">IFSC Code is required</div>
-                           <!-- <div *ngIf="f.ifsc_code.errors.minlength">Bank Account number should have 12 to 20 digits</div> -->
+                            <div *ngIf="f.ifsc_code.errors.minlength">IFSC code should have 8 to 12 digits</div>
                            </div>
                         </div>
                 </div>
@@ -158,7 +158,7 @@
                       <label for="power" style="display: block; margin-bottom: 0px;">Date Of Birth</label>
                      <!-- <input  type="date"  placeholder="select date" formControlName="licence_renewal_date" value="" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.licence_renewal_date.errors }"> -->
                      <mat-form-field>
-                      <input matInput [matDatepicker]="picker1"   placeholder="Selct date" formControlName="date_of_birth" [ngModel]="EditCrewMember.member_date_of_birth">
+                      <input matInput [matDatepicker]="picker1"   placeholder="Selct date"  [max]="minDate"  formControlName="date_of_birth" [ngModel]="EditCrewMember.member_date_of_birth">
                       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                       <mat-datepicker #picker1 > </mat-datepicker>
                     </mat-form-field>
