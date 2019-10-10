@@ -83,7 +83,7 @@ export class SocietyRegistrationComponent implements OnInit {
     this.submitted = true;
     this.success = false;
     this.error=false;
-    if (this.societyRegistrationForm.invalid) {
+    if (this.societyRegistrationForm.invalid || (this.societyRegistrationForm.value.ncdc_reg == 'yes' && this.societyRegistrationForm.value.field[0].name == '')) {
       this.spinner.hide();
       return;
     }

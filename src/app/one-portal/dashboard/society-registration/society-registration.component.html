@@ -136,6 +136,9 @@ width: 94% ;" *ngIf="successsms" >
                           <div *ngIf="submitted && f.ncdc_reg.errors" class="invalid-feedback" style="display: block !important;">
                               <div *ngIf="f.ncdc_reg.errors.required">NCDC Reg is required</div>
                              </div>
+                          <div *ngIf="societyRegistrationForm.value.ncdc_reg == 'yes' && societyRegistrationForm.value.field[0].name == ''" class="" style="color: red; font-weight:bold; font-size:12px;">
+                            Please enter valid NCDC registration number
+                          </div>
                         </div>
                         <div style="display: inline-block;margin-left: 5%;">
                                 <button *ngIf="societyRegistrationForm.controls.ncdc_reg.value && societyRegistrationForm.controls.ncdc_reg.value == 'yes'" type="button"

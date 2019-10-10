@@ -11,6 +11,7 @@ import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
   styleUrls: ['./edit-society-member.component.css']
 })
 export class EditSocietyMemberComponent implements OnInit {
+  minDate = new Date(); 
   editSocietyMembersForm : FormGroup;
   submitted: boolean;
   error: boolean;
