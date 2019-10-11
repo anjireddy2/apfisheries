@@ -53,8 +53,7 @@ export class SocietyListComponent implements OnInit {
     this.distman = false;
     this.SocietyList = [];
     this.nodatafound = false;
-    if(this.distId == undefined)
-    {
+    if(this.distId == undefined) {
       this.distman = true;
       return;
     }
@@ -121,6 +120,10 @@ export class SocietyListComponent implements OnInit {
         this.delete_error = true;
        }
        window.scroll(0,0);
+       setTimeout(() => {
+        this.delete_error = false;
+        this.delete_success = false;
+        }, 3000);
     },error=>{
       this.spinner.hide();
     });

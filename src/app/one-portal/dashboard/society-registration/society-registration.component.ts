@@ -112,6 +112,10 @@ export class SocietyRegistrationComponent implements OnInit {
         this.error = true;
       }
       window.scroll(0,0);
+      setTimeout(() => {
+        this.success = false;
+        this.error = false;
+      }, 3000);
     }, error=>{
       this.spinner.hide();
     });
@@ -130,6 +134,7 @@ export class SocietyRegistrationComponent implements OnInit {
   }
 
   onEditCloseItems() {
+    this.spinner.show();
     this.vsuccess = false;
     this.verror = false;
     this.fieldArray = {};
@@ -139,6 +144,7 @@ export class SocietyRegistrationComponent implements OnInit {
     });
     this.vesselRegistrationService.verifyVessel(this.fieldArray).subscribe(
       data=>{
+        this.spinner.hide();
       this.verifyVesseldata = data;
       if(this.verifyVesseldata && this.verifyVesseldata.success == true) {
         this.vsuccess = true;
@@ -147,6 +153,12 @@ export class SocietyRegistrationComponent implements OnInit {
         this.verror = true;
       }
       window.scroll(0,0);
+      setTimeout(() => {
+        this.verror = false;
+        this.vsuccess = false;
+        }, 3000);
+    },error=>{
+      this.spinner.hide();
     });
   }
 }

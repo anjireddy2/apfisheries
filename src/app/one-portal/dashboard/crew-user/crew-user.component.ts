@@ -164,6 +164,10 @@ export class CrewUserComponent implements OnInit {
         this.error = true;
       }
       window.scroll(0,0);
+      setTimeout(() => {
+        this.success = false;
+        this.error = false;
+        }, 3000); 
     }, error => {
       this.spinner.hide();
     });   
@@ -202,6 +206,10 @@ export class CrewUserComponent implements OnInit {
         this.adharVerify.error = true;
         this.adhar_error = true;
       }
+      setTimeout(() => {
+        this.adhar_error = false;
+        this.adhar_success = false;
+        }, 3000); 
     }, error => {
       this.spinner.hide();
     });
@@ -222,11 +230,6 @@ export class CrewUserComponent implements OnInit {
         this.crewUserRegisterForm.controls['gender'].disable();
         this.crewUserRegisterForm.controls['age'].disable();
         this.crewUserRegisterForm.controls['date_of_birth'].disable();
-        // this.EditCrewMember.member_name = this.rationVerify.owner_name;
-        // this.EditCrewMember.memner_father_name = this.rationVerify.father_name;
-        // this.EditCrewMember.member_gender = this.rationVerify.gender;
-        // this.EditCrewMember.member_age = this.rationVerify.age;
-        // this.EditCrewMember.member_date_of_birth = this.rationVerify.date_of_birth;
         this.rsuccess = true;
         this.rationVerifyBtn = false;
         this.rationVerify.success = true;
@@ -239,6 +242,10 @@ export class CrewUserComponent implements OnInit {
         this.rerror = true;
       }
       window.scroll(0,0);
+      setTimeout(() => {
+        this.rerror = false;
+        this.rsuccess = false;
+        }, 3000); 
     }, error => {
        this.spinner.hide();
     });
@@ -259,6 +266,10 @@ export class CrewUserComponent implements OnInit {
          this.delete_error = true;
       }
       window.scroll(0,0);
+      setTimeout(() => {
+        this.delete_success = false;
+        this.delete_error = false;
+        }, 3000);
     },error=>{
       this.spinner.hide();
     });

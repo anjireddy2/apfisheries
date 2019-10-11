@@ -100,12 +100,15 @@ export class VesselRegistrationComponent implements OnInit {
       this.deleteMsg = data; 
       if(this.deleteMsg.success == true) {
         this.successsms = true;
-        window.scroll(0,0);
         this.VesselLists.splice(ind,1);
       } else {
         this.errorsms = true;
-        window.scroll(0,0);
       }
+      window.scroll(0,0);
+      setTimeout(() => {
+        this.errorsms = false;
+        this.successsms = false;
+        }, 3000);
     }, error => {
         this.spinner.hide();
     });

@@ -175,6 +175,10 @@ export class EditvesselComponent implements OnInit {
        this.error = true;
       }
      window.scroll(0,0);
+     setTimeout(() => {
+      this.success = false;
+      this.error = false;
+      }, 3000);   
     }, error => {
       this.spinner.hide();
     });
@@ -215,6 +219,10 @@ export class EditvesselComponent implements OnInit {
         this.adhar_error = true;
       }
       window.scroll(0,0);
+      setTimeout(() => {
+        this.adhar_error = false;
+        this.adhar_success = false;
+        }, 3000);   
     }, error => {
       this.spinner.hide();
     });
@@ -241,6 +249,10 @@ export class EditvesselComponent implements OnInit {
         this.error1 = true;
       }
       window.scroll(0,0);
+      setTimeout(() => {
+        this.error1 = false;
+        this.success1 = false;
+        }, 3000);   
     }, error => {
        this.spinner.hide();
     });

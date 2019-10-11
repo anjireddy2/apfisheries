@@ -157,6 +157,10 @@ export class SocietyAddMembersComponent implements OnInit {
         this.error = true;
       }
       window.scroll(0, 0);
+      setTimeout(() => {
+        this.success = false;
+        this.error = false;
+        }, 3000);
       // this.enableFields();
       // this.submitted = false;
       // this.societyMembersForm.reset({});
@@ -193,6 +197,11 @@ deleteSmember(societyList, index) {
       this.delete_error = true;
       window.scroll(0,0);
     }
+    window.scroll(0,0);
+    setTimeout(() => {
+      this.delete_error = false;
+      this.delete_success = false;
+      }, 3000);
   },error=>{
     this.spinner.hide();
   })
@@ -236,6 +245,10 @@ getadhar() {
       this.adhar_error = true;
     }
     window.scroll(0,0);
+    setTimeout(() => {
+      this.adhar_error = false;
+      this.adhar_success = false;
+      }, 3000);
   }, error => {
     this.spinner.hide();
   });
@@ -269,6 +282,10 @@ getRation() {
     }
     // this.verifyGender = this.rationVerify && this.rationVerify.gender && this.rationVerify.gender === "Male" ? true : false;
     window.scroll(0,0);
+    setTimeout(() => {
+      this.success1 = false;
+      this.error1 = false;
+      }, 3000);
   }, error => {
      this.spinner.hide();
      this.enableFields();
