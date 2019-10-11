@@ -70,7 +70,7 @@ export class CrewUserComponent implements OnInit {
       bank_account_number: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(20)]],
       ration_card: [''],
       email_id: ['',Validators.email],
-      ifsc_code: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(12)]],
+      ifsc_code: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(12),Validators.pattern('^[A-Za-z0-9]+$')]],
       mobile_number: ['', [Validators.required,Validators.minLength(10),Validators.pattern('[1-9][0-9]{9}')]],
       bank_name: ['', Validators.required],
       father_name: ['', Validators.required],
@@ -83,6 +83,8 @@ export class CrewUserComponent implements OnInit {
       bank_others_name: ['',[Validators.required]]
   });
   const id =  this.route.snapshot.paramMap.get("id");
+  this.crewUserRegisterForm.controls['employment_status'].setValue('undefined');
+  this.crewUserRegisterForm.controls['social_status'].setValue('undefined');
   this.vesselRegistrationService.crewMemberList(id).subscribe(data => {
     this.spinner.hide();
     this.crewMemberList = data['message'];
@@ -195,7 +197,7 @@ export class CrewUserComponent implements OnInit {
         this.adhar_success = true;
         this.showVerifyBtn = false;
         this.reference = this.adharVerify.ref_no;
-       this.adharVerify.success = true;
+        this.adharVerify.success = true;
       } else {
         this.adharVerify.error = true;
         this.adhar_error = true;

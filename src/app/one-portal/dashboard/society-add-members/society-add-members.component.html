@@ -190,8 +190,8 @@
                                 <th>
                                  Fishermen/Fisherwomen Skills
                                 </th>
-                                <th scope="col">Actions</th>
                                 <th scope="col">President</th>
+                                <th scope="col">Actions</th>
                               </tr>
                     <tr *ngFor = "let addSocietmember1 of addSocietMember1.message | paginate: { itemsPerPage: 6, currentPage: p}">
                         <td> 
@@ -223,7 +223,10 @@
                                  
                         </td>
                         
-
+                        <td>
+                          <span *ngIf="addSocietmember1.is_president" style="color:green">Yes</span>
+                          <span *ngIf="!addSocietmember1.is_president" style="color:green">No</span>
+                          </td>
 <td>
     <span (click) = "editSmember(addSocietmember1)" style="padding-right: 10px;"> 
         <i class="fa fa-pencil-square-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
@@ -232,10 +235,7 @@
 <i class="fa fa-trash-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
 </span>
 </td>
-<td>
-<span *ngIf="addSocietmember1.is_president" style="color:green">Yes</span>
-<span *ngIf="!addSocietmember1.is_president" style="color:green">No</span>
-</td>
+
 </tr>
                    
            

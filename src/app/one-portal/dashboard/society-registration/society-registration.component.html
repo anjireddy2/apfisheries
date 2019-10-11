@@ -12,7 +12,8 @@ width: 94% ;" *ngIf="successsms" >
   <div class="col-md-12">
     <div class="alert alert-success alert-dismissible" *ngIf="success">
       <button type="button" class="close" data-dismiss="alert">&times;</button>
-      <strong>{{societyList.message}}</strong>
+      <span *ngIf="societyList.message[0]"><strong>{{societyList.message[0]}}</strong></span>
+      <span *ngIf="societyList.message"><strong>{{societyList.message}}</strong></span>
     </div>
   </div>
 </div>
@@ -108,13 +109,14 @@ width: 94% ;" *ngIf="successsms" >
                 <div class="col-md-4">
                         <div class="form-group">
                           <label for="power">SOCIETY Reg. Number<span class="vessel-mandatory-ind">*</span> </label>
-                         <input type="text"  minlength = "10" maxlength="14" class="form-control"
-                         formControlName="society_reg_no" [ngClass]="{ 'is-invalid': submitted && f.society_reg_no.errors }">
+                         <input type="text"  minlength = "14" maxlength="20" class="form-control" (keyup) = "checkZeros('society_reg_no')"
+                         formControlName="society_reg_no" [ngClass]="{ 'is-invalid': (submitted && f.society_reg_no.errors) || society_reg_chk }">
                          <div *ngIf="submitted && f.society_reg_no.errors" class="invalid-feedback">
                          <div *ngIf="f.society_reg_no.errors.required">Society Reg number is required</div>
-                         <div *ngIf="f.society_reg_no.errors.minlength">Minimum required number is 14</div>
+                         <div *ngIf="f.society_reg_no.errors.minlength">Society Registration number should have 14 to 20 digits</div>
 
                         </div>
+                        <div *ngIf="societyRegistrationForm.value.society_reg_no && societyRegistrationForm.value.society_reg_no.length > 0 && society_reg_chk" class="invalid-feedback" style="display: block !important">Society Registration number should not have all zero's</div>
                     </div>
                   </div>
                   <!-- <div class="col-md-8" style="margin-top: 3%;">
@@ -136,7 +138,7 @@ width: 94% ;" *ngIf="successsms" >
                           <div *ngIf="submitted && f.ncdc_reg.errors" class="invalid-feedback" style="display: block !important;">
                               <div *ngIf="f.ncdc_reg.errors.required">NCDC Reg is required</div>
                              </div>
-                          <div *ngIf="societyRegistrationForm.value.ncdc_reg == 'yes' && societyRegistrationForm.value.field[0].name == ''" class="" style="color: red; font-weight:bold; font-size:12px;">
+                          <div *ngIf="societyRegistrationForm.value.ncdc_reg == 'yes' && societyRegistrationForm.value.field != undefined && societyRegistrationForm.value.field[0] && societyRegistrationForm.value.field[0].name == ''" class="" style="color: red; font-weight:bold; font-size:12px;">
                             Please enter vessel number for NCDC registration
                           </div>
                         </div>

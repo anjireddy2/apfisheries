@@ -32,6 +32,7 @@ export class SocietyRegistrationComponent implements OnInit {
   verifyVesseldata: any;
   vsuccess: boolean;
   verror: boolean;
+  society_reg_chk: boolean;
 
   constructor(private router:Router,private vesselRegistrationService: VesselRegistrationService, 
     private formBuilder: FormBuilder, @Inject(LOCAL_STORAGE) private storage: WebStorageService,
@@ -49,7 +50,7 @@ export class SocietyRegistrationComponent implements OnInit {
       mandal: ['', [Validators.required]],
       flc: ['', [Validators.required]],
       society_name: ['', [Validators.required]],
-      society_reg_no: ['', [Validators.required,Validators.minLength(14)]],
+      society_reg_no: ['', [Validators.required,Validators.minLength(14),Validators.maxLength(20)]],
       // society_type: ['', [Validators.required]],
       field: this.formBuilder.array([
         this.addvesselRegNo(),
@@ -71,19 +72,29 @@ export class SocietyRegistrationComponent implements OnInit {
   get f() { return this.societyRegistrationForm.controls; }
   getMandal() {
     let  distId1 = this.distId;
+    this.mandalId = undefined;
+    this.flcid = undefined;
     this.vesselRegistrationService.getMandal(distId1).subscribe(data => this.Mandals = data); 
   }
   getFlc() {
+    this.flcid = undefined;
     let  distId1 = this.distId;
     let mandalId = this.mandalId;
     this.vesselRegistrationService.getFlc(distId1,mandalId).subscribe(data => this.Flcs = data);
   }
+
+  checkZeros(type) {
+    if(type == 'society_reg_no') {
+      this.society_reg_chk = this.societyRegistrationForm.value.society_reg_no != '' && /^0*$/.test(this.societyRegistrationForm.value.society_reg_no) ? true : false;
+    }
+  }
+
   societyRegistration(societyRegistrationForm) {
     this.spinner.show();
     this.submitted = true;
     this.success = false;
     this.error=false;
-    if (this.societyRegistrationForm.invalid || (this.societyRegistrationForm.value.ncdc_reg == 'yes' && this.societyRegistrationForm.value.field[0].name == '')) {
+    if (this.societyRegistrationForm.invalid || (this.societyRegistrationForm.value.ncdc_reg == 'yes' && (this.societyRegistrationForm.value.field != undefined && this.societyRegistrationForm.value.field.length ==1 && this.societyRegistrationForm.value.field[0].name == '') || (this.societyRegistrationForm.value.field.elements != undefined && this.societyRegistrationForm.value.field.elements.length ==1 && this.societyRegistrationForm.value.field.elements[0].name == ''))) {
       this.spinner.hide();
       return;
     }
@@ -98,7 +109,6 @@ export class SocietyRegistrationComponent implements OnInit {
       this.success = true;
       this.router.navigate(['dashboard/society_registration']);
       } else {
-        // this.errorlist = this.registerData.message.split(",");
         this.error = true;
       }
       window.scroll(0,0);

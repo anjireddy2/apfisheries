@@ -125,7 +125,7 @@
                  <div class="col-md-4">
                         <div class="form-group">
                           <label for="power">IFSC Code  <span class="vessel-mandatory-ind">*</span></label>
-                         <input [ngModel]="EditCrewMember.bank_ifsc" type="text" name="ifsc_code" maxlength = "8" maxlength="12" formControlName="ifsc_code" (keyup)="checkZeros('ifsc_code')" class="form-control" [ngClass]="{ 'is-invalid': (submitted && f.ifsc_code.errors) || ifsc_chk }">
+                         <input [ngModel]="EditCrewMember.bank_ifsc" type="text" name="ifsc_code" maxlength = "8" onkeypress = "return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode > 47 && event.charCode <  58)" minlength="12" formControlName="ifsc_code" (keyup)="checkZeros('ifsc_code')" class="form-control" [ngClass]="{ 'is-invalid': (submitted && f.ifsc_code.errors) || ifsc_chk }">
                          <div *ngIf="submitted && f.ifsc_code.errors" class="invalid-feedback">
                             <div *ngIf="f.ifsc_code.errors.required">IFSC Code is required</div>
                             <div *ngIf="f.ifsc_code.errors.minlength">IFSC code should have 8 to 12 digits</div>
@@ -183,7 +183,7 @@
                     <div class="form-group">
                       <label for="power">Social Status</label>
                       <select class="form-control" formControlName="social_status" name="social_status" [ngModel]="EditCrewMember.member_social_status">
-                        <option [ngValue]="undefined" hidden selected> --Select-- </option>
+                        <option value="undefined">--Select--</option>
                         <option value="OC"> OC </option>
                         <option value="BC"> BC </option>
                         <option value="SC"> SC </option>   
@@ -195,7 +195,7 @@
                     <div class="form-group">
                       <label for="power">Employment Status</label>
                       <select class="form-control" formControlName="employment_status" name="employment_status" [ngModel]="EditCrewMember.member_employement_status">
-                        <option [ngValue]="undefined" hidden selected> --Select-- </option>
+                            <option value="undefined">--Select--</option>
                             <option value="Employed"> Employed </option>
                             <option value="UnEmployed"> UnEmployed </option>          
                      </select>

@@ -263,7 +263,7 @@
              <div class="col-md-4">
                     <div class="form-group">
                       <label for="power">Vessel Number<span class="vessel-mandatory-ind">*</span></label>
-                     <input  maxlength="17" type="text" name="vessel_number" value="" class="form-control" [(ngModel)]="editVessel.boat_id" (keyup) = "checkZeros('vessel_number')"  formControlName="vessel_number" value="" class="form-control" [ngClass]="{ 'is-invalid': (submitted && f.vessel_number.errors) || vessel_chk }">
+                     <input  maxlength="17" type="text" name="vessel_number" value="" class="form-control" onkeypress = "return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode > 47 && event.charCode <  58)"  [(ngModel)]="editVessel.boat_id" (keyup) = "checkZeros('vessel_number')"  formControlName="vessel_number" value="" class="form-control" [ngClass]="{ 'is-invalid': (submitted && f.vessel_number.errors) || vessel_chk }">
                      <div *ngIf="submitted && f.vessel_number.errors" class="invalid-feedback">
                         <div *ngIf="f.vessel_number.errors && f.vessel_number.errors.required">Vessel number is required</div>
                         <div *ngIf="f.vessel_number.errors.minlength || f.vessel_number.errors.maxlength">Vessel number should have 15 to 17 digits</div>
