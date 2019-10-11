@@ -269,7 +269,7 @@ width: 94% ;" *ngIf="successsms" >
                   <span (click)="editCrewUser(crewMember, index)" style="padding-right: 10px;"> 
                       <i class="fa fa-pencil-square-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
                     </span>
-                <span (click)="deleteCrewUser(crewMember)"> 
+                <span (click)="crewUserData(crewMember)" data-toggle="modal" data-target="#myModal"> 
                   <i class="fa fa-trash-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
                 </span>
               </td>
@@ -281,3 +281,24 @@ width: 94% ;" *ngIf="successsms" >
           </ul>
         </div>
 
+        <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+        
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                  <h4 class="modal-title">Crew User Delete</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+               
+              </div>
+              <div class="modal-body">
+                Are you sure you want to delete the crew member?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="deleteCrewUser()">Ok</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+        
+          </div>
+        </div>

@@ -56,6 +56,7 @@ export class CrewUserComponent implements OnInit {
   bank_act_chk: boolean;
   ifsc_chk: boolean;
   age_chk: boolean;
+  crew_del_member: any;
 
   constructor(private router:Router,private formBuilder: FormBuilder,private vesselRegistrationService: VesselRegistrationService,private _http: HttpClient, 
     private spinner: NgxSpinnerService, private route: ActivatedRoute, @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
@@ -251,16 +252,20 @@ export class CrewUserComponent implements OnInit {
     });
   }
 
-  deleteCrewUser(crewMemberId, index) {
+  crewUserData(crewMember) {
+    this.crew_del_member = crewMember;
+  }
+
+  deleteCrewUser() {
     this.delete_success = false;
     this.delete_error = false;
     let vesselId = this.route.snapshot.paramMap.get("id");
     this.spinner.show();
-    this.vesselRegistrationService.deleteCrewMember(vesselId,crewMemberId.id).subscribe(data => {
+    this.vesselRegistrationService.deleteCrewMember(vesselId,this.crew_del_member.id).subscribe(data => {
       this.deleteCrewMember = data;
       this.spinner.hide();
-      this.crewMemberList.splice(index, 1);
       if(this.deleteCrewMember.success == true) {
+        this.crewMemberList.splice(this.crewMemberList.findIndex(x=>x.id == this.crew_del_member.id), 1);
         this.delete_success = true;
        } else {
          this.delete_error = true;
