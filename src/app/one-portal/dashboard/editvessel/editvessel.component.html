@@ -79,7 +79,7 @@
             <div class="col-md-4">
                     <div class="form-group">
                       <label for="power">Vessel owner name <span class="vessel-mandatory-ind">*</span></label>
-                     <input type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" formControlName="owner_name"  class="form-control"  [(ngModel)]="editVessel.owner_name" [ngClass]="{ 'is-invalid': submitted && f.owner_name.errors }">
+                     <input  maxlength="60" type="text" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" formControlName="owner_name"  class="form-control"  [(ngModel)]="editVessel.owner_name" [ngClass]="{ 'is-invalid': submitted && f.owner_name.errors }">
                      <div *ngIf="submitted && f.owner_name.errors" class="invalid-feedback">
                         <div *ngIf="f.owner_name.errors.required">vessel name is required</div>
                     </div>
@@ -88,7 +88,7 @@
              <div class="col-md-4">
                     <div class="form-group">
                       <label for="power">Father Name <span class="vessel-mandatory-ind">*</span></label>
-                     <input type="text" formControlName="father_name"  class="form-control" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" [(ngModel)]="editVessel.father_name"  [ngClass]="{ 'is-invalid': submitted && f.father_name.errors }">
+                     <input  maxlength="60" type="text" formControlName="father_name"  class="form-control" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" [(ngModel)]="editVessel.father_name"  [ngClass]="{ 'is-invalid': submitted && f.father_name.errors }">
                      <div *ngIf="submitted && f.father_name.errors" class="invalid-feedback">
                         <div *ngIf="f.father_name.errors.required">Father name is required</div>
                       </div>

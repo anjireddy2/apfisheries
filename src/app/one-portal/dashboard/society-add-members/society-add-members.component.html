@@ -72,7 +72,7 @@
                     <div class="col-md-4">
                             <div class="form-group">
                               <label for="power">Name <span class="vessel-mandatory-ind">*</span></label>
-                             <input type="text"   formControlName="member_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.member_name.errors }" [ngModel]="rationVerify.owner_name">
+                             <input  maxlength="60" type="text"   formControlName="member_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.member_name.errors }" [ngModel]="rationVerify.owner_name">
                              <div *ngIf="submitted && f.member_name.errors" class="invalid-feedback">
                               <div *ngIf="f.member_name.errors.required">Name is required</div>
                           </div>

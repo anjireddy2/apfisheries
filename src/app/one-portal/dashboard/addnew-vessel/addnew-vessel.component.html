@@ -78,7 +78,7 @@ width: 94% ;" *ngIf="successsms" >
                 <div class="col-md-4">
                         <div class="form-group">
                           <label for="power">Vessel owner name <span class="vessel-mandatory-ind">*</span></label>
-                         <input  type="text" formControlName="owner_name" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"  [ngModel]="rationVerify.owner_name"  class="form-control" allow-pattern="^[a-zA-Z ]*$"  [ngClass]="{ 'is-invalid': submitted && f.owner_name.errors }" >
+                         <input  type="text" maxlength="60" formControlName="owner_name" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"  [ngModel]="rationVerify.owner_name"  class="form-control" allow-pattern="^[a-zA-Z ]*$"  [ngClass]="{ 'is-invalid': submitted && f.owner_name.errors }" >
                          <!-- <div style="color: red;" *ngIf="f.owner_name.errors.pattern">
                           owner name should be in alphabetical order
                         </div> -->
@@ -91,7 +91,7 @@ width: 94% ;" *ngIf="successsms" >
                  <div class="col-md-4">
                         <div class="form-group">
                           <label for="power">Father Name <span class="vessel-mandatory-ind">*</span></label>
-                         <input  type="text" formControlName="father_name" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"  [ngModel]="rationVerify.father_name"  class="form-control" allow-pattern="^[a-zA-Z ]*$"  [ngModel]="rationVerify.father_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.father_name.errors && f.father_name.errors.required }">
+                         <input  type="text"  maxlength="60" formControlName="father_name" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"  [ngModel]="rationVerify.father_name"  class="form-control" allow-pattern="^[a-zA-Z ]*$"  [ngModel]="rationVerify.father_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.father_name.errors && f.father_name.errors.required }">
                          <div *ngIf="submitted && f.father_name.errors" class="invalid-feedback">
                           <div *ngIf="f.father_name.errors.required">Father name is required</div>
                         </div>

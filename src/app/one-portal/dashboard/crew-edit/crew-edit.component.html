@@ -71,7 +71,7 @@
                 <div class="col-md-4">
                         <div class="form-group">
                           <label for="power">Crew Member Name <span class="vessel-mandatory-ind">*</span></label>
-                         <input onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" type="text" formControlName="owner_name" [ngModel]="EditCrewMember.member_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.owner_name.errors }">
+                         <input  maxlength="60" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" type="text" formControlName="owner_name" [ngModel]="EditCrewMember.member_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.owner_name.errors }">
                          <div *ngIf="submitted && f.owner_name.errors" class="invalid-feedback">
                           <div *ngIf="f.owner_name.errors.required">Crew Member name is required</div>
                       </div>
@@ -80,7 +80,7 @@
                  <div class="col-md-4">
                         <div class="form-group">
                           <label for="power">Father Name <span class="vessel-mandatory-ind">*</span></label>
-                         <input  onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" type="text" formControlName="father_name" [ngModel]="EditCrewMember.memner_father_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.father_name.errors }">
+                         <input   maxlength="60" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" type="text" formControlName="father_name" [ngModel]="EditCrewMember.memner_father_name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.father_name.errors }">
                          <div *ngIf="submitted && f.father_name.errors" class="invalid-feedback">
                           <div *ngIf="f.father_name.errors.required">Father name is required</div>
                         </div>
