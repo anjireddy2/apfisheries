@@ -97,6 +97,9 @@ export class EditvesselComponent implements OnInit {
       this.updateForm.controls['licence_valid_date'].setValue(new Date(this.editVessel.license_valid_upto));
       this.getVerifyBtn('Aadhar');
       this.getVerifyBtn('RationCard');
+      this.checkZeros('ifsc_code');
+      this.checkZeros('bank_account_number');
+      this.checkZeros('vessel_number');
       this.distId=this.editVessel.district_id;
       this.mandalId=this.editVessel.mandal_id;
       this.flcid = this.editVessel.fish_landing_center_id;

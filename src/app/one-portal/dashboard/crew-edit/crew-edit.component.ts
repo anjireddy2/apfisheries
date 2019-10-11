@@ -84,11 +84,16 @@ export class CrewEditComponent implements OnInit {
   const vesselId =  this.route.snapshot.paramMap.get("vessel_id");
   this.spinner.show();
     this.vesselRegistrationService.editCrewMember(vesselId,id).subscribe(data => {
+      this.spinner.hide();
       this.EditCrewMember = data['message'];
       this.changeDetectorRef.detectChanges();
       this.getVerifyBtn('Aadhar');
       this.getVerifyBtn('RationCard');
-      this.spinner.hide();
+      this.checkZeros('ifsc_code');
+      this.checkZeros('bank_account_number');
+      this.checkZeros('age');
+      this.EditCrewMember.member_employement_status == "" ? this.crewUserRegisterForm.controls['employment_status'].setValue("undefined"): this.EditCrewMember.member_employment_status;
+      this.EditCrewMember.member_social_status == "" ? this.crewUserRegisterForm.controls['social_status'].setValue("undefined") : this.EditCrewMember.member_social_status;
     },error=>{
       this.spinner.hide();
     });
