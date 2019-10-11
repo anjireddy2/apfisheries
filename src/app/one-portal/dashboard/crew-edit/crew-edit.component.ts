@@ -190,7 +190,7 @@ export class CrewEditComponent implements OnInit {
         this.adhar_success = true;
         this.showVerifyBtn = false;
         this.reference = this.adharVerify.ref_no;
-        this.adharVerify.success = true;
+       this.adharVerify.success = true;
       } else {
         this.adharVerify.error = true;
         this.adhar_error = true;

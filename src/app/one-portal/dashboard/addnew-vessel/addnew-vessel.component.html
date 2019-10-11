@@ -10,7 +10,7 @@ width: 94% ;" *ngIf="successsms" >
 
 <div class="row" *ngIf="adhar_error || adhar_success">
   <div class="col-md-12">
-    <div class="alert alert-dismissible" [ngClass] = "{'alert-danger' : adhar_error, 'alert-success' : adhar_success}">
+    <div class="alert alert-dismissible" [ngClass] = "{'alert-danger' : adhar_error, 'alert-success' : adhar_success}" >
       <button type="button" class="close" data-dismiss="alert">&times;</button>
       <strong>{{adharVerify.message}}</strong>
     </div>
