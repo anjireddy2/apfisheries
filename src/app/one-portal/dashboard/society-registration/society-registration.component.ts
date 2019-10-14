@@ -51,12 +51,14 @@ export class SocietyRegistrationComponent implements OnInit {
       mandal: ['', [Validators.required]],
       flc: ['', [Validators.required]],
       society_name: ['', [Validators.required]],
+      // society_type_name: ['',[Validators.required]],
       society_reg_no: ['', [Validators.required,Validators.minLength(14),Validators.maxLength(20)]],
       // society_type: ['', [Validators.required]],
       field: this.formBuilder.array([
         this.addvesselRegNo(),
      ])
     });
+    // this.societyRegistrationForm.controls.society_type_name.setValue('undefined');
     this.spinner.show();
     this.vesselRegistrationService.getDist().subscribe(data => {
       this.spinner.hide();
@@ -102,7 +104,7 @@ export class SocietyRegistrationComponent implements OnInit {
     this.submitted = true;
     this.success = false;
     this.error=false;
-    if (this.societyRegistrationForm.value.ncdc_reg == 'yes' && ((this.count == 0 && this.societyRegistrationForm.controls.field['controls'].length ==1  && this.societyRegistrationForm.controls.field['controls'][0].controls.name.value == '')|| this.count == this.societyRegistrationForm.controls.field['controls'].length)) {
+    if (this.societyRegistrationForm.invalid || (this.societyRegistrationForm.value.ncdc_reg == 'yes' && ((this.count == 0 && this.societyRegistrationForm.controls.field['controls'].length ==1  && this.societyRegistrationForm.controls.field['controls'][0].controls.name.value == '')|| this.count == this.societyRegistrationForm.controls.field['controls'].length))) {
       this.spinner.hide();
       return;
     }
