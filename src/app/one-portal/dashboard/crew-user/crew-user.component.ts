@@ -57,6 +57,7 @@ export class CrewUserComponent implements OnInit {
   ifsc_chk: boolean;
   age_chk: boolean;
   crew_del_member: any;
+  bank_others_chk: boolean;
 
   constructor(private router:Router,private formBuilder: FormBuilder,private vesselRegistrationService: VesselRegistrationService,private _http: HttpClient, 
     private spinner: NgxSpinnerService, private route: ActivatedRoute, @Inject(LOCAL_STORAGE) private storage: WebStorageService) { }
@@ -115,6 +116,8 @@ export class CrewUserComponent implements OnInit {
       this.ifsc_chk = this.crewUserRegisterForm.value.ifsc_code!= '' && /^0*$/.test(this.crewUserRegisterForm.value.ifsc_code) ? true : false;
     } else if(type == 'age') {
       this.age_chk = this.crewUserRegisterForm.value.age!= '' && /^0*$/.test(this.crewUserRegisterForm.value.age) ? true : false;
+    } else if(type == 'bank_others_name') {
+      this.bank_others_chk = this.crewUserRegisterForm.value.bank_others_name!= '' && /^0*$/.test(this.crewUserRegisterForm.value.bank_others_name) ? true : false;
     }
   }
 
@@ -131,7 +134,7 @@ export class CrewUserComponent implements OnInit {
     if(this.crewUserRegisterForm.value.bank_name != 'others') {
       this.crewUserRegisterForm.controls['bank_others_name'].setErrors(null);
     }
-    if (this.crewUserRegisterForm.invalid || this.bank_act_chk || this.ifsc_chk) {
+    if (this.crewUserRegisterForm.invalid || this.bank_act_chk || this.ifsc_chk || this.bank_others_chk) {
       this.spinner.hide();
       return;
     }
@@ -160,6 +163,11 @@ export class CrewUserComponent implements OnInit {
       this.crewMemberList = data['message'];
       if(this.registerData && this.registerData.success == true) {
         this.success = true;
+        this.enableFields();
+        this.submitted = false;
+        this.crewUserRegisterForm.reset({});
+        this.getVerifyBtn('Aadhar');
+        this.getVerifyBtn('RationCard');
         // this.router.navigate(['/dashboard/vessel_registration']);
       } else {
         this.error = true;
@@ -235,11 +243,7 @@ export class CrewUserComponent implements OnInit {
         this.rationVerifyBtn = false;
         this.rationVerify.success = true;
       } else {
-        this.crewUserRegisterForm.controls['owner_name'].enable();
-        this.crewUserRegisterForm.controls['father_name'].enable();
-        this.crewUserRegisterForm.controls['gender'].enable();
-        this.crewUserRegisterForm.controls['age'].enable();
-        this.crewUserRegisterForm.controls['date_of_birth'].enable();
+        this.enableFields();
         this.rerror = true;
       }
       window.scroll(0,0);
@@ -250,6 +254,14 @@ export class CrewUserComponent implements OnInit {
     }, error => {
        this.spinner.hide();
     });
+  }
+
+  enableFields() {
+    this.crewUserRegisterForm.controls['owner_name'].enable();
+    this.crewUserRegisterForm.controls['father_name'].enable();
+    this.crewUserRegisterForm.controls['gender'].enable();
+    this.crewUserRegisterForm.controls['age'].enable();
+    this.crewUserRegisterForm.controls['date_of_birth'].enable();
   }
 
   crewUserData(crewMember) {

@@ -145,7 +145,7 @@
                           <option value="others">Others</option>
                         </select>
                         <div *ngIf="f.bank_name.value == 'others'" style="margin-top: 2%;">
-                              <input type="text" class="form-control" formControlName="bank_others_name" [ngClass]="{ 'is-invalid': submitted && (f.bank_name.value == 'others' && f.bank_others_name.errors) }"/>
+                              <input type="text" class="form-control" formControlName="bank_others_name" (keyup) = "checkZeros('bank_others_name')" [ngClass]="{ 'is-invalid': (submitted && (f.bank_name.value == 'others' && f.bank_others_name.errors)) || bank_others_chk }"/>
                           </div>
                           <div *ngIf="submitted && f.bank_name.errors" class="invalid-feedback">
                             <div *ngIf="f.bank_name.errors.required">Bank Name is required</div>
@@ -153,6 +153,7 @@
                            <div *ngIf="submitted && f.bank_name.value == 'others' && f.bank_others_name.errors && f.bank_others_name.errors.required" class="invalid-feedback" style="display: block">
                             <div>Bank Name is required</div>
                            </div>
+                           <div *ngIf="f.bank_name.value == 'others' && crewUserRegisterForm.value.bank_others_name && crewUserRegisterForm.value.bank_others_name.length > 0 && bank_others_chk" class="invalid-feedback" style="display: block !important">Bank name should not have all zero's</div>
                         </div>
                 </div>
                 <div class="col-md-4">

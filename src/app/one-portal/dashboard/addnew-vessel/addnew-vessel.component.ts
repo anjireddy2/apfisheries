@@ -44,6 +44,7 @@ export class AddnewVesselComponent implements OnInit {
   bank_act_chk: boolean;
   vessel_chk: boolean;
   ifsc_chk: boolean;
+  bank_others_chk: boolean;
  
 
   constructor(private router: Router, private formBuilder: FormBuilder, private vesselRegistrationService: VesselRegistrationService, private _http: HttpClient, 
@@ -122,6 +123,8 @@ export class AddnewVesselComponent implements OnInit {
       this.vessel_chk = this.registerForm.value.vessel_number != '' && /^0*$/.test(this.registerForm.value.vessel_number) ? true : false;
     } else if (type == 'ifsc_code') {
       this.ifsc_chk = this.registerForm.value.ifsc_code != '' && /^0*$/.test(this.registerForm.value.ifsc_code) ? true : false;
+    } else if (type == 'bank_others_name') {
+      this.bank_others_chk = this.registerForm.value.bank_others_name != '' && /^0*$/.test(this.registerForm.value.bank_others_name) ? true : false;
     }
   }
   onClickSubmit(registerForm) {
@@ -132,7 +135,7 @@ export class AddnewVesselComponent implements OnInit {
     if (this.registerForm.value.bank_name != 'others') {
       this.registerForm.controls['bank_others_name'].setErrors(null);
     }
-    if (this.registerForm.invalid || this.bank_act_chk || this.ifsc_chk || this.vessel_chk) {
+    if (this.registerForm.invalid || this.bank_act_chk || this.ifsc_chk || this.vessel_chk || this.bank_others_chk) {
       this.spinner.hide();
         return;
     }

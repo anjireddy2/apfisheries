@@ -44,6 +44,7 @@ export class EditvesselComponent implements OnInit {
   bank_act_chk: boolean;
   vessel_chk: boolean;
   ifsc_chk: boolean;
+  bank_others_chk: boolean;
   constructor(private formBuilder: FormBuilder,private vesselRegistrationService: VesselRegistrationService,
      private route: ActivatedRoute, private changeDetectorRef: ChangeDetectorRef, private router: Router, private spinner: NgxSpinnerService, @Inject(LOCAL_STORAGE) private storage: WebStorageService)
    {
@@ -100,6 +101,7 @@ export class EditvesselComponent implements OnInit {
       this.checkZeros('ifsc_code');
       this.checkZeros('bank_account_number');
       this.checkZeros('vessel_number');
+      this.checkZeros('bank_others_name');
       this.distId=this.editVessel.district_id;
       this.mandalId=this.editVessel.mandal_id;
       this.flcid = this.editVessel.fish_landing_center_id;
@@ -142,6 +144,8 @@ export class EditvesselComponent implements OnInit {
       this.vessel_chk = this.updateForm.value.vessel_number != '' && /^0*$/.test(this.updateForm.value.vessel_number) ? true : false;
     } else if(type == 'ifsc_code') {
       this.ifsc_chk = this.updateForm.value.ifsc_code!= '' && /^0*$/.test(this.updateForm.value.ifsc_code) ? true : false;
+    }  else if(type == 'bank_others_name') {
+      this.bank_others_chk = this.updateForm.value.bank_others_name!= '' && /^0*$/.test(this.updateForm.value.bank_others_name) ? true : false;
     }
   }
 
@@ -153,7 +157,7 @@ export class EditvesselComponent implements OnInit {
     if(this.updateForm.value.bank_name != 'others') {
       this.updateForm.controls['bank_others_name'].setErrors(null);
     }
-    if (this.updateForm.invalid || this.bank_act_chk || this.ifsc_chk || this.vessel_chk) {
+    if (this.updateForm.invalid || this.bank_act_chk || this.ifsc_chk || this.vessel_chk || this.bank_others_chk) {
       this.spinner.hide();
       window.scroll(0,0);
       return;
