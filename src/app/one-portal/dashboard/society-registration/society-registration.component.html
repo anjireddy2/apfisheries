@@ -139,7 +139,7 @@ width: 94% ;" *ngIf="successsms" >
                               <div *ngIf="f.ncdc_reg.errors.required">NCDC Reg is required</div>
                              </div>
                              <!-- societyRegistrationForm.value.ncdc_reg == 'yes' && ((societyRegistrationForm.controls.field.controls && (societyRegistrationForm.controls.field.controls.length == 0 || (societyRegistrationForm.controls.field.controls.length ==1  && societyRegistrationForm.controls.field.controls[0].controls.name.value == '')))||count == societyRegistrationForm.controls.field['controls'].length) -->
-                          <div *ngIf="societyRegistrationForm.value.ncdc_reg == 'yes' && ((count == 0 && societyRegistrationForm.controls.field.controls.length ==1  && societyRegistrationForm.controls.field.controls[0].controls.name.value == '')|| count == societyRegistrationForm.controls.field['controls'].length)" style="color: red; font-weight:bold; font-size:12px;">
+                             <div *ngIf="societyRegistrationForm.value.ncdc_reg == 'yes' && ((count == 0 && f.field['controls'] != undefined && f.field['controls'].length ==1  && f.field['controls'][0].controls.name.value == '')|| count == f.field['controls'].length)" style="color: red; font-weight:bold; font-size:12px;">
                             Please enter vessel number for NCDC registration
                           </div>
                         </div>
