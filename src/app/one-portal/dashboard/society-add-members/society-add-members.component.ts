@@ -32,7 +32,6 @@ export class SocietyAddMembersComponent implements OnInit {
   @ViewChild('Swimming', {static : false}) Swimming: ElementRef;
   @ViewChild('fishVendor', {static : false}) fishVendor: ElementRef;
   @ViewChild('isPresident', {static : false}) isPresident: ElementRef;
-  societyListId: any;
   showVerifyBtn: boolean;
   rationVerifyBtn: boolean;
   rationVerify: any = [];
@@ -46,6 +45,7 @@ export class SocietyAddMembersComponent implements OnInit {
   society_type: string;
   employment_status: string;
   age_chk: boolean;
+  del_member: any;
   
 
   // tslint:disable-next-line: max-line-length
@@ -179,23 +179,24 @@ toggleChk() {
   }
 }
 
-deleteSmember(societyList, index) {
+deleteSmemberData(societyMember) {
+  this.del_member = societyMember;
+}
+
+deleteSmember() {
   //let ind = this.societyMembersForm.findIndex(x=>x.id==this.societyListId.id);
   this.spinner.show();
   this.delete_success = false;
   this.delete_error = false;
-  this.societyListId = societyList;
-  this.vesselRegistrationService.deletemember(this.societyListId.id).subscribe(data => {
+  this.vesselRegistrationService.deletemember(this.del_member.id).subscribe(data => {
     this.spinner.hide();
      this.deleteData = data;
     if(this.deleteData.success == true) {
       this.delete_success = true;
-      window.scroll(0,0);
-      this.addSocietMember1.message.splice(index, 1);
+      this.addSocietMember1.message.splice(this.addSocietMember1.message.findIndex(x=>x.id == this.del_member.id), 1);
     } else {
     // this.errorlist = this.vesselUpdate.message.split(",");
       this.delete_error = true;
-      window.scroll(0,0);
     }
     window.scroll(0,0);
     setTimeout(() => {

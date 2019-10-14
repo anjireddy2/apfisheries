@@ -112,7 +112,7 @@
         
                   <button (click)="addMember(societyList)" class="button btn btn-primary" style="font-size: 13px;">Add society member</button>
 
-                  <span (click)="vesselData(societyList, index)" style="margin-left: 15px;"> 
+                  <span (click)="societyData(societyList)" style="margin-left: 15px;" data-toggle="modal" data-target="#myModal"> 
                         <i class="fa fa-trash-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
                       </span>
         
@@ -128,3 +128,25 @@
                 
                 </ul>
               </div>
+              <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+              
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Society Delete</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                     
+                    </div>
+                    <div class="modal-body">
+                      Are you sure you want to delete the Society?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal" (click)="deleteSocietyData()">Ok</button>
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                  </div>
+              
+                </div>
+              </div>
+        

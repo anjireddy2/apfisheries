@@ -33,6 +33,7 @@ export class SocietyRegistrationComponent implements OnInit {
   vsuccess: boolean;
   verror: boolean;
   society_reg_chk: boolean;
+  count: any = 0 ;
 
   constructor(private router:Router,private vesselRegistrationService: VesselRegistrationService, 
     private formBuilder: FormBuilder, @Inject(LOCAL_STORAGE) private storage: WebStorageService,
@@ -50,12 +51,14 @@ export class SocietyRegistrationComponent implements OnInit {
       mandal: ['', [Validators.required]],
       flc: ['', [Validators.required]],
       society_name: ['', [Validators.required]],
+      // society_type_name: ['',[Validators.required]],
       society_reg_no: ['', [Validators.required,Validators.minLength(14),Validators.maxLength(20)]],
       // society_type: ['', [Validators.required]],
       field: this.formBuilder.array([
         this.addvesselRegNo(),
      ])
     });
+    // this.societyRegistrationForm.controls.society_type_name.setValue('undefined');
     this.spinner.show();
     this.vesselRegistrationService.getDist().subscribe(data => {
       this.spinner.hide();
@@ -89,12 +92,19 @@ export class SocietyRegistrationComponent implements OnInit {
     }
   }
 
+  checkNCDC() {
+    this.count = 0;
+    this.societyRegistrationForm.controls.field['controls'].forEach(element => {
+      this.count = element.controls.name.value == "" ? this.count + 1 : this.count;
+    });
+  }
+
   societyRegistration(societyRegistrationForm) {
     this.spinner.show();
     this.submitted = true;
     this.success = false;
     this.error=false;
-    if (this.societyRegistrationForm.invalid || (this.societyRegistrationForm.value.ncdc_reg == 'yes' && (this.societyRegistrationForm.value.field != undefined && this.societyRegistrationForm.value.field.length ==1 && this.societyRegistrationForm.value.field[0].name == '') || (this.societyRegistrationForm.value.field.elements != undefined && this.societyRegistrationForm.value.field.elements.length ==1 && this.societyRegistrationForm.value.field.elements[0].name == ''))) {
+    if (this.societyRegistrationForm.invalid || (this.societyRegistrationForm.value.ncdc_reg == 'yes' && ((this.count == 0 && this.societyRegistrationForm.controls.field['controls'].length ==1  && this.societyRegistrationForm.controls.field['controls'][0].controls.name.value == '')|| this.count == this.societyRegistrationForm.controls.field['controls'].length))) {
       this.spinner.hide();
       return;
     }
@@ -126,11 +136,15 @@ export class SocietyRegistrationComponent implements OnInit {
   addFieldValue() {
       const control = <FormArray>this.societyRegistrationForm.controls.field["controls"];
       control.push(this.addvesselRegNo());
+      this.societyRegistrationForm.value.field.push({'name':''});
+      this.checkNCDC();
   }
   deleteFieldValue(index) {
     // this.fieldArray.splice(index, 1);
     // const control = <FormArray>this.societyRegistrationForm.controls.field['controls'];
     this.societyRegistrationForm.controls.field['controls'].splice(index,1);
+    this.societyRegistrationForm.value.field.splice(index, 1);
+    this.checkNCDC();
   }
 
   onEditCloseItems() {
@@ -142,6 +156,7 @@ export class SocietyRegistrationComponent implements OnInit {
     this.societyRegistrationForm.controls.field["controls"].forEach(element => {
       this.fieldArray.elements.push({name:element.value.name});
     });
+    this.checkNCDC();
     this.vesselRegistrationService.verifyVessel(this.fieldArray).subscribe(
       data=>{
         this.spinner.hide();

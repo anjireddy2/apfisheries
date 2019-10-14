@@ -28,6 +28,7 @@ export class SocietyListComponent implements OnInit {
   Mandals: any;
   Flcs: any;
   nodatafound = false;
+  society_member: any;
 
   constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService,private vesselRegistrationService: VesselRegistrationService, private router: Router, 
     private spinner: NgxSpinnerService) {
@@ -105,16 +106,20 @@ export class SocietyListComponent implements OnInit {
     this.p = event;
   }
 
-  vesselData(societyList, index) {
+  societyData(member) {
+    this.society_member = member;
+  }
+
+  deleteSocietyData() {
     this.delete_success = false;
     this.delete_error = false;
     this.spinner.show();
-    this.vesselRegistrationService.deleteSociety(societyList.id).subscribe(data => {
+    this.vesselRegistrationService.deleteSociety(this.society_member.id).subscribe(data => {
       this.deleteSociety = data;
-      this.SocietyList.splice(index, 1);
       this.spinner.hide();
       if(this.deleteSociety.success == true) {
-       this.delete_success = true;
+        this.SocietyList.splice(this.SocietyList.findIndex(x=>x.id == this.society_member.id), 1);
+        this.delete_success = true;
       } else {
         // this.errorlist = this.vesselUpdate.message.split(",");
         this.delete_error = true;

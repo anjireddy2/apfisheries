@@ -231,7 +231,7 @@
     <span (click) = "editSmember(addSocietmember1)" style="padding-right: 10px;"> 
         <i class="fa fa-pencil-square-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
         </span>
-<span (click) = "deleteSmember(addSocietmember1, index)" style="padding-right: 10px;"> 
+<span (click) = "deleteSmemberData(addSocietmember1)" style="padding-right: 10px;" data-toggle="modal" data-target="#myModal"> 
 <i class="fa fa-trash-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
 </span>
 </td>
@@ -245,4 +245,25 @@
                 <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>  
               
 </ul>
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+          <h4 class="modal-title">Society Member Delete</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+       
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete the society member?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="deleteSmember()">Ok</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 
