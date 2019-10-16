@@ -39,6 +39,8 @@ import { InlandSocietyAddMemberComponent } from './one-portal/dashboard/inland-s
 import { InlandSocietyEditMemberComponent } from './one-portal/dashboard/inland-society-edit-member/inland-society-edit-member.component';
 import { CrewUserComponent } from './one-portal/dashboard/crew-user/crew-user.component';
 import { CrewEditComponent } from './one-portal/dashboard/crew-edit/crew-edit.component';
+import { ReportsComponent } from './one-portal/dashboard/reports/reports.component';
+import { ExcelService } from './one-portal/dashboard/excel.service';
 // import { InlandSocietyRegistrationEditComponent } from './one-portal/dashboard/inland-society-registration-edit/inland-society-registration-edit.component';
 
 
@@ -111,6 +113,10 @@ const appRoutes: Routes = [
       }, {
         path: 'editinland_society_member/:societyId/:memberId',
         component: InlandSocietyEditMemberComponent
+      },
+      {
+        path: 'reports',
+        component: ReportsComponent
       }
     ]
   },
@@ -149,6 +155,7 @@ const appRoutes: Routes = [
     InlandSocietyEditMemberComponent,
     CrewUserComponent,
     CrewEditComponent,
+    ReportsComponent,
     // InlandSocietyRegistrationEditComponent,
    
     
@@ -176,7 +183,7 @@ const appRoutes: Routes = [
       
     )
    ],
-  providers: [UserregService, MatDatepickerModule ,
+  providers: [UserregService, MatDatepickerModule ,ExcelService,
      {provide: LocationStrategy, useClass: HashLocationStrategy}
 ],
   bootstrap: [AppComponent]

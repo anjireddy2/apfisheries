@@ -72,7 +72,7 @@ export class InlandSocietyAddMemberComponent implements OnInit {
       employment_status: ['',[Validators.required]],
       date_of_birth: ['',[Validators.required]],
       social_status: ['',[Validators.required]],
-      is_president: ['',[Validators.required]]
+      is_president: ['']
     });
     this.employment_status = 'UnEmployed';
     this.society_type = this.storage.get('society_type') === "3" ? "Male" : "Female";

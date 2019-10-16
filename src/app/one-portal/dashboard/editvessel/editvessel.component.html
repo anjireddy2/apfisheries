@@ -88,7 +88,7 @@
              <div class="col-md-4">
                     <div class="form-group">
                       <label for="power">Father Name <span class="vessel-mandatory-ind">*</span></label>
-                     <input  maxlength="60" type="text" formControlName="father_name"  class="form-control" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" [(ngModel)]="editVessel.father_name"  [ngClass]="{ 'is-invalid': submitted && f.father_name.errors }">
+                     <input  maxlength="60" type="text" formControlName="father_name"  class="form-control" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" [(ngModel)]="editVessel.father_name"  [ngClass]="{ 'is-invalid': submitted && f.father_name.errors != null && f.father_name.errors.required }">
                      <div *ngIf="submitted && f.father_name.errors" class="invalid-feedback">
                         <div *ngIf="f.father_name.errors.required">Father name is required</div>
                       </div>
@@ -140,12 +140,11 @@
          <select class="form-control" formControlName="bank_name" [(ngModel)]="editVessel.bank_details"   name="bank" [ngClass]="{ 'is-invalid': submitted && f.bank_name.errors }" >
             <option [ngValue]="undefined" hidden selected> --Select-- </option>
             <option *ngFor='let bank of bankList' [ngValue]='bank.value'>
-              {{ bank.value}}
             </option>
             <option value="others">
                 Others
             </option>
-    </select>{{f.bank_name}}
+    </select>
     <div *ngIf="f.bank_name.value == 'others'" style="margin-top: 2%;">
         <input type="text" class="form-control" formControlName="bank_others_name" (keyup)="checkZeros('bank_others_name')" [ngClass]="{ 'is-invalid': (submitted && (f.bank_name.value == 'others' && f.bank_others_name.errors)) || bank_others_chk }"/>
     </div>

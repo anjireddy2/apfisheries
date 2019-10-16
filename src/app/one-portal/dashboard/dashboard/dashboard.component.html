@@ -1,6 +1,6 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top e-prgati-header-main">
-  <div class="container e-prgati-header" style="display: contents;">
+  <div class="container e-prgati-header" style="max-width: 100%;">
     <a class="navbar-brand e-prgati-header-logo">
           <img src="assets/images/myap_logo.png" alt="">
       </a>
@@ -122,6 +122,12 @@
                         Inland Society Details
                     </a>
                 </li>
+                <li class="nav-item"  [routerLinkActive]="'is-active'"> 
+                  <a class="nav-link p-1" routerLink="reports" >
+                      <i class="fa fa-angle-right" aria-hidden="true"></i>
+                      Reports
+                  </a>
+              </li>
                   <!-- <li class="nav-item"  [routerLinkActive]="'is-active'"> 
                       <a class="nav-link p-1" routerLink="addnew_vessel" >
                           <i class="fa fa-angle-right" aria-hidden="true"></i>

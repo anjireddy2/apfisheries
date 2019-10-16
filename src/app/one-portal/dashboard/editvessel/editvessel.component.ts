@@ -167,10 +167,12 @@ export class EditvesselComponent implements OnInit {
     this.updateForm.value.userId = this.storage.get("user_id");
     this.updateForm.value.licence_renewal_date = new Date(this.updateForm.value.licence_renewal_date).toDateString();
     this.updateForm.value.licence_valid_date = new Date(this.updateForm.value.licence_valid_date).toDateString();
-    if(this.rationVerify && this.rationVerify.success && this.updateForm.controls['owner_name'].status === "DISABLED") {
-      this.updateForm.value.father_name =  this.rationVerify.father_name;
-      this.updateForm.value.owner_name =  this.rationVerify.owner_name;
-      }
+    // if(this.rationVerify && this.rationVerify.success && this.updateForm.controls['owner_name'].status === "DISABLED") {
+    //   this.updateForm.value.father_name =  this.rationVerify.father_name;
+    //   this.updateForm.value.owner_name =  this.rationVerify.owner_name;
+    //   }
+    this.updateForm.value.father_name = this.updateForm.controls.father_name.value;
+		this.updateForm.value.owner_name = this.updateForm.controls.owner_name.value;
     this.vesselRegistrationService.updateVessel(vid,this.updateForm.value).subscribe(data => {
       this.spinner.hide();
       this.vesselUpdate = data;
@@ -245,8 +247,12 @@ export class EditvesselComponent implements OnInit {
       this.spinner.hide();
       this.rationVerify = data;
       if(this.rationVerify && this.rationVerify.success === true) {
-        this.updateForm.controls['owner_name'].disable();
-        this.updateForm.controls['father_name'].disable();
+        // this.updateForm.controls['owner_name'].disable();
+        // this.updateForm.controls['father_name'].disable();
+        this.rationVerify.owner_name ? this.updateForm.controls['owner_name'].disable() : this.updateForm.controls['owner_name'].enable();
+        this.rationVerify.father_name ? this.updateForm.controls['father_name'].disable() : this.updateForm.controls['father_name'].enable();
+        this.editVessel.owner_name = this.rationVerify.owner_name;
+        this.editVessel.father_name = this.rationVerify.father_name;
         this.success1 = true;
         this.rationVerifyBtn = false;
         this.rationVerify.success = true;

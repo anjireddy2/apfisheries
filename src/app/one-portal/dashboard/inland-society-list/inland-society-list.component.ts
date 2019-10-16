@@ -34,6 +34,8 @@ export class InlandSocietyListComponent implements OnInit {
   p: any
   flcid: any;
   nodatafound: boolean;
+  distman = false;
+
   // SocietyList: any = [];
 
 
@@ -79,8 +81,13 @@ export class InlandSocietyListComponent implements OnInit {
   this.router.navigate(['/dashboard/addnew_inland_society']);      
   }
   inlandSocietyData(societyList) {
+    this.distman = false;
     this.delete_success = false;
     this.delete_error = false;
+    if(this.distId == undefined) {
+      this.distman = true;
+      return;
+    }
     this.spinner.show();
     this.vesselRegistrationService.deleteInlandSociety(societyList.id).subscribe(data => {
       this.deleteSociety = data;

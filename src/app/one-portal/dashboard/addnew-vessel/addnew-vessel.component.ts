@@ -142,10 +142,12 @@ export class AddnewVesselComponent implements OnInit {
     let  distId1 = this.distId;
     let mandalId1 = this.mandalId;
     let flcId1 = this.flcid;
-    if (this.registerForm.controls['owner_name'].status === "DISABLED") {
-      this.registerForm.value.father_name =  this.rationVerify.father_name;
-      this.registerForm.value.owner_name =  this.rationVerify.owner_name;
-      }
+    // if (this.registerForm.controls['owner_name'].status === "DISABLED") {
+    //   this.registerForm.value.father_name =  this.rationVerify.father_name;
+    //   this.registerForm.value.owner_name =  this.rationVerify.owner_name;
+    //   }
+    this.registerForm.value.father_name =  this.registerForm.controls.father_name.value;
+		this.registerForm.value.owner_name =  this.registerForm.controls.owner_name.value;
     this.registerForm.value.userId = this.storage.get("user_id");
     this.registerForm.value.reference = this.reference;
     this.registerForm.value.licence_renewal_date = new Date(this.registerForm.value.licence_renewal_date).toDateString();
@@ -226,8 +228,10 @@ export class AddnewVesselComponent implements OnInit {
       this.spinner.hide();
       this.rationVerify = data;
       if (this.rationVerify && this.rationVerify.success === true) {
-        this.registerForm.controls['owner_name'].disable();
-        this.registerForm.controls['father_name'].disable();
+        // this.registerForm.controls['owner_name'].disable();
+        // this.registerForm.controls['father_name'].disable();
+        this.rationVerify.owner_name ? this.registerForm.controls['owner_name'].disable() : this.registerForm.controls['owner_name'].enable();
+        this.rationVerify.father_name ? this.registerForm.controls['father_name'].disable() : this.registerForm.controls['father_name'].enable();
         this.rsuccess = true;
         this.rationVerifyBtn = false;
         this.rationVerify.success = true;

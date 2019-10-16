@@ -1,0 +1,72 @@
+
+<form [formGroup]="reportsForm" (ngSubmit) = "onClickReports(reportsForm)">
+
+<div class="row">
+
+<div class="col-md-3">
+        <div class="form-group">
+          <label for="power">From Date<span class="vessel-mandatory-ind">*</span></label>
+         <mat-form-field>
+          <input [max]="minDate" matInput [matDatepicker]="picker1"  placeholder="From date"   formControlName="report_from_date">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1 > </mat-datepicker>
+        </mat-form-field>
+         <div *ngIf="submitted && f.report_from_date.errors" class="invalid-feedback">
+            <div *ngIf="f.report_from_date.errors.required">License Renewal Date  is required</div>
+
+           </div>
+        </div>
+</div>
+
+<div class="col-md-3">
+    <div class="form-group">
+      <label for="power">To Date<span class="vessel-mandatory-ind">*</span></label>
+     <mat-form-field>
+      <input [max]="minDate" matInput [matDatepicker]="picker2"  placeholder="To date"   formControlName="report_to_date">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2 > </mat-datepicker>
+    </mat-form-field>
+     <div *ngIf="submitted && f.report_to_date.errors" class="invalid-feedback">
+        <div *ngIf="f.report_to_date.errors.required">License Renewal Date  is required</div>
+
+       </div>
+    </div>
+</div>
+
+<div class="col-md-3">
+
+    <button class="btn btn-primary" style="margin-top: 50px;">
+        Search
+    </button>
+</div>
+
+</div>
+</form>
+<div class="row">
+    <div class="col-md-12">
+
+<table class="table" style="border: 1px solid #ccc;;">
+	<tr>
+		<th>Eid</th>
+		<th>Ename</th>
+		<th>Esal</th>
+	</tr>
+	<tr *ngFor="let item of data | paginate: { itemsPerPage: 6, currentPage: p}">
+		<td>{{item.eid}}</td>
+		<td>{{item.ename}}</td>
+		<td>{{item.esal}}</td>
+	</tr>
+</table>
+<ul class="pagination" *ngIf="waterBodyPagination">  
+    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>  
+  
+  </ul>
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-md-12">
+        <button class="btn btn-primary pull-right" (click)="exportAsXLSX()"> Download Report</button>
+
+    </div>
+</div>

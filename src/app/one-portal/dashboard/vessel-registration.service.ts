@@ -199,5 +199,15 @@ export class VesselRegistrationService
   public getBankList():any {
     return this._http.get<VesselregistractionModule[]>(this.apiURL+"/vessel_details/bank_details");
   }
+
+  public getReports()
+  {
+    return this._http.get<VesselregistractionModule[]>(this.apiURL+"/vessel_details/bank_details");
+  }
+  public getreports(reports)
+  {
+    return this._http.get<VesselregistractionModule[]>(this.apiURL+"/vessel_details/bank_details");
+
+  }
   
 }

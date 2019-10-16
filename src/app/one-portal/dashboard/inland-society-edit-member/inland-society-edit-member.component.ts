@@ -58,7 +58,7 @@ export class InlandSocietyEditMemberComponent implements OnInit {
       NetSewing: [''],
       activeFishermen:[''],
       fish_vendor: [''],
-      is_president: ['',[Validators.required]],
+      is_president: [''],
       certificate_number: [''],
       gender: ['',[Validators.required]],
       date_of_birth: ['',[Validators.required]],

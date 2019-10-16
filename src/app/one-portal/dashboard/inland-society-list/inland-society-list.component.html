@@ -20,7 +20,7 @@
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-              <label for="power">District</label>
+              <label for="power">District <span style="color: red;" class="vessel-mandatory-ind">*</span></label>
               <select class="form-control"  [(ngModel)]="distId" (change)="getMandal()">
                   <option [ngValue]="undefined" hidden selected> --Select-- </option>
                   <option value="undefined">--Select--</option>
@@ -29,6 +29,9 @@
                 </option>
                 
               </select>
+              <div *ngIf="distman" style="color: red;">
+                District is mandatory
+            </div>
             </div>
           </div>
           <div class="col-md-4">
@@ -83,7 +86,7 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                   <div class="form-group">
                     <label for="power">Name Of Water Body</label>
                     <select class="form-control"  [(ngModel)]="waterbodyName"  name="waterbodyName" >
@@ -109,16 +112,16 @@
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label for="power">Society Name</label>
+                    <label for="power">Inland Society Name</label>
                    <input type="text"  class="form-control" [(ngModel)]="society_name">
           </div>
           </div>
           <div class="col-md-4">
                   <div class="form-group">
-                    <label for="power">SOCIETY Reg. Number</label>
+                    <label for="power">Inland Society Reg. Number</label>
                    <input type="text" [(ngModel)]="society_reg_no" class="form-control">
               </div>
-            </div>
+            </div> -->
           
       </div>
       <div class="col-md-12 ">
