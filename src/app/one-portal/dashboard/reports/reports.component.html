@@ -11,8 +11,8 @@
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1 > </mat-datepicker>
         </mat-form-field>
-         <div *ngIf="submitted && f.report_from_date.errors" class="invalid-feedback">
-            <div *ngIf="f.report_from_date.errors.required">License Renewal Date  is required</div>
+         <div *ngIf="submitted && f.report_from_date.errors" class="invalid-feedback" style="display: block; margin-top: 0px;">
+            <div *ngIf="f.report_from_date.errors.required">From Date is required</div>
 
            </div>
         </div>
@@ -26,8 +26,8 @@
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2 > </mat-datepicker>
     </mat-form-field>
-     <div *ngIf="submitted && f.report_to_date.errors" class="invalid-feedback">
-        <div *ngIf="f.report_to_date.errors.required">License Renewal Date  is required</div>
+     <div *ngIf="submitted && f.report_to_date.errors" class="invalid-feedback" style="display: block; margin-top: 0px;">
+        <div *ngIf="f.report_to_date.errors.required">To Date  is required</div>
 
        </div>
     </div>

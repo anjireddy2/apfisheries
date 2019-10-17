@@ -15,6 +15,7 @@ export class ReportsComponent implements OnInit {
   waterBodyPagination = true;
   minDate = new Date(); 
   p: any;
+  submitted : boolean = false;
   reports: any = [];
   data: any = [{
     eid: 'e101',
@@ -72,6 +73,10 @@ export class ReportsComponent implements OnInit {
 
   onClickReports(reportsForm) 
   {
+    this.submitted = true;
+    if(this.reportsForm.invalid) {
+      return;
+    }
     this.reportsForm.value.report_from_date = new Date(this.reportsForm.value.report_from_date).toDateString();
     this.reportsForm.value.report_to_date = new Date(this.reportsForm.value.report_to_date).toDateString();
     console.log(this.reportsForm);
@@ -83,6 +88,10 @@ export class ReportsComponent implements OnInit {
 
     });
 
+  }
+
+  get f() { 
+    return this.reportsForm.controls; 
   }
 
   pageChanged(event) {

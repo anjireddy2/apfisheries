@@ -137,9 +137,9 @@
         <div class="form-group">
           <label for="power">Bank Name <span class="vessel-mandatory-ind">*</span></label>
          <!-- <input type="text" name="bank_name" formControlName="bank_name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.bank_name.errors }"> -->
-         <select class="form-control" formControlName="bank_name" [(ngModel)]="editVessel.bank_details"   name="bank" [ngClass]="{ 'is-invalid': submitted && f.bank_name.errors }" >
+         <select class="form-control" formControlName="bank_name" [ngModel]="editVessel.bank_details"   name="bank" [ngClass]="{ 'is-invalid': submitted && f.bank_name.errors }" >
             <option [ngValue]="undefined" hidden selected> --Select-- </option>
-            <option *ngFor='let bank of bankList' [ngValue]='bank.value'>
+            <option *ngFor='let bank of bankList' [ngValue]='bank.value'>{{bank.value}}
             </option>
             <option value="others">
                 Others
