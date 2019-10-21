@@ -45,16 +45,22 @@
 <div class="row">
     <div class="col-md-12">
 
-<table class="table" style="border: 1px solid #ccc;;">
-	<tr>
-		<th>Eid</th>
-		<th>Ename</th>
-		<th>Esal</th>
+<table class="table" style="border: 1px solid #ccc;" *ngIf="reports.message && reports.message.length > 0">
+	<tr style="background: #f2f2f2;">
+        <th>Vessel Registration ID</th>
+        <th>District</th>
+        <th>Mandal</th>
+        <th>FLC</th>
+		<th>Updated By</th>
+		<th>Updated At</th>
 	</tr>
-	<tr *ngFor="let item of data | paginate: { itemsPerPage: 6, currentPage: p}">
-		<td>{{item.eid}}</td>
-		<td>{{item.ename}}</td>
-		<td>{{item.esal}}</td>
+	<tr *ngFor="let item of reports.message | paginate: { itemsPerPage: 6, currentPage: p}">
+		<td>{{item.vessel_id}}</td>
+		<td>{{item.district}}</td>
+		<td>{{item.mandal}}</td>
+		<td>{{item.fish_landing_center}}</td>
+		<td>{{item.updated_by}}</td>
+		<td>{{item.updated_at}}</td>
 	</tr>
 </table>
 <ul class="pagination" *ngIf="waterBodyPagination">  
@@ -66,7 +72,7 @@
 <div class="row">
 
     <div class="col-md-12">
-        <button class="btn btn-primary pull-right" (click)="exportAsXLSX()"> Download Report</button>
+        <button class="btn btn-primary pull-right" [disabled] = "!reports.success ? 'disabled' : null" (click)="exportAsXLSX()"> Download Report</button>
 
     </div>
 </div>

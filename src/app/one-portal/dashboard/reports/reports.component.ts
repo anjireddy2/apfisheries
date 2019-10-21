@@ -14,46 +14,11 @@ import { WebStorageService, LOCAL_STORAGE } from 'angular-webstorage-service';
   styleUrls: ['./reports.component.css']
 })
 export class ReportsComponent implements OnInit {
-  waterBodyPagination = true;
+  waterBodyPagination = false;
   minDate = new Date(); 
   p: any;
   submitted : boolean = false;
   reports: any = [];
-  data: any = [{
-    eid: 'e101',
-    ename: 'ravi',
-    esal: 1000
-  },
-  {
-    eid: 'e102',
-    ename: 'ram',
-    esal: 2000
-  },
-  {
-    eid: 'e102',
-    ename: 'ram',
-    esal: 2000
-  },
-  {
-    eid: 'e102',
-    ename: 'ram',
-    esal: 2000
-  },
-  {
-    eid: 'e102',
-    ename: 'ram',
-    esal: 2000
-  },
-  {
-    eid: 'e102',
-    ename: 'ram',
-    esal: 2000
-  },
-  {
-    eid: 'e103',
-    ename: 'rajesh',
-    esal: 3000
-  }];
 
   reportsForm: FormGroup;
   constructor(private formBuilder: FormBuilder,private ExcelService: ExcelService, private router : Router,
@@ -72,11 +37,14 @@ export class ReportsComponent implements OnInit {
   }
 
   exportAsXLSX():void {
-    this.ExcelService.exportAsExcelFile(this.reports, 'reports');
+    if(this.reports.message) {
+      this.ExcelService.exportAsExcelFile(this.reports.message, 'reports');
+    }
   }
 
   onClickReports() {
     this.submitted = true;
+    this.waterBodyPagination = false;
     if(this.reportsForm.invalid) {
       return;
     }
@@ -86,7 +54,7 @@ export class ReportsComponent implements OnInit {
     this.vesselRegistrationService.getreports(this.reportsForm.value).subscribe(data => {
       this.spinner.hide();
        this.reports = data;
-       this.waterBodyPagination = this.reports && this.reports.length > 6 ? true : false;
+       this.waterBodyPagination = this.reports && this.reports.message && this.reports.message.length > 6 ? true : false;
     },error=>{
       this.spinner.hide();
     });
