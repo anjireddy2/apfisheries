@@ -11,6 +11,7 @@ export class VesselRegistrationService
   //  apiURL = 'http://10.129.8.64:3000';
   apiURL = 'https://safe-wave-93434.herokuapp.com';
   //apiURL = 'http://10.129.9.22:3000';
+  // apiURL = 'http://192.168.43.36:3000';
     
    //apiURL = 'http://192.168.0.100:3000';
 
@@ -200,14 +201,10 @@ export class VesselRegistrationService
     return this._http.get<VesselregistractionModule[]>(this.apiURL+"/vessel_details/bank_details");
   }
 
-  public getReports()
-  {
-    return this._http.get<VesselregistractionModule[]>(this.apiURL+"/vessel_details/bank_details");
-  }
-  public getreports(reports)
-  {
-    return this._http.get<VesselregistractionModule[]>(this.apiURL+"/vessel_details/bank_details");
-
+  public getreports(reports) {
+    // return this._http.get<VesselregistractionModule[]>(this.apiURL+"/vessel_details/audit?reports="+reports);
+    return this._http.post<VesselregistractionModule[]>(this.apiURL+"/vessel_details/audit", reports);
+    
   }
   
 }

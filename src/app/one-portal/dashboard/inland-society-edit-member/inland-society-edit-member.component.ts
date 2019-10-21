@@ -38,6 +38,7 @@ export class InlandSocietyEditMemberComponent implements OnInit {
   verifyGenderMale: boolean;
   verifyGenderFemale: boolean;
   reference: any;
+  age_chk: boolean;
 
   constructor(private route: ActivatedRoute, private vesselRegistrationService: VesselRegistrationService, private formBuilder: FormBuilder,  
     private spinner: NgxSpinnerService, @Inject(LOCAL_STORAGE) private storage: WebStorageService,
@@ -89,6 +90,12 @@ export class InlandSocietyEditMemberComponent implements OnInit {
      }
    });
   }
+  checkZeros(type) {
+    if(type == 'age') {
+     this.age_chk = this.editInlandSocietyMembersForm.value.age!= '' && /^0*$/.test(this.editInlandSocietyMembersForm.value.age) ? true : false;
+   }
+ }
+ 
   checkCertificate() {
     this.certificateMandatory = false;
     if(this.editInlandSocietyMembersForm.controls.status.value !== 'OC') {
@@ -118,7 +125,7 @@ export class InlandSocietyEditMemberComponent implements OnInit {
     if(this.netting != undefined && this.NetSewing != undefined && (this.netting.nativeElement.checked || this.NetSewing.nativeElement.checked)) {
       this.fishermanChk = false;
     }
-    if (this.fishermanChk || this.editInlandSocietyMembersForm.invalid) {
+    if (this.fishermanChk || this.editInlandSocietyMembersForm.invalid || this.age_chk) {
       this.spinner.hide();
       return;
     }

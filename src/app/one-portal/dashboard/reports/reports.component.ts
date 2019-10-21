@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { VesselRegistrationService } from '../vessel-registration.service';
 import { ExcelService } from '../excel.service';
 
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
+import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { WebStorageService, LOCAL_STORAGE } from 'angular-webstorage-service';
 
 @Component({
   selector: 'app-reports',
@@ -54,16 +56,18 @@ export class ReportsComponent implements OnInit {
   }];
 
   reportsForm: FormGroup;
-  constructor(private formBuilder: FormBuilder,private ExcelService: ExcelService,private vesselRegistrationService: VesselRegistrationService) 
-  {
-
-   }
+  constructor(private formBuilder: FormBuilder,private ExcelService: ExcelService, private router : Router,
+    private vesselRegistrationService: VesselRegistrationService, 
+    @Inject(LOCAL_STORAGE) private storage: WebStorageService, 
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+    if(!this.storage.get("user_id")) {
+      this.router.navigate(['/']);
+    }
     this.reportsForm = this.formBuilder.group({
       report_from_date:['', [Validators.required]],
       report_to_date:['', [Validators.required]]
-   
   });
   }
 
@@ -71,23 +75,21 @@ export class ReportsComponent implements OnInit {
     this.ExcelService.exportAsExcelFile(this.reports, 'reports');
   }
 
-  onClickReports(reportsForm) 
-  {
+  onClickReports() {
     this.submitted = true;
     if(this.reportsForm.invalid) {
       return;
     }
+    this.spinner.show();
     this.reportsForm.value.report_from_date = new Date(this.reportsForm.value.report_from_date).toDateString();
     this.reportsForm.value.report_to_date = new Date(this.reportsForm.value.report_to_date).toDateString();
-    console.log(this.reportsForm);
-    this.vesselRegistrationService.getreports(this.reportsForm.value).subscribe(data => 
-    {
+    this.vesselRegistrationService.getreports(this.reportsForm.value).subscribe(data => {
+      this.spinner.hide();
        this.reports = data;
-       
        this.waterBodyPagination = this.reports && this.reports.length > 6 ? true : false;
-
+    },error=>{
+      this.spinner.hide();
     });
-
   }
 
   get f() { 
@@ -97,12 +99,4 @@ export class ReportsComponent implements OnInit {
   pageChanged(event) {
     this.p = event;
   }
-
-
-
-
-
-  
- 
-
 }

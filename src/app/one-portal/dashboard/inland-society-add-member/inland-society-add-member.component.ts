@@ -46,6 +46,7 @@ export class InlandSocietyAddMemberComponent implements OnInit {
   employment_status: string;
   society_type: string;
   error_society_type: boolean;
+  age_chk: boolean;
 
   constructor(private route: ActivatedRoute, private vesselRegistrationService: VesselRegistrationService, 
     private formBuilder: FormBuilder,  private spinner: NgxSpinnerService, private router: Router,
@@ -68,7 +69,7 @@ export class InlandSocietyAddMemberComponent implements OnInit {
       fish_vendor: [''],
       activeFishermen:[''],
       certificate_number: [''],
-      age: ['',[Validators.required]],
+      age: [''],
       employment_status: ['',[Validators.required]],
       date_of_birth: ['',[Validators.required]],
       social_status: ['',[Validators.required]],
@@ -112,6 +113,12 @@ export class InlandSocietyAddMemberComponent implements OnInit {
   }
   get f() { return this.inlandSocietyMembersForm.controls; }
 
+  checkZeros(type) {
+     if(type == 'age') {
+      this.age_chk = this.inlandSocietyMembersForm.value.age!= '' && /^0*$/.test(this.inlandSocietyMembersForm.value.age) ? true : false;
+    }
+  }
+
   onSubmit(inlandSocietyMembersForm) {
     this.spinner.show();
     this.submitted = true;
@@ -121,7 +128,7 @@ export class InlandSocietyAddMemberComponent implements OnInit {
     if(this.netting != undefined && this.NetSewing != undefined && (this.netting.nativeElement.checked || this.NetSewing.nativeElement.checked)) {
       this.fishermanChk = false;
     }
-    if (this.inlandSocietyMembersForm.invalid || this.certificateMandatory || this.fishermanChk) {
+    if (this.inlandSocietyMembersForm.invalid || this.certificateMandatory || this.fishermanChk || this.age_chk) {
       this.spinner.hide();
       return;
     }

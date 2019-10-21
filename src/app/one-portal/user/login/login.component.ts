@@ -48,9 +48,6 @@ export class LoginComponent implements OnInit {
         if(this.login.success == true) {
           this.storage.set("user_id", this.login.user_id);
           this.storage.set("user_name", this.login.user_name);
-          //console.log(this.login.user_id);
-          //console.log(this.login.user_name);
-          debugger;
           if(this.login.user_id) {
             this.router.navigate(['/dashboard/vessel_registration']);
           } else {

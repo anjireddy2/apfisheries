@@ -129,15 +129,20 @@ export class EditSocietyMemberComponent implements OnInit {
     this.editSocietyMembersForm.value.fish_vendor = this.fishVendor && this.fishVendor.nativeElement ? this.fishVendor.nativeElement.checked : null;
     this.editSocietyMembersForm.value.is_president = this.isPresident.nativeElement.checked;
     this.editSocietyMembersForm.value.date_of_birth = this.editSocietyMembersForm.value.date_of_birth ? new Date(this.editSocietyMembersForm.value.date_of_birth).toDateString() : null;
-    if(this.rationVerify && (this.editSocietyMembersForm.controls['member_name'].status === "DISABLED" ||
-    this.editSocietyMembersForm.controls['date_of_birth'].status === "DISABLED" ||
-    this.editSocietyMembersForm.controls['age'].status === "DISABLED" ||
-    this.editSocietyMembersForm.controls['gender'].status === "DISABLED")) {
-      this.editSocietyMembersForm.value.date_of_birth = new Date(this.rationVerify.date_of_birth);
-      this.editSocietyMembersForm.value.age =  this.rationVerify.age;
-      this.editSocietyMembersForm.value.gender =  this.rationVerify.gender;
-      this.editSocietyMembersForm.value.member_name =  this.rationVerify.owner_name;
-      }
+    // if(this.rationVerify && (this.editSocietyMembersForm.controls['member_name'].status === "DISABLED" ||
+    // this.editSocietyMembersForm.controls['date_of_birth'].status === "DISABLED" ||
+    // this.editSocietyMembersForm.controls['age'].status === "DISABLED" ||
+    // this.editSocietyMembersForm.controls['gender'].status === "DISABLED")) {
+    //   this.editSocietyMembersForm.value.date_of_birth = new Date(this.rationVerify.date_of_birth);
+    //   this.editSocietyMembersForm.value.age =  this.rationVerify.age;
+    //   this.editSocietyMembersForm.value.gender =  this.rationVerify.gender;
+    //   this.editSocietyMembersForm.value.member_name =  this.rationVerify.owner_name;
+    //   }
+    this.editSocietyMembersForm.value.member_name =  this.editSocietyMembersForm.controls.member_name.value;
+		this.editSocietyMembersForm.value.gender =  this.editSocietyMembersForm.controls.gender.value;
+    this.editSocietyMembersForm.value.age =  this.editSocietyMembersForm.controls.age.value;
+    this.editSocietyMembersForm.value.date_of_birth =  this.editSocietyMembersForm.controls.date_of_birth.value;
+    
       this.editSocietyMembersForm.value.reference = this.reference;
       this.editSocietyMembersForm.value.userId = this.storage.get("user_id");
       this.editSocietyMembersForm.value.date_of_birth = new Date(this.editSocietyMembersForm.value.date_of_birth).toDateString();

@@ -142,13 +142,18 @@ export class CrewEditComponent implements OnInit {
       this.spinner.hide();
       return;
     }
-    if(this.crewUserRegisterForm.controls['owner_name'].status === "DISABLED") {
-      this.crewUserRegisterForm.value.father_name =  this.rationVerify.father_name;
-      this.crewUserRegisterForm.value.owner_name =  this.rationVerify.owner_name;
-      this.crewUserRegisterForm.value.gender =  this.rationVerify.gender;
-      this.crewUserRegisterForm.value.age =  this.rationVerify.age;
-      this.crewUserRegisterForm.value.date_of_birth =  this.rationVerify.date_of_birth;
-    }
+    // if(this.crewUserRegisterForm.controls['owner_name'].status === "DISABLED") {
+    //   this.crewUserRegisterForm.value.father_name =  this.rationVerify.father_name;
+    //   this.crewUserRegisterForm.value.owner_name =  this.rationVerify.owner_name;
+    //   this.crewUserRegisterForm.value.gender =  this.rationVerify.gender;
+    //   this.crewUserRegisterForm.value.age =  this.rationVerify.age;
+    //   this.crewUserRegisterForm.value.date_of_birth =  this.rationVerify.date_of_birth;
+    // }
+    this.crewUserRegisterForm.value.father_name =  this.crewUserRegisterForm.controls.father_name.value;
+		this.crewUserRegisterForm.value.owner_name =  this.crewUserRegisterForm.controls.owner_name.value;
+		this.crewUserRegisterForm.value.gender =  this.crewUserRegisterForm.controls.gender.value;
+		this.crewUserRegisterForm.value.age =  this.crewUserRegisterForm.controls.age.value;
+		this.crewUserRegisterForm.value.date_of_birth =  this.crewUserRegisterForm.controls.date_of_birth.value;
     this.crewUserRegisterForm.value.reference = this.adharVerify.ref_no;
     this.crewUserRegisterForm.value.userId = this.storage.get("user_id");
     this.crewUserRegisterForm.value.date_of_birth = this.crewUserRegisterForm.value.date_of_birth ? new Date(this.crewUserRegisterForm.value.date_of_birth).toDateString() : null;
@@ -227,11 +232,16 @@ export class CrewEditComponent implements OnInit {
       this.spinner.hide();
       this.rationVerify = data;
       if(this.rationVerify && this.rationVerify.success === true) {
-        this.crewUserRegisterForm.controls['owner_name'].disable();
-        this.crewUserRegisterForm.controls['father_name'].disable();
-        this.crewUserRegisterForm.controls['gender'].disable();
-        this.crewUserRegisterForm.controls['age'].disable();
-        this.crewUserRegisterForm.controls['date_of_birth'].disable();
+        // this.crewUserRegisterForm.controls['owner_name'].disable();
+        // this.crewUserRegisterForm.controls['father_name'].disable();
+        // this.crewUserRegisterForm.controls['gender'].disable();
+        // this.crewUserRegisterForm.controls['age'].disable();
+        // this.crewUserRegisterForm.controls['date_of_birth'].disable();
+        this.rationVerify.owner_name ? this.crewUserRegisterForm.controls['owner_name'].disable() : this.crewUserRegisterForm.controls['owner_name'].enable();
+        this.rationVerify.father_name ? this.crewUserRegisterForm.controls['father_name'].disable() : this.crewUserRegisterForm.controls['father_name'].enable();
+        this.rationVerify.gender ? this.crewUserRegisterForm.controls['gender'].disable() : this.crewUserRegisterForm.controls['gender'].enable();
+        this.rationVerify.age ? this.crewUserRegisterForm.controls['age'].disable() : this.crewUserRegisterForm.controls['age'].enable();
+        this.rationVerify.date_of_birth ? this.crewUserRegisterForm.controls['date_of_birth'].disable() : this.crewUserRegisterForm.controls['date_of_birth'].enable();
         this.EditCrewMember.member_name = this.rationVerify.owner_name;
         this.EditCrewMember.memner_father_name = this.rationVerify.father_name;
         this.EditCrewMember.member_gender = this.rationVerify.gender;

@@ -115,6 +115,7 @@
                <div *ngIf="submitted && f.bank_account_number.errors" class="invalid-feedback">
                <div *ngIf="f.bank_account_number.errors.required">Bank Account number is required</div>
               <div *ngIf="f.bank_account_number.errors.minlength">Bank Account number should have 8 to 20 digits</div>
+              <div *ngIf="f.bank_account_number.errors.pattern">Bank Account number should have only numerics</div>
               </div>
               <div *ngIf="updateForm.value.bank_account_number && updateForm.value.bank_account_number.length > 0 && bank_act_chk" class="invalid-feedback" style="display: block !important">Bank Account number should not have all zero's</div>
           </div>
