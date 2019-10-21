@@ -105,7 +105,7 @@ export class EditvesselComponent implements OnInit {
       this.distId=this.editVessel.district_id;
       this.mandalId=this.editVessel.mandal_id;
       this.flcid = this.editVessel.fish_landing_center_id;
-      this.editVessel.email_id.toUpperCase() !='NULL' ? this.editVessel.email_id : this.editVessel.email_id = ''
+      this.editVessel.email_id = this.editVessel.email_id && this.editVessel.email_id.toUpperCase() !='NULL' ? this.editVessel.email_id : '';
       this.updateForm.controls['vessltype'].setValue(this.editVessel.boat_type);
       this.vesselRegistrationService.getMandal(this.editVessel.district_id).subscribe(data => this.Mandals = data);
       this.vesselRegistrationService.getFlc(this.editVessel.district_id,this.editVessel.mandal_id).subscribe(data => this.Flcs = data);
