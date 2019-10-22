@@ -103,6 +103,7 @@ export class CrewEditComponent implements OnInit {
         data.banks.forEach(element => {
           this.bankList.push({value:element})
         });
+        this.crewUserRegisterForm.controls['bank_name'].setValue(this.bankList.findIndex(x=>x.value.toUpperCase() == this.EditCrewMember.bank_name.toUpperCase()) > -1 ? this.EditCrewMember.bank_name : '');        
       }
     });
 }

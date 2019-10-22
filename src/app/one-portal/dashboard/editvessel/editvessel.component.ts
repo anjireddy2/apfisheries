@@ -118,6 +118,7 @@ export class EditvesselComponent implements OnInit {
         data.banks.forEach(element => {
           this.bankList.push({value:element})
         });
+        this.updateForm.controls['bank_name'].setValue(this.bankList.findIndex(x=>x.value.toUpperCase() == this.editVessel.bank_details.toUpperCase()) > -1 ? this.editVessel.bank_details : '');
       }
     });
   }
