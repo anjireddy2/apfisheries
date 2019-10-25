@@ -54,6 +54,13 @@ export class InlandSocietyRegistrationComponent implements OnInit {
       society_reg_no: ['', [Validators.required]],
       society_type: ['',[Validators.required]]
     });
+    this.inlandSocietyRegistrationForm.controls['district_name'].setValue(undefined, {onlySelf:true});
+    this.inlandSocietyRegistrationForm.controls['mandal'].setValue(undefined, {onlySelf:true});
+    this.inlandSocietyRegistrationForm.controls['village'].setValue(undefined, {onlySelf:true});
+    this.inlandSocietyRegistrationForm.controls['panchayat'].setValue(undefined, {onlySelf:true});
+    this.inlandSocietyRegistrationForm.controls['waterbodyType'].setValue(undefined, {onlySelf:true});
+    this.inlandSocietyRegistrationForm.controls['waterbodyName'].setValue(undefined, {onlySelf:true});
+    this.inlandSocietyRegistrationForm.controls['seasonality'].setValue(undefined, {onlySelf:true});
     this.vesselRegistrationService.getDist().subscribe(data => {
       this.spinner.hide();
       this.Dist = data;
@@ -66,20 +73,20 @@ export class InlandSocietyRegistrationComponent implements OnInit {
   }
   getMandal() {
   // let  distId1 = this.distId;
-  let  distId1 = this.inlandSocietyRegistrationForm.value.district_name;
+  let  distId1 = this.inlandSocietyRegistrationForm.controls['district_name'].value;
   this.vesselRegistrationService.getMandal(distId1).subscribe(data => this.Mandals = data); 
   }
   getPanchayats() {
-  let  distId1 = this.inlandSocietyRegistrationForm.value.district_name;
-  let  mandalId1 = this.inlandSocietyRegistrationForm.value.mandal;
+  let  distId1 = this.inlandSocietyRegistrationForm.controls['district_name'].value;
+  let  mandalId1 = this.inlandSocietyRegistrationForm.controls['mandal'].value;
   // let  mandalId1 = this.mandalId;
   this.vesselRegistrationService.getPanchyats(distId1,mandalId1).subscribe(data => this.Panchayats = data);
   this.vesselRegistrationService.getVillages(distId1,mandalId1).subscribe(data => this.Village = data);
   this.vesselRegistrationService.getWaterbody(distId1,mandalId1).subscribe(data => this.Waterbody = data);
   }
   getWaterBodies() {
-  let  distId1 = this.inlandSocietyRegistrationForm.value.district_name;
-  let  mandalId1 = this.inlandSocietyRegistrationForm.value.mandal;
+  let  distId1 = this.inlandSocietyRegistrationForm.controls['district_name'].value;
+  let  mandalId1 = this.inlandSocietyRegistrationForm.controls['mandal'].value;
   this.vesselRegistrationService.getWaterBodyList(distId1,mandalId1).subscribe(res => this.WaterbodyList = res);
   this.waterBodyPagination = !this.waterBodyPagination; 
   }

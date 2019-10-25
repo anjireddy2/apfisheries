@@ -84,6 +84,7 @@ export class AddnewVesselComponent implements OnInit {
       licence_valid_date: ['', [Validators.required]],
       bank_others_name : ['', [Validators.required]]
   });
+  this.registerForm.controls['vessltype'].setValue(undefined, {onlySelf: true});
      this.vesselRegistrationService.getDist().subscribe(data => this.Dist = data);
      this.vesselRegistrationService.getBankList().subscribe(data => {
        if (data.success && data.banks.length > 0) {
