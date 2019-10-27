@@ -100,7 +100,8 @@ export class VesselRegistrationComponent implements OnInit {
       this.deleteMsg = data; 
       if(this.deleteMsg.success == true) {
         this.successsms = true;
-        this.VesselLists.splice(ind,1);
+        // this.VesselLists.splice(ind,1);
+        this.VesselLists[ind].status = "In-Active";
       } else {
         this.errorsms = true;
       }
