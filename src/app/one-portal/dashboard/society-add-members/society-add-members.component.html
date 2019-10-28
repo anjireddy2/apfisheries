@@ -174,13 +174,13 @@
             
             </div>
         </form>
-
-    <table class="table table-striped" style="width:100%;font-size: 13px;" >
-           
-        <tbody>
+        <div style="float: left; width: 100%; overflow: auto;">
+        <table class="table" style="width:100%;font-size: 13px;" >
+              
+          <thead>  
            
                    
-                        <tr style="font-size: 12px;">
+                        <tr style="font-size: 12px;background: #f2f2f2;">
                                 <th scope="col"> #No</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Aadhaar No</th>
@@ -193,6 +193,8 @@
                                 <th scope="col">President</th>
                                 <th scope="col">Actions</th>
                               </tr>
+          </thead>
+          <tbody style="background: #fff;">
                     <tr *ngFor = "let addSocietmember1 of addSocietMember1.message | paginate: { itemsPerPage: 6, currentPage: p}">
                         <td> 
                        {{addSocietmember1.id}} 
@@ -227,7 +229,7 @@
                           <span *ngIf="addSocietmember1.is_president" style="color:green">Yes</span>
                           <span *ngIf="!addSocietmember1.is_president" style="color:green">No</span>
                           </td>
-<td>
+<td style="white-space: nowrap;">
     <span (click) = "editSmember(addSocietmember1)" style="padding-right: 10px;"> 
         <i class="fa fa-pencil-square-o " aria-hidden="true" style="color: #39c4f0; cursor: pointer;" ></i>
         </span>
@@ -241,6 +243,7 @@
            
         </tbody>
     </table>
+    </div>
     <ul class="pagination" *ngIf="waterBodyPagination">  
                 <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>  
               

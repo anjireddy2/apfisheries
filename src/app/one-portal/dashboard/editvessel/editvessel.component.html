@@ -285,7 +285,7 @@
             
              <div class="col-md-4">
                 <div class="form-group">
-                  <label for="power">Licence Renewal Date<span class="vessel-mandatory-ind">*</span></label>
+                  <label for="power" style="display: block;">Licence Renewal Date<span class="vessel-mandatory-ind">*</span></label>
                  <mat-form-field>
                   <input matInput [matDatepicker]="picker1"  placeholder="Selct date"   formControlName="licence_renewal_date">
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -300,7 +300,7 @@
         
         <div class="col-md-4">
                 <div class="form-group">
-                  <label for="power">Licence Valid Upto<span class="vessel-mandatory-ind">*</span></label>
+                  <label for="power" style="display: block;">Licence Valid Upto<span class="vessel-mandatory-ind">*</span></label>
                  <mat-form-field>
                   <input matInput [matDatepicker]="picker"  placeholder="Select date"   formControlName="licence_valid_date">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>

@@ -38,20 +38,17 @@ margin-bottom: 0px !important;
 {
     color: #fff ;
 }
-.e-pragati-left-submenu
-{
+.e-pragati-left-submenu {
     float: left;
     width: 100%;
     padding-left: 0px !important;
     height: 100%;
 }
-.e-pragati-left-submenu li 
-{
+.e-pragati-left-submenu li {
     padding: 3px 10px;
     border-bottom: 1px solid #ccc;
 }
-.e-pragati-registration
-{
+.e-pragati-registration {
     float: left;
     width:100%;
     background: #fff;
@@ -60,20 +57,39 @@ margin-bottom: 0px !important;
     border-radius: 4px;
     margin-top: 20px;
 }
-.pull-right
-{
+.pull-right {
     float: right!important;
 }
-.e-prgati-register-sendotp
-{
+
+.e-prgati-register-sendotp {
     padding-left: 0px;
 }
-.e-pragati-left-submenu li.is-active 
-{
-background-color: #fff;
+
+.e-pragati-left-submenu li.is-active {
+    background-color: #fff;
 }
-.e-pragati-left-submenu li.is-active a 
-{
-color: #000 !important;
-font-weight: 600;
+
+.e-pragati-left-submenu li.is-active a {
+    color: #000 !important;
+    font-weight: 600;
 }
+
+@media only screen and (max-width: 768px) {
+    .e-pragati-left-menu {
+        height: auto !important;
+    }
+    .dashboard-container-fluid {
+        padding-right: 0px !important;
+    }
+    #navbarResponsive {
+        z-index: 99;
+        background: rgb(255, 255, 255);
+        float: left;
+        padding: 10px;
+        margin-right: -16px;
+        margin-left: -16px;
+    }
+    #navbarResponsive ul li a {
+        color: #000 !important;
+    }
+  }

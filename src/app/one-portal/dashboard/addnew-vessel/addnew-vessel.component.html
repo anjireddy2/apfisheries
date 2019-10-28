@@ -289,7 +289,7 @@ width: 94% ;" *ngIf="successsms" >
           </div> 
                    <div class="col-md-4">
                         <div class="form-group">
-                          <label for="power">Renewal Date <span class="vessel-mandatory-ind">*</span></label>
+                          <label for="power" style="display: block;">Renewal Date <span class="vessel-mandatory-ind">*</span></label>
                          <!-- <input  type="date"  placeholder="select date" formControlName="licence_renewal_date" value="" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.licence_renewal_date.errors }"> -->
                          <mat-form-field>
                           <input matInput [matDatepicker]="picker1"   placeholder="Selct date" formControlName="licence_renewal_date" >
@@ -304,7 +304,7 @@ width: 94% ;" *ngIf="successsms" >
                 </div>
                 <div class="col-md-4">
                         <div class="form-group">
-                          <label for="power">Licence Valid Upto <span class="vessel-mandatory-ind">*</span></label>
+                          <label for="power" style="display: block;">Licence Valid Upto <span class="vessel-mandatory-ind">*</span></label>
                          <!-- <input type="date" placeholder="select date" formControlName="licence_valid_date" value="" class="form-control" > -->
                          <mat-form-field>
                           <input matInput [matDatepicker]="picker"   placeholder="Select date" formControlName="licence_valid_date">
