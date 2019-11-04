@@ -17,7 +17,7 @@
         <div class="col-md-12">
           <div class="form-group">
             <label for="power" class="my-app-select-register-option-head">User Name  <span class="vessel-mandatory-ind">*</span></label>
-           <input type="text" maxlength="100" formControlName="mobile_number" placeholder="User name"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.mobile_number.errors }">
+           <input type="text" maxlength="100" formControlName="mobile_number" placeholder="User name"  id="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.mobile_number.errors }">
            <div *ngIf="submitted && f.mobile_number.errors" class="invalid-feedback ">
             <div *ngIf="f.mobile_number.errors.required" class="my-app-select-register-option-head">User Name is required</div>
             <!-- <div *ngIf="f.mobile_number.errors.minlength" class="my-app-select-register-option-head">Please Enter valid mobile number</div> -->
@@ -50,7 +50,7 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-              <input  type="submit" class="btn btn-primary pull-right" value="Login">
+              <input  type="submit" class="btn btn-primary pull-right" value="Login" id="login">
           </div>
         </div>
 </form>
