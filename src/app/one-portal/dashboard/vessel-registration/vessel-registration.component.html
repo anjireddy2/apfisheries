@@ -58,7 +58,7 @@
           <div class="col-md-4">
                 <div class="form-group">
                   <label for="power">Fish Landing Centre </label>
-                  <select class="form-control" [(ngModel)]="flcid"      name="flc">
+                  <select class="form-control" [(ngModel)]="flcid" name="flc">
                     <option [ngValue]="undefined" hidden selected> --Select-- </option>
                     <option [ngValue]="undefined">--Select--</option>
                     <option *ngFor='let flc of Flcs' [ngValue]='flc.id'>
@@ -123,8 +123,8 @@
             <td>{{vesselList.status}}</td> 
             <td><div *ngIf="vesselList.boat_type == 1">Mechanized</div>
               <div *ngIf="vesselList.boat_type == 2">Motorised</div></td> 
-            <td>{{vesselList.license_renewal_date | date:'dd/MM/yyyy'}}</td>  
-            <td>{{vesselList.license_valid_upto | date:'dd/MM/yyyy'}}</td> 
+            <td>{{vesselList.license_renewal_date.toDate | date:'dd/MM/yyyy'}}</td>  
+            <td>{{vesselList.license_valid_upto.toDate | date:'dd/MM/yyyy'}}</td> 
             <td>{{vesselList.aadhaar_no}}</td>  
             <td>{{vesselList.mobile_number}}</td> 
             <td>{{vesselList.bank_account_number}}</td> 
