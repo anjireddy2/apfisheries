@@ -109,6 +109,9 @@ export class EditvesselComponent implements OnInit {
       this.updateForm.controls['vessltype'].setValue(this.editVessel.boat_type);
       this.vesselRegistrationService.getMandal(this.editVessel.district_id).subscribe(data => this.Mandals = data);
       this.vesselRegistrationService.getFlc(this.editVessel.district_id,this.editVessel.mandal_id).subscribe(data => this.Flcs = data);
+      if(this.bankList && this.bankList.length > 0) {
+        this.updateForm.controls['bank_name'].setValue(this.bankList.findIndex(x=>x.value.toUpperCase() == this.editVessel.bank_details.toUpperCase()) > -1 ? this.editVessel.bank_details : '');
+      }
       // this.vesselRegistrationService.getPanchyats(this.editVessel.district_id,this.editVessel.mandal_id).subscribe(data => this.Panchayats = data);
     }, error=> {
       this.spinner.hide();
@@ -118,7 +121,9 @@ export class EditvesselComponent implements OnInit {
         data.banks.forEach(element => {
           this.bankList.push({value:element})
         });
-        this.updateForm.controls['bank_name'].setValue(this.bankList.findIndex(x=>x.value.toUpperCase() == this.editVessel.bank_details.toUpperCase()) > -1 ? this.editVessel.bank_details : '');
+        if(this.editVessel && this.editVessel.bank_details) {
+          this.updateForm.controls['bank_name'].setValue(this.bankList.findIndex(x=>x.value.toUpperCase() == this.editVessel.bank_details.toUpperCase()) > -1 ? this.editVessel.bank_details : '');
+        }
       }
     });
   }
